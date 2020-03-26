@@ -2,6 +2,7 @@ let db = require('../DB/db');
 
 exports.showDiscussionPage = function(req,res,next) {  
     db.query("Insert into Post (content) VALUES ('second time!')");
+    console.log("added to db");
     res.render('discussionPage' ,{      
     });
 }
