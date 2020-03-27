@@ -61,6 +61,10 @@
     color: white;
 }
 
+#loginPage-invalidUser {
+    height: 10px;
+}
+
 #invalidUserWarning,
 #invalidInput {
     color: red;

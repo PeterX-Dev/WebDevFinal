@@ -9,6 +9,12 @@
             <input type="password" name="password" placeholder='password'>
             <input type="submit" name="loginBtn" value="login">
         </form>
+        <div id="loginPage-invalidUser">
+            <p></p>
+            {{#if InvalidMember}}
+            <p id="invalidUserWarning">Invalid User! Please check and input again!</p>
+            {{/if}}
+        </div>      
         <h1>Join the world's largest community for knowledge sharing</h1>
         <form id="signupFm" action="/login/signup" method="POST">  
             <input type="text" name="firstName" placeholder='firstname'>
