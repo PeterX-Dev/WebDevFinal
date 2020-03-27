@@ -20,7 +20,7 @@ exports.memberLogin = function(req,res,next) {
     }
     else{
         // inValid user, display error message 
-        res.render('loginPage' ,{InvalidMember: true});
+        res.render('loginPage' ,{InvalidMemberInfo: true});
     }
 
 

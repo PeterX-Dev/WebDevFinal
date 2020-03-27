@@ -9,13 +9,19 @@
             <input type="password" name="password" placeholder='password'>
             <input type="submit" name="loginBtn" value="login">
         </form>
-        <div id="loginPage-invalidUser">
+        <div id="loginPage-invalidMemberInfo">
             <p></p>
-            {{#if InvalidMember}}
-            <p id="invalidUserWarning">Invalid User! Please check and input again!</p>
+            {{#if InvalidMemberInfo}}
+            <p id="invalidUserWarning">Invalid email or password! Please check!</p>
             {{/if}}
         </div>      
         <h1>Join the world's largest community for knowledge sharing</h1>
+        <div id="loginPage-invalidUserInfo">
+            <p></p>
+            {{#if InvalidUserInfo}}
+            <p id="invalidUserWarning">Invalid user info! Please check!</p>
+            {{/if}}
+        </div>
         <form id="signupFm" action="/login/signup" method="POST">  
             <input type="text" name="firstName" placeholder='firstname'>
             <input type="text" name="lastName" placeholder='lastname'>      

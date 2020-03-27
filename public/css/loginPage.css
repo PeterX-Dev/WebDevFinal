@@ -61,11 +61,15 @@
     color: white;
 }
 
-#loginPage-invalidUser {
+#loginPage-invalidMemberInfo {
     height: 10px;
 }
 
-#invalidUserWarning,
-#invalidInput {
+#loginPage-invalidUserInfo {
+    height: 10px;
+}
+
+#invalidMemberWarning,
+#invalidUserWarning {
     color: red;
 }
