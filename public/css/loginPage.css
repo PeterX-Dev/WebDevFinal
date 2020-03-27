@@ -15,8 +15,13 @@
     width: 35%;
 }
 
+#loginPage-column1 h1 {
+    font-size: 40px; 
+    width: 100%;
+}
+
 #loginPage-column2 {
-    margin-top: 3%;
+    margin-top: 4%;
     float: left;
     width: 40%;
     max-width: 380px;
