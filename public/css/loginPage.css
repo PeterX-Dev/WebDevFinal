@@ -66,10 +66,10 @@
 }
 
 #loginPage-invalidUserInfo {
-    height: 10px;
+    height: 30px;
 }
 
 #invalidMemberWarning,
-#invalidUserWarning {
+#invalidNewUserWarning {
     color: red;
 }

@@ -71,8 +71,22 @@ function checkMemberValidity(user) {
     }
     else{
         return member[0].Id;
+    } 
+}
+
+function checkNoRepeatUserExist(user) {
+    var user = userList.filter(x => x.Email === user.email && 
+        x.FirstName === user.firstName && 
+        x.LastName === user.lastName
+    );
+
+    if (user === undefined || user.length == 0) {
+        // array empty or does not exist, no repeat user existed
+        return true;
     }
-    
+    else{
+        return false;
+    }  
 }
 
 module.exports = {
@@ -80,5 +94,6 @@ module.exports = {
     update : updateUser,
     getall : getAllUsers,
     getByid : getUser,
-    checkValidity: checkMemberValidity
+    checkValidity: checkMemberValidity,
+    checkNoRepeat: checkNoRepeatUserExist
 }

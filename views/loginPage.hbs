@@ -12,15 +12,12 @@
         <div id="loginPage-invalidMemberInfo">
             <p></p>
             {{#if InvalidMemberInfo}}
-            <p id="invalidUserWarning">Invalid email or password! Please check!</p>
+            <p id="invalidMemberWarning">Invalid email or password! Please check!</p>
             {{/if}}
         </div>      
         <h1>Join the world's largest community for knowledge sharing</h1>
         <div id="loginPage-invalidUserInfo">
-            <p></p>
-            {{#if InvalidUserInfo}}
-            <p id="invalidUserWarning">Invalid user info! Please check!</p>
-            {{/if}}
+            <p id="invalidNewUserWarning">{{invalidNewUserWarningText}}</p>
         </div>
         <form id="signupFm" action="/login/signup" method="POST">  
             <input type="text" name="firstName" placeholder='firstname'>
