@@ -75,9 +75,9 @@ function checkMemberValidity(user) {
 }
 
 function checkNoRepeatUserExist(user) {
-    var user = userList.filter(x => x.Email === user.email && 
-        x.FirstName === user.firstName && 
-        x.LastName === user.lastName
+    var user = userList.filter(x => x.Email === user.email || 
+        (x.FirstName === user.firstName && 
+        x.LastName === user.lastName)
     );
 
     if (user === undefined || user.length == 0) {
