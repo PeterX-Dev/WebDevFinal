@@ -15,8 +15,11 @@ exports.memberLogin = function(req,res,next) {
     if ((userId = mod_user.checkValidity(loginUser)) >= 0) 
     {
         // valid member
-        res.render('mainPage' ,{
-        });
+    
+        // Get information related to this user id and transfer them into main page
+        // Do something here .... 
+        
+        res.redirect('/?userId='+userId);
     }
     else{
         // inValid user, display error message 
@@ -63,6 +66,8 @@ exports.newMemberSignUp = function(req,res,next) {
 
 exports.signUpComplete = function(req,res,next) {
     let userExtraInfo = req.body;
+
+    //TBD-Peter:  Need to use session to send user id info to update function
 
     // update user info into DB
     mod_user.update(userExtraInfo);
