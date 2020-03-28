@@ -1,5 +1,16 @@
-<h2> This is Signup Page!! </h2>
+<div id="signUpPage">
+    <div id="signUpPage-column1">
+        <h1>Knowledge<span style="color:skyblue">Base</span></h1>
+        <h1 id="signUpPageDescript">Let's us know a little more about you</h1>
+    </div>
+    <div id="signUpPage-column2">
+        <form id="completeRegistration" action="/login/signupComplete" method="POST">  
+            <input type="text" name="imageurl" placeholder='imageurl'>
+            <textarea id="description" rows="6" name="description" placeholder='a few lines about yourself...'></textarea>     
+            <input type="text" name="country" placeholder='country'>
+            <input type="date" name="DOB" >
 
-<form id="signUpComplete" action="/login/signupComplete" method="POST">        
-    <input type="submit" name="signupCompleteBtn" value="signupComplete">
-</form>
+            <input type="submit" name="completeBtn" value="complete registration">
+        </form>
+    </div>
+</div>

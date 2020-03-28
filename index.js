@@ -3,6 +3,7 @@ let app = express();
 let bodyParser = require('body-parser');
 let path = require('path');
 let connectDB = require('./DB/connection');
+let session = require('express-session');
 
 const expressHbs = require('express-handlebars');
 app.engine(
@@ -21,6 +22,11 @@ app.use(bodyParser.urlencoded({ extended: false })) // middleware
 
 // parse application/json
 app.use(bodyParser.json()) // middleware
+app.use(session({
+  secret: 'mysecret',
+  resave: true,
+  saveUninitialized: true
+}));
 
 let discussionRoutes = require('./routes/discussion');
 let loginRoutes = require('./routes/login');
@@ -32,7 +38,15 @@ let profileRoutes = require('./routes/profile');
 app.use(express.static(path.join(__dirname,'public')));
 
 app.get('/', function (req,res) {
-    res.redirect(301, '/login');
+    console.log(req.query.userId);
+    let userId = req.query.userId;
+    if (userId === undefined || userId.length == 0) {
+      res.redirect('/login');
+    }
+    else {
+      req.session.userId = req.query.userId;
+      res.redirect('/main')
+    }
 });
 
 app.use(discussionRoutes);
