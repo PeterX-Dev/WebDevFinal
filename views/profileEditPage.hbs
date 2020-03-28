@@ -1,15 +1,15 @@
 <div id="profileEditPage">
     <h1>My Profile Settings</h1>
     <form id="profileEditFm" action="/profile/update" method="POST">  
-        <input type="text" name="firstName" placeholder='firstname'>
-        <input type="text" name="lastName" placeholder='lastname'>      
-        <input type="email" name="email" placeholder='email'>
-        <input type="password" name="password" placeholder='password'>
-        <input type="password" name="confirmPwd" placeholder='confirm password'>
-        <input type="text" name="imageurl" placeholder='imageurl'>
-        <textarea id="description" rows="6" name="description" placeholder='a few lines about yourself...'></textarea>     
-        <input type="text" name="country" placeholder='country'>
-        <input type="date" name="DOB" >
+        <input type="text" name="firstName" placeholder='firstname' value={{user.FirstName}}>
+        <input type="text" name="lastName" placeholder='lastname' value={{user.LastName}}>      
+        <input type="email" name="email" placeholder='email' value={{user.Email}}>
+        <input type="password" name="password" placeholder='password' value={{user.Password}}>
+        <input type="password" name="confirmPwd" placeholder='confirm password' value={{user.Password}}>
+        <input type="text" name="imageurl" placeholder='imageurl' value={{user.ImageUrl}}>
+        <textarea id="description" rows="6" name="description" placeholder='a few lines about yourself...'>{{user.Description}}</textarea>     
+        <input type="text" name="country" placeholder='country' value={{user.Country}}>
+        <input type="date" name="DOB" value={{user.DOB}}>
         <input type="submit" name="updateBtn" value="Update Profile">
     </form>     
 </div>
