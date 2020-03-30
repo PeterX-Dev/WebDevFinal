@@ -1,0 +1,25 @@
+#profileEditPage {
+    width: 100%;
+    margin-left: 10%;
+}
+
+#profileEditFm input {
+    height: 25px;
+    display: block;
+    width: 45%;
+    margin: 0.65em 0;
+}
+
+#profileEditFm textarea {
+    display: block;
+    width: 45%;
+    margin: 0.65em 0;
+}
+
+#profileEditFm input[type=submit] {
+    height: 30px;
+    /* width: 150px; */
+    display: block;
+    background-color: #0080EB;
+    color: white;
+}

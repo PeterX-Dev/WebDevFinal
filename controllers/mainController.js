@@ -1,9 +1,12 @@
-exports.showMainPage = function(req,res,next) {  
-    res.redirect(301, '/login');
+exports.showMainPage = function(req,res,next) {
+    let name = req.session.userId;
+    console.log("userid: "+name);
+    res.render('mainPage' ,{      
+    });
 }
 
 exports.logout = function(req,res,next) {  
-    let replyObj = req.body
+    let replyObj = req.body;
     console.log(replyObj); 
     res.render('loginPage' ,{      
     });
@@ -24,7 +27,7 @@ exports.searchByTopic = function(req,res,next) {
 }
 
 exports.postToTimeLine = function(req,res,next) {
-    let replyObj = req.body
+    let replyObj = req.body;
     console.log(replyObj); 
 
     // Updating related data ...
