@@ -1,0 +1,33 @@
+@import url('"https://fonts.googleapis.com/css?family=Anton&display=swap');
+
+body {
+    font-family: 'Anton', sans-serif;
+}
+
+#header_bar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.bold_font {
+    font-size: 25pt;
+    font-weight: bolder;
+}
+#b_initial {
+    color: skyblue;
+}
+
+#header_bar input {
+    height: 40px;
+}
+
+/* theme colours */
+
+.blue_background {
+    background-color: #1a75ff;
+}
+
+.blue_font {
+    color: #1a75ff;
+}
