@@ -1,5 +1,31 @@
-<h2> This is Discussion Page!! </h2>
+{{>headerBar}}
+{{#each discussion}}
+<div id="discussionPage">
+    <div id='discussionPage-frame'>
+        <div id="discussionPage-image">
+            <img src={{ImageUrl}} height="80px" width="80px">
+        </div>
+        <div id="discussionPage-content">
+            <div id="discussionPage-header">
+                <div id="discussionPage-topic">{{Topic}}</div>
+                <div id="discussionPage-subject">{{Subject}}</div>
+            </div>
+            <div id="discussionPage-body">
+                <div id="discussionPage-message">{{Message}}</div>
+                <div id='discussionPage-bottom'>
+                    <div id='discussionPage-date'>{{Date}}</div>
+                    <div id='discussionPage-replies'>
+                        <div>
+                            <span>{{Replies}} Replies</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<form id="reply" action="/discussion/showReply" method="POST">        
+</div>
+{{/each}}
+{{!-- <form id="reply" action="/discussion/showReply" method="POST">        
     <input type="submit" name="replyBtn" value="reply">
-</form>
+</form> --}}

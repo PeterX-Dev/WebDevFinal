@@ -1,0 +1,75 @@
+#discussionPage {
+    width: 700px;
+    margin: 50px auto 50px auto;
+
+}
+
+#discussionPage-frame {
+    width: 100%;
+    display: flex;
+}
+
+#discussionPage-image {
+    width: 120px;
+}
+
+#discussionPage-image img {
+    border-radius: 50%;
+}
+
+#discussionPage-content {
+    flex-grow: 4;
+}
+
+#discussionPage-header {
+    display: flex;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+#discussionPage-topic {
+    flex-grow: 50;
+}
+
+#discussionPage-subject {
+    flex-grow: 1;
+    color: #00FFFF;
+    width: 90px;
+    border: 1px solid #00FFFF;
+    text-align: center;
+    padding: 2px;
+}
+
+#discussionPage-body {
+    margin-left: 40px;
+}
+
+#discussionPage-message {
+    height: 80px;
+}
+
+#discussionPage-bottom {
+    display: flex;
+    color:#6e7376;
+}
+
+#discussionPage-date {
+    text-align: left;
+    font-size: 0.9em;
+    flex-grow: 1;
+}
+
+#discussionPage-replies {
+    text-align: right;
+    font-size: 0.95em;
+    flex-grow: 1;
+}
+
+#discussionPage-replies > div {
+    padding-bottom: 5px;
+}
+
+#discussionPage-replies > div > span:hover {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #1a75ff;
+}
