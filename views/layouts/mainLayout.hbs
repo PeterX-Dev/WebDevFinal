@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ pageTitle }}</title>
+    <link href='/css/main.css' rel='stylesheet' />
+    {{#if discussionCSS}}
+        <link href='/css/discussionPage.css' rel='stylesheet' />
+    {{/if}}
+    {{#if loginCSS}}
+        <link href='/css/loginPage.css' rel='stylesheet' />
+    {{/if}}
+    {{#if mainPageCSS}}
+        <link href='/css/mainPage.css' rel='stylesheet' />
+    {{/if}}
+    {{#if messageEditCSS}}
+        <link href='/css/messageEditPage.css' rel='stylesheet' />
+    {{/if}}
+    {{#if myPostCSS}}
+        <link href='/css/myPostPage.css' rel='stylesheet' />
+    {{/if}}
+    {{#if othersPostCSS}}
+        <link href='/css/othersPostPage.css' rel='stylesheet' />
+    {{/if}}
+    {{#if profileEditCSS}}
+        <link href='/css/profileEditPage.css' rel='stylesheet' />
+    {{/if}}
+    {{#if replyCSS}}
+        <link href='/css/replyPage.css' rel='stylesheet' />
+    {{/if}}
+    {{#if signupCSS}}
+        <link href='/css/signUpPage.css' rel='stylesheet' />
+    {{/if}}
+
+
+</head>
+<body>
+    {{{ body }}}
+</body>
+</html>

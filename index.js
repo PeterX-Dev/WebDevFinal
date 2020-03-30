@@ -10,7 +10,7 @@ app.engine(
     'hbs',
     expressHbs({
       layoutsDir: 'views/layouts/',
-      defaultLayout: 'main-layout',
+      defaultLayout: 'mainLayout',
       extname: 'hbs'
     })
   );

@@ -4,8 +4,7 @@ const mod_post = require('../models/postData');
 
 exports.showLoginPage = function(req,res,next) {  
     // Display empty login Page
-    res.render('loginPage' ,{      
-    });
+    res.render('loginPage' ,{loginCSS: true});
 }
 
 exports.memberLogin = function(req,res,next) {  
@@ -52,8 +51,7 @@ exports.newMemberSignUp = function(req,res,next) {
             // these information in the next page
             mod_user.add(newUser);
 
-            res.render('signUpPage', {
-            });
+            res.render('signUpPage', {signupCSS: true});
         }
     }
     else{
