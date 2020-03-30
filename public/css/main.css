@@ -8,6 +8,7 @@ body {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
 }
 
 .bold_font {
@@ -19,15 +20,45 @@ body {
 }
 
 #header_bar input {
-    height: 40px;
+    height: 30px;
+    width: 200px;
+    border: none;
+    padding: 0;
 }
 
+#header_bar input:focus {
+    outline: none;
+}
+
+#header_bar button {
+    margin-left: auto;
+}
+
+#search_icon_wrapper{
+    height: 30px;
+    width: 25px;
+    margin-left: 30px;
+}
+
+#search_icon_wrapper img {
+    margin-top: 7px;
+    margin-left: 5px;
+}
+
+.btn {
+    color: white;
+    border: none;
+}
 /* theme colours */
 
-.blue_background {
+.blue_bg {
     background-color: #1a75ff;
 }
 
 .blue_font {
     color: #1a75ff;
+}
+
+.light_grey_bg {
+    background-color: #d9d9d9;
 }
