@@ -2,6 +2,9 @@
 
 body {
     font-family: 'Anton', sans-serif;
+    min-width: 800px;
+    width: 80%;
+    margin: 0 auto;
 }
 
 #header_bar{
@@ -9,12 +12,19 @@ body {
     flex-direction: row;
     align-items: center;
     width: 100%;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.circular_img {
+    border-radius: 40px;
 }
 
 .bold_font {
     font-size: 25pt;
     font-weight: bolder;
 }
+
 #b_initial {
     color: skyblue;
 }
@@ -28,10 +38,13 @@ body {
 
 #header_bar input:focus {
     outline: none;
+    
 }
 
 #header_bar button {
     margin-left: auto;
+    height: 30px;
+    width: 150px;
 }
 
 #search_icon_wrapper{

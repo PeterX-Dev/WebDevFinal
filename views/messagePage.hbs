@@ -1,5 +1,35 @@
-<h2> This is Message Page!! </h2>
+{{>headerBar}}
+<div id="messageDiv">
+    <div id="message_list">
+        {{#each message}}
+            <div class="msg_list_item">
+                <img src="{{this.senderImg}}" class="circular_img"/>
+                <div class="info">
+                    <span>{{this.name}}</span>
+                    <span class="date">{{this.date}}</span>
+                    <p>{{this.title}}</p>
+                </div>
+            </div>
+        {{/each}}
 
-<form id="newMessageReply" action="/message/reply" method="POST">        
-    <input type="submit" name="newMessageReplyBtn" value="newMessageReply">
-</form>
+    </div>
+    <div id="message_detail">
+        {{#each reply}}
+            <div class="reply_wrapper">
+                <div class="reply_date grey_font">{{this.date}}</div>
+                <div class="reply_div">
+                    <img src="{{this.senderImg}}" width="45px" height="45px" class="circular_img"/>
+                    <div class="reply_info">
+                        <span class="grey_font"><b>{{this.sender}} <span class="dot">&middot;</span> </b></span>
+                        <span class="grey_font">{{this.time}}</span>
+                        <p>{{this.message}}</p>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+        <form id="newMessageReply" action="/message/reply" method="POST">      
+            <textarea name="message" rows="8" placeholder="Write a message..."></textarea>
+            <input type="submit" name="newMessageReplyBtn" value="Send">
+        </form>
+    </div>
+</div>

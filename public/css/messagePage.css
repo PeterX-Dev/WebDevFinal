@@ -1,0 +1,86 @@
+#messageDiv{
+    width: 100%;
+    margin: 0 auto;
+    display:flex;
+    justify-content: space-evenly;
+}
+
+#message_list{
+    display: flex;
+    flex-direction: column;
+    width: 28%;
+    border-right: solid lightgray 1px;
+}
+
+#message_detail{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    border-left: solid darkgray 1px;
+}
+
+.msg_list_item{
+    margin: 10px 10px;
+}
+
+img {
+    float: left;
+}
+
+#message_list h3 {
+    margin: 0 0;
+}
+
+.reply_div {
+    width: 90%;
+    margin-left: 10px;
+}
+
+.reply_info{
+    margin-top: 30px;
+    margin-bottom: 50px;
+    margin-left: 55px;
+}
+
+.reply_wrapper {
+    border-top: lightgray solid 1px;
+}
+
+.date {
+    float: right;
+}
+
+.info {
+    margin-left: 85px;
+}
+
+.dot{
+    font-size: large;
+}
+
+.reply_date{
+    text-align: center;
+    width: 70px;
+    margin: 0 auto;
+    background-color: white;
+    position: relative;
+    top: -7px;
+}
+
+#newMessageReply textarea {
+    width: 100%;
+}
+
+#newMessageReply input[type=submit] {
+    float: right;
+    background-color: green;
+    color: white;
+    border: none;
+    height: 30px;
+    width: 60px;
+}
+
+.message_padding {
+    width: 100%;
+    height: 30px;
+}
