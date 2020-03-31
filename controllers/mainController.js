@@ -4,24 +4,25 @@ exports.showMainPage = function(req,res,next) {
  
     let postList = [
         {
-            ImgUrl: "https://randomuser.me/api/portraits/med/men/22.jpg",
+            ImageUrl: "https://randomuser.me/api/portraits/med/men/22.jpg",
             Subject:"Hello1",
             Topic: "php",
-            PostContent: "This is a test0 This is a test0 This is a test0 This is a test0 This is a test0",
-            PostDate: "Oct 10 2019",
+            Message: "This is a test0 This is a test0 This is a test0 This is a test0 This is a test0",
+            Date: "Oct 10 2019",
             Replies: 5
         },
         {
-            ImgUrl: "https://randomuser.me/api/portraits/med/women/22.jpg",
+            ImageUrl: "https://randomuser.me/api/portraits/med/women/22.jpg",
             Subject:"Hello2",
             Topic: "node",
-            PostContent: "This is a test1 This is a test1 This is a test1 This is a test1 This is a test1",
-            PostDate: "Oct 11 2019",
+            Message: "This is a test1 This is a test1 This is a test1 This is a test1 This is a test1",
+            Date: "Oct 11 2019",
             Replies: 1
         }
     ];
     res.render('mainPage' ,{
-        posts: postList
+        posts: postList,
+        discussionCSS: true
     });
 }
 
