@@ -19,10 +19,19 @@ var discussionList = [
         "Id": "2",
         "ImageUrl": "https://randomuser.me/api/portraits/men/26.jpg",
         "Subject": "php",
-        "Topic": "Jesus Christ, I hate this framework.",
+        "Topic": "I hate this framework.",
         "Message": "Don't mind me. I am venting. jk lol",
         "Date": "1 apr 2020",
         "Replies": "10"
+    },
+    {
+        "Id": "3",
+        "ImageUrl": "https://randomuser.me/api/portraits/men/60.jpg",
+        "Subject": "nodejs",
+        "Topic": "Need HELP!",
+        "Message": "How do I make a server using nodejs?",
+        "Date": "1 apr 2020",
+        "Replies": "5"
     }
 ];
 
