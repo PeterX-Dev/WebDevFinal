@@ -7,12 +7,14 @@ exports.showDiscussionPage = function(req,res,next) {
     res.render('discussionPage' ,{discussion: mod_user.getall, discussionCSS: true});
 }
 
-exports.showReplyPage = function(req,res,next) {  
+exports.showComments = function(req,res,next) {  
+    //expand to show replies
     res.render('replyPage' ,{      
     });
 }
 
 exports.addNewReply = function(req,res,next) {
+    //add comment
     let replyObj = req.body
     console.log(replyObj); 
     res.render('replyPage' ,{      
