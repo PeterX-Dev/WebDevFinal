@@ -75,3 +75,48 @@ body {
 .light_grey_bg {
     background-color: #d9d9d9;
 }
+
+/* This is for post bar */
+#post_bar {
+    width: 60%;
+    float: left;
+    margin-bottom: 20px;
+    display: block;
+}
+
+#post_bar_user_Column {
+    width: 30%;
+    float: left;
+}
+
+#post_bar_content_Column {
+    width: 65%;
+    float: left;
+}
+
+#post_bar_content_Column a {
+    float: right;
+}
+
+#post_bar_content_Column div {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.userPicture {
+    border-radius: 50%;
+}
+
+#discussionSubject {
+    font-size: larger;
+}
+
+#discussionTopic {
+    border: 1px solid skyblue;
+    float: right;
+    color: skyblue;
+}
+
+.clear {
+    clear: both; 
+}
