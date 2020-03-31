@@ -1,5 +1,12 @@
-<div>
-    <img src="{{ImgUrl}}">
-    <h1>{{Subject}}</h1>
-    <div>{{PostContent}}</div>
+<div id="post_bar">
+    <div id="post_bar_user_Column">
+        <a href="/othersPost"><img class="userPicture" src="{{ImgUrl}}"/></a>
+    </div>
+    <div id="post_bar_content_Column">   
+        <span id="discussionSubject">{{Subject}}</span>
+        <span id="discussionTopic">{{Topic}}</span>
+        <div>{{PostContent}}</div>
+        <span>{{PostDate}}</span> 
+        <a href="/discussion/showReply">{{Replies}} reply</a>
+    </div>
 </div>

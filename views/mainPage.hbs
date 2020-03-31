@@ -1,4 +1,10 @@
 {{>headerBar}}
+
+{{#each posts}}
+    {{>post}}
+{{/each}}
+<br class="clear"/>
+
 <h2> This is Main Page!! </h2>
 
 <form id="logout" action="/logout" method="GET">        
