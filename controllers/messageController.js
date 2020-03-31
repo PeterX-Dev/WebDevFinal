@@ -10,9 +10,9 @@ exports.showMessagePage = function(req,res,next) {
 }
 
 exports.showMessageEditPage = function(req,res,next) {  
-    let replyObj = req.body
-    console.log(replyObj); 
-    res.render('messageEditPage' ,{      });
+    // let replyObj = req.body
+    // console.log(replyObj); 
+    res.render('messageEditPage' ,{messageEditPageCSS: true});
 }
 
 exports.sendMessage = function(req,res,next) {
