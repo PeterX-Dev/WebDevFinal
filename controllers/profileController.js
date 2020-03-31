@@ -9,7 +9,8 @@ exports.showProfilePage = function(req,res,next) {
     console.log(userObj);
    
     res.render('profileEditPage' ,{
-        user: userObj   
+        user: userObj,
+        profileEditCSS: true   
     });
 }
 
