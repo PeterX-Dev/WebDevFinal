@@ -4,7 +4,7 @@
 
 #kbIcon {
     width: 80%;
-    max-width: 300px;
+    max-width: 400px;
     height: auto;
 }
 
@@ -21,21 +21,28 @@
 }
 
 #loginPage-column2 {
-    margin-top: 4%;
+    margin-top: 40px;
     float: left;
     width: 40%;
-    max-width: 380px;
+    max-width: 500px;
 }
 
 #loginFm input[type=submit] {
     height: 30px;
-    width: 50px;
     color: white;
+    background-color: #03a2e7;
+    padding: 5px 30px;
+    border: none;
 }
 
 #loginFm input[type=email],
 #loginFm input[type=password] {
     height: 25px;
+}
+
+#signupFm input{
+    padding: 5px;
+    margin: 5px 0px;
 }
 
 #signupFm input[type=text] {
@@ -47,16 +54,17 @@
 #signupFm input[type=password] {
     height: 25px;
     display: block;
-    width: 82%;
+    width: 85%;
     margin: 0.65em 0;
 }
 
 #signupFm input[type=submit] {
     height: 30px;
     display: block;
-    width: 82%;
+    width: 85%;
     /* margin: 0.65em 0; */
-    background-color:  #0080EB;
+    background-color:  #03a2e7;
+    border: none;
     color: white;
 }
 
