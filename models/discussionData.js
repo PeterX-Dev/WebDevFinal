@@ -4,6 +4,7 @@
 //     Subject (String)
 //     Topic(String)      
 // }
+let mod_user = require('../models/discussionData.js');
 
 var discussionList = [
     {
@@ -36,7 +37,7 @@ var discussionList = [
 ];
 
 function addDiscussion(e) {
-
+    db.query("Insert into Post (content, user_id_fkey) VALUES ('second time!', 1)");
 }
 
 function getAllDiscussions() {
@@ -46,6 +47,7 @@ function getAllDiscussions() {
 function getDiscussion(id) {
     return discussionList[id];
 }
+
 
 module.exports = {
     add : addDiscussion,

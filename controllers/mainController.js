@@ -22,7 +22,6 @@ exports.showMainPage = function(req,res,next) {
         }
     ];
 
-    mod.add();
     res.render('mainPage' ,{
         posts: postList
     });

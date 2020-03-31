@@ -2,7 +2,7 @@ let express = require('express')
 let app = express();
 let bodyParser = require('body-parser');
 let path = require('path');
-let connectDB = require('./DB/db');
+//let connectDB = require('./DB/db');
 let session = require('express-session');
 
 const expressHbs = require('express-handlebars');
