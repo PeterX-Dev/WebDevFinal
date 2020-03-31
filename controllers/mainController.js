@@ -20,7 +20,15 @@ exports.showMainPage = function(req,res,next) {
             Replies: 1
         }
     ];
+
+    let userObj = {
+        ImageUrl: "https://randomuser.me/api/portraits/med/women/22.jpg",
+        FirstName: "user1",
+        LastName: "White",
+        Description: "This is a test from somewhere"
+    }
     res.render('mainPage' ,{
+        user: userObj,
         posts: postList,
         discussionCSS: true
     });

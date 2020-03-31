@@ -3,7 +3,7 @@ const router = express.Router();
 
 const profileController = require('../controllers/profileController');
 
-router.post('/profile', profileController.showProfilePage);
+router.get('/profile', profileController.showProfilePage);
 
 router.post('/profile/update', profileController.updateProfilePage);
 
