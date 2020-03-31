@@ -1,3 +1,4 @@
+let mod = require('../models/postData.js');
 exports.showMainPage = function(req,res,next) {
     let name = req.session.userId;
     console.log("userid: "+name);
@@ -20,6 +21,8 @@ exports.showMainPage = function(req,res,next) {
             Replies: 1
         }
     ];
+
+    mod.add();
     res.render('mainPage' ,{
         posts: postList
     });
