@@ -1,0 +1,28 @@
+topic
+    id (int, pk)
+    name (string)
+
+post
+    id (int, pk) 
+    topic_id_fky (int ,fk ref topic)
+    member_id_fkey (int, fk ref member)
+    post_string (string)
+
+comment
+    id (int, pk)
+    comment_string (string)
+    member_id_fkey (int, fk ref member)
+    post_id_fkey (int, fk ref post)
+
+message_topic
+    id (int, pk)
+    subject (string)
+    sender_id_fkey (int, fkey ref member)
+    receiver_id_fkey (int, fkey ref member)
+
+message_topic   
+    id (int, pk)
+    member_id_fkey (int, fkey ref member)
+    message_string (string)
+    message_topic_id_fkey (int, fk ref message_topic) 
+
