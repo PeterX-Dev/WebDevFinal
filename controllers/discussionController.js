@@ -1,8 +1,8 @@
-let db = require('../DB/db');
+
 let mod_user = require('../models/discussionData.js');
 
 exports.showDiscussionPage = function(req,res,next) {  
-    mod_user.addDiscussion();
+    mod_user.add();
     res.render('discussionPage' ,{discussion: mod_user.getall, discussionCSS: true});
 }
 
