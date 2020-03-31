@@ -1,0 +1,40 @@
+#messageEdit-container {
+    width: 800px;
+    margin: 0 auto;
+    display: flex;
+}
+
+#messageEdit-image {
+    height: 80px;
+    width: 80px;
+    flex-grow: 1;
+}
+
+#messageEdit-image img{
+    border-radius: 50%;
+}
+
+#messageEdit-content {
+    flex-grow: 4;
+}
+
+#messageSend > div {
+    margin-bottom: 20px;
+}
+
+#messageSend-subject {
+    width: 60%;
+    padding: 5px;
+}
+
+#messageSend-message {
+    width: 100%;
+    padding: 5px;
+}
+
+#messageSend-submit {
+    background-color: #01a2e8;
+    color: white;
+    padding: 8px 24px;
+    border: none;
+}
