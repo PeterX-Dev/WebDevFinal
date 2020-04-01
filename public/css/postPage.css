@@ -1,37 +1,37 @@
-#post {
+.post-div {
     width: 700px;
     margin: 50px auto 50px auto;
 
 }
 
-#post-frame {
+.post-frame {
     width: 100%;
     display: flex;
 }
 
-#post-image {
+.post-image {
     width: 120px;
 }
 
-#post-image img {
+.post-image img {
     border-radius: 50%;
 }
 
-#post-content {
+.post-content {
     flex-grow: 4;
 }
 
-#post-header {
+.post-header {
     display: flex;
     font-size: 1.2em;
     margin-bottom: 10px;
 }
 
-#post-subject {
+.post-subject {
     flex-grow: 50;
 }
 
-#post-topic {
+.post-topic {
     flex-grow: 1;
     color: #00FFFF;
     width: 90px;
@@ -40,36 +40,36 @@
     padding: 2px;
 }
 
-#post-body {
+.post-body {
     margin-left: 40px;
 }
 
-#post-message {
+.post-message {
     height: 80px;
 }
 
-#post-bottom {
+.post-bottom {
     display: flex;
     color:#6e7376;
 }
 
-#post-date {
+.post-date {
     text-align: left;
     font-size: 0.9em;
     flex-grow: 1;
 }
 
-#post-replies {
+.post-replies {
     text-align: right;
     font-size: 0.95em;
     flex-grow: 1;
 }
 
-#post-replies > div {
+.post-replies > div {
     padding-bottom: 5px;
 }
 
-#post-replies > div > span:hover {
+.post-replies > div > span:hover {
     padding-bottom: 10px;
     border-bottom: 2px solid #1a75ff;
 }

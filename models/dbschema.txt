@@ -2,6 +2,13 @@ topic
     id (int, pk)
     name (string)
 
+    //already populated in db
+    1 - php
+    2 - nodejs
+    3 - java
+    4 - sql
+    5 - zend
+
 post
     id (int, pk) 
     topic_id_fky (int ,fk ref topic)

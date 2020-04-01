@@ -1,4 +1,4 @@
-let mod = require('../models/postData.js');
+let mod = require('../models/commentData.js');
 exports.showMainPage = function(req,res,next) {
     let name = req.session.userId;
     console.log("userid: "+name);
@@ -24,7 +24,7 @@ exports.showMainPage = function(req,res,next) {
 
     res.render('mainPage' ,{
         posts: postList,
-        discussionCSS: true
+        postCSS: true
     });
 }
 
@@ -38,14 +38,14 @@ exports.logout = function(req,res,next) {
 exports.searchByTitle = function(req,res,next) {
     let replyObj = req.body
     console.log(replyObj); 
-    res.render('discussionPage' ,{      
+    res.render('postPage' ,{      
     });
 }
 
 exports.searchByTopic = function(req,res,next) {
     let replyObj = req.body
     console.log(replyObj); 
-    res.render('discussionPage' ,{      
+    res.render('postPage' ,{      
     });
 }
 
