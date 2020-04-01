@@ -16,7 +16,7 @@ exports.showOthersPostPage = function(req,res,next) {
 
 exports.showPostPage = async function(req,res,next) {  
     let postsData = await mod.getall();
-    console.log("controller: " + postsData);
+    console.log("controller: " + JSON.stringify(postsData, null, 1));
     res.render('postPage' ,{postsData, postCSS: true});
 
 }

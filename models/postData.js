@@ -41,7 +41,7 @@ function addPost(e) {
 
 async function getAllPosts() {
     //get all posts with user images and topic info
-    let queryString = "SELECT post.id, post.subject_line, post.post_string, post.date, topic.name, member.id as \"member_id\", member.image_url \
+    let queryString = "SELECT post.id, post.subject_line, post.post_string, post.date, topic.name as \"topic_name\", member.id as \"member_id\", member.image_url \
                        from public.post \
                        left join public.topic on post.topic_id_fkey = topic.id \
                        left join public.member on post.member_id_fkey = member.id";

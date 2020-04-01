@@ -1,19 +1,22 @@
-<div class="post-div" id={{id}}>
+<div class="post-div" id={{post.id}}>
     <div class='post-frame'>
         <div class="post-image">
-            <img src={{ImageUrl}} height="80px" width="80px">
+            <img src={{post.image_url}} height="80px" width="80px">
         </div>
         <div class="post-content">
             <div class="post-header">
-                <div class="post-subject">{{Subject}}</div>
-                <div class="post-topic">{{Topic}}</div>
+                <div class="post-subject">{{post.subject_line}}</div>
+                <div class="post-topic">{{post.topic_name}}</div>
             </div>
             <div class="post-body">
-                <div class="post-message">{{Message}}</div>
+                <div class="post-message">{{post.post_string}}</div>
                 <div class='post-bottom'>
-                    <div class='post-date'>{{Date}}</div>
+                    <div class='post-date'>{{post.date}}</div>
                     <div class='post-replies'>
                         <div>
+                            {{#each comments}}
+                                {{>postComment}}
+                            {{/each}}
                             <span onclick="toggleShow">{{Replies}} Replies</span>
                             <form id="newReply" action="/post/newReply" method="POST">
                                 <input type="text" name="postString">        
