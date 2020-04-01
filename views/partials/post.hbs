@@ -1,20 +1,27 @@
-<div id="post">
-    <div id='post-frame'>
-        <div id="post-image">
-            <a href="/othersPost"><img src={{ImageUrl}} height="80px" width="80px"></a>
+<div class="post-div" id={{post.id}}>
+    <div class='post-frame'>
+        <div class="post-image">
+            <a href="/othersPost"> <img src={{image_url}} height="80px" width="80px"> </a>
         </div>
-        <div id="post-content">
-            <div id="post-header">
-                <div id="post-subject">{{Subject}}</div>
-                <div id="post-topic">{{Topic}}</div>
+        <div class="post-content">
+            <div class="post-header">
+                <div class="post-subject">{{subject_line}}</div>
+                <div class="post-topic">{{topic_name}}</div>
             </div>
-            <div id="post-body">
-                <div id="post-message">{{Message}}</div>
-                <div id='post-bottom'>
-                    <div id='post-date'>{{Date}}</div>
-                    <div id='post-replies'>
+            <div class="post-body">
+                <div class="post-message">{{post_string}}</div>
+                <div class='post-bottom'>
+                    <div class='post-date'>{{date}}</div>
+                    <div class='post-replies'>
                         <div>
-                            <span>{{Replies}} Replies</span>
+                            {{#each comments}}
+                                {{>postComment}}
+                            {{/each}}
+                            <span onclick="toggleShow">{{Replies}} Replies</span>
+                            <form id="newReply" action="/post/newReply" method="POST">
+                                <input type="text" name="postString">        
+                                <input type="submit" name="newReplyBtn" value="newReply">
+                            </form>
                         </div>
                     </div>
                 </div>

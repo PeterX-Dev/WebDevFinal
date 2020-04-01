@@ -1,6 +1,5 @@
 const mod_user = require('../models/userData');
-const mod_discuss = require('../models/discussionData');
-const mod_post = require('../models/postData');
+const mod_discuss = require('../models/postData');
 
 exports.showLoginPage = function(req,res,next) {  
     // Display empty login Page
