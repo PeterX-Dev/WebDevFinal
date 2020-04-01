@@ -10,18 +10,22 @@ exports.memberLogin = function(req,res,next) {
     const loginUser = req.body;
     let userId;
 
-    if ((userId = mod_user.checkValidity(loginUser)) >= 0) 
+    // if ((userId = mod_user.checkValidity(loginUser)) >= 0) 
+    if (1)
     {
         // valid member
     
         // Get information related to this user id and transfer them into main page
         // Do something here .... 
         
-        res.redirect('/?userId='+userId);
+        res.redirect('/main?userId='+userId);
     }
     else{
         // inValid user, display error message 
-        res.render('loginPage' ,{InvalidMemberInfo: true});
+        res.render('loginPage' ,{
+            InvalidMemberInfo: true,
+            loginCSS: true
+        });
     }
 }
 

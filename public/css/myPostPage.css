@@ -1,0 +1,9 @@
+#myPostPage-userColumn {
+    width: 40%;
+    float: left;
+}
+
+#myPostPage-postColumn {
+    width: 60%;
+    float: left;
+}

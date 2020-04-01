@@ -120,3 +120,17 @@ body {
 .clear {
     clear: both; 
 }
+
+#profilePicFragment {
+    width: 80%;
+    float: left;
+    display: block;
+}
+
+.userNameText {
+    font-size: larger;
+}
+
+#userlinkFragment a {
+    display: block;
+}

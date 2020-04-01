@@ -2,15 +2,76 @@ let mod = require('../models/postData.js');
 
 exports.showMyPostPage = function(req,res,next) {  
     let replyObj = req.body
-    console.log(replyObj); 
-    res.render('myPostPage' ,{      
+    let postList = [
+        {
+            image_url: "https://randomuser.me/api/portraits/med/men/22.jpg",
+            subject_line:"Hello1",
+            topic_name: "php",
+            post_string: "This is a test0 This is a test0 This is a test0 This is a test0 This is a test0",
+            date: "Oct 10 2019",
+            Replies: 5
+        },
+        {
+            image_url: "https://randomuser.me/api/portraits/med/men/22.jpg",
+            subject_line:"Hello2",
+            topic_name: "node",
+            post_string: "This is a test1 This is a test1 This is a test1 This is a test1 This is a test1",
+            date: "Oct 11 2019",
+            Replies: 1
+        }
+    ];
+
+    let userObj = {
+        ImageUrl: "https://randomuser.me/api/portraits/med/men/22.jpg",
+        FirstName: "user1",
+        LastName: "White",
+        Description: "Team Lead | Part Time Singer | Full time Mom Canada",
+        PostNo: 5,
+        MsgNo: 1
+    }
+    res.render('myPostPage' ,{
+        user: userObj,
+        posts: postList,
+        postCSS: true,
+        myPostCSS: true
     });
 }
 
 exports.showOthersPostPage = function(req,res,next) {  
     let replyObj = req.body
-    console.log(replyObj); 
-    res.render('othersPostPage' ,{      
+    let postList = [
+        {
+            image_url: "https://randomuser.me/api/portraits/med/women/22.jpg",
+            subject_line:"Hello1",
+            topic_name: "php",
+            post_string: "This is a test0 This is a test0 This is a test0 This is a test0 This is a test0",
+            date: "Oct 10 2019",
+            Replies: 5
+        },
+        {
+            image_url: "https://randomuser.me/api/portraits/med/women/22.jpg",
+            subject_line:"Hello2",
+            topic_name: "node",
+            post_string: "This is a test1 This is a test1 This is a test1 This is a test1 This is a test1",
+            date: "Oct 11 2019",
+            Replies: 1
+        }
+    ];
+
+    let userObj = {
+        ImageUrl: "https://randomuser.me/api/portraits/med/women/22.jpg",
+        FirstName: "user1",
+        LastName: "White",
+        Description: "Team Lead | Part Time Singer | Full time Mom Canada",
+        PostNo: 5,
+        MsgNo: 1
+    }
+
+    res.render('othersPostPage' ,{
+        user: userObj,
+        posts: postList,
+        postCSS: true,
+        otherPostCSS: true      
     });
 }
 

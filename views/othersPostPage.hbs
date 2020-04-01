@@ -1,5 +1,24 @@
-<h2> This is othersPost Page!! </h2>
+<div id="otherPostPage">
+    {{>headerBar}}
+    <div id="otherPostPage-user">
+        <div id="otherPostPage-user-column1">
+            {{>profileFrag}}
+        </div>      
+        <div id="otherPostPage-user-column2">
+            <form action="/messageEdit" method="POST">        
+                <input type="submit" name="messageEditBtn" value="messageEdit">
+            </form>
+            <p>{{user.Likes}} Likes</p>
+            <p>{{user.Posts}} Posts</p>
+        </div>
+        <br class="clear"/>
+    </div>
+    <div id="otherPostPage-post">
+        <h1>All Posts For {{user.FirstName}}</h1>
+        {{#each posts}}
+            {{>post}}
+        {{/each}}
+        <br class="clear"/>
+    </div>    
+</div>
 
-<form id="messageEdit" action="/messageEdit" method="POST">        
-    <input type="submit" name="messageEditBtn" value="messageEdit">
-</form>

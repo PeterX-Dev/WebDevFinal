@@ -3,7 +3,7 @@ const router = express.Router();
 
 const messageController = require('../controllers/messageController');
 
-router.post('/message', messageController.showMessagePage);
+router.get('/message', messageController.showMessagePage);
 
 router.post('/messageEdit', messageController.showMessageEditPage);
 
