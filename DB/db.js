@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const Pool = require('pg').Pool;
 
 const pool = new Pool({  
@@ -8,5 +9,13 @@ const pool = new Pool({  
     port: 5432,
     ssl: true
 });  
+=======
+const { Client } = require('pg');
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+});
+>>>>>>> 1aa57f4917a112a7d7fba5bdb704578d202fc528
 
-module.exports = pool;
+
+module.exports = client;
