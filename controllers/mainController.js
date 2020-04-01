@@ -22,7 +22,7 @@ exports.showMainPage = function(req,res,next) {
     ];
 
     let userObj = {
-        ImageUrl: "https://randomuser.me/api/portraits/med/women/22.jpg",
+        ImageUrl: "https://randomuser.me/api/portraits/med/men/22.jpg",
         FirstName: "user1",
         LastName: "White",
         Description: "This is a test from somewhere"
@@ -30,7 +30,8 @@ exports.showMainPage = function(req,res,next) {
     res.render('mainPage' ,{
         user: userObj,
         posts: postList,
-        discussionCSS: true
+        discussionCSS: true,
+        mainPageCSS: true
     });
 }
 

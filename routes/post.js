@@ -3,8 +3,8 @@ const router = express.Router();
 
 const postController = require('../controllers/postController');
 
-router.post('/myPost', postController.showMyPostPage);
+router.get('/myPost', postController.showMyPostPage);
 
-router.post('/othersPost', postController.showOthersPostPage);
+router.get('/othersPost', postController.showOthersPostPage);
 
 module.exports = router;

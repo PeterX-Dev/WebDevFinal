@@ -1,0 +1,118 @@
+#mainPage-column1 {
+    margin-left: 5%;
+    margin-top: 30px;
+    float: left;
+    width: 38%;
+}
+
+#mainPage-column2 {
+    margin-top: 30px;
+    float: left;
+    width: 57%;
+}
+
+.userNameText {
+    font-size: 25px;
+}
+
+#mainPage-statisData a {
+    display: block;
+}
+
+#postDiscussion form input[type=text] {
+    display: block;
+    height: 25px;
+    width: 80%;
+    margin: 0.65em 0;
+}
+
+#postDiscussion form textarea {
+    display: block;
+    width: 80%;
+    margin: 0.65em 0;
+}
+
+#postDiscussion form input[type=submit] {
+    width: 40%;
+    height: 25px;
+}
+
+#searchByTopic form input[type=submit] {
+    height: 30px;
+    color: white;
+    background-color: #0080EB;
+}
+
+.topicOption {
+    width: 40%;
+    height: 25px;
+}
+
+#searchByTopic {
+    margin-top: 20px;
+}
+
+#searchTopicText {
+    margin-top: 4px;
+    float: left;
+    width: 26%;
+    height: 25px;
+    display: flex;
+}
+
+#listDiscussions {
+    width: 100%;
+    display: block;
+    /* min-height: max-content; */
+}
+
+.clear { 
+    clear: both; 
+}
+
+.currentDiscussion {
+    width: 100%;
+    /* height: fit-content; */
+    display: block;
+}
+
+#currentDiscussion-publisher {
+    margin-top: 20px;
+    width: 30%;
+    float: left;
+}
+
+#currentDiscussion-discussion {
+    margin-top: 20px;
+    width: 60%;
+    float: left;
+}
+
+#currentDiscussion-discussion a {
+    float: right;
+}
+
+#discussionSubject {
+    font-size: larger;
+}
+
+#discussionTopic {
+    border: 1px solid skyblue;
+    float: right;
+    color: skyblue;
+}
+
+#moreDiscussions {
+    margin-top: 20px;
+    width: 90%;
+}
+
+.previousPage {
+    border: 5px solid skyblue;
+    float: left;
+}
+
+.nextPage {
+    border: 5px solid skyblue;
+    float: right;
+}
