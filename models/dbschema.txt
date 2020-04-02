@@ -30,7 +30,7 @@ message_topic
     sender_id_fkey (int, fkey ref member)
     receiver_id_fkey (int, fkey ref member)
 
-message_topic   
+message 
     id (int, pk)
     member_id_fkey (int, fkey ref member)
     message_string (string)
