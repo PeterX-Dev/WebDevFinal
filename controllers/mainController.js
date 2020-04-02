@@ -17,18 +17,18 @@ exports.showMainPage = function(req,res,next) {
     let postList = [
         {
             image_url: "https://randomuser.me/api/portraits/med/men/22.jpg",
-            subject_line:"Hello1",
+            subject_line:"Testing if this discussion works.",
             topic_name: "php",
-            post_string: "This is a test0 This is a test0 This is a test0 This is a test0 This is a test0",
-            date: "Oct 10 2019",
-            Replies: 5
+            post_string: "Don't mind me. I am just posting.",
+            date: "2 apr 2020",
+            replies: 5
         },
         {
-            image_url: "https://randomuser.me/api/portraits/med/women/22.jpg",
-            subject_line:"Hello2",
+            image_url: "https://randomuser.me/api/portraits/med/women/26.jpg",
+            subject_line:"Hello World!",
             topic_name: "node",
-            post_string: "This is a test1 This is a test1 This is a test1 This is a test1 This is a test1",
-            date: "Oct 11 2019",
+            post_string: "Mmmmmmm Reese's Pieces.",
+            date: "2 apr 2020",
             Replies: 1
         }
     ];

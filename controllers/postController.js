@@ -8,7 +8,7 @@ exports.showMyPostPage = async function(req,res,next) {
 
     let userObj = {
         ImageUrl: "https://randomuser.me/api/portraits/med/men/22.jpg",
-        FirstName: "user1",
+        FirstName: "John",
         LastName: "White",
         Description: "Team Lead | Part Time Singer | Full time Mom Canada",
         PostNo: 5,

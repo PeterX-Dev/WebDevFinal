@@ -1,8 +1,6 @@
+{{>headerBar}}
 <div id="mainPage">
-    <div>
-        {{>headerBar}}
-    </div>
-    <div>
+    <div id="mainPage-content">
         <div id="mainPage-column1">
             {{>profileFrag}}
             <br class="clear">
@@ -54,7 +52,7 @@
                 {{/if}}
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 
 {{!-- {{>profileFrag}}
@@ -64,46 +62,3 @@
 {{/each}}
 <br class="clear"/> --}}
 
-<h2> This is Main Page!! </h2>
-
-<form id="logout" action="/logout" method="GET">        
-    <input type="submit" name="logoutBtn" value="logout">
-</form>
-
-<br>
-
-<form id="searchByTitle" action="/main/searchByTitle" method="POST">        
-    <input type="submit" name="searchByTitleBtn" value="searchByTitle">
-</form>
-
-<br>
-
-<form id="searchByTopic" action="/main/searchByTopic" method="POST">        
-    <input type="submit" name="searchByTopicBtn" value="searchByTopic">
-</form>
-
-<br>
-
-<form id="postByTimeLine" action="/main/postToTimeLine" method="POST">        
-    <input type="submit" name="postByTimeLineBtn" value="postByTimeLine">
-</form>
-
-<br>
-
-<form id="newReply" action="/post/addComment" method="POST">        
-    <input type="submit" name="newReplyBtn" value="replies">
-</form>
-
-<br>
-
-<form id="prev" action="/main/prev" method="POST">        
-    <input type="submit" name="prevBtn" value="prev">
-</form>
-
-<br>
-
-<form id="next" action="/main/next" method="POST">        
-    <input type="submit" name="nextBtn" value="next">
-</form>
-
-<hr>
