@@ -3,28 +3,8 @@ let mod = require('../models/postData.js');
 exports.showMyPostPage = async function(req,res,next) {  
     let replyObj = req.body;
 
-    console.log("Show my post page...");
     let myarr = await mod.getall();
     console.log(myarr);
-
-    let postList = [
-        {
-            image_url: "https://randomuser.me/api/portraits/med/men/22.jpg",
-            subject_line:"Hello1",
-            topic_name: "php",
-            post_string: "This is a test0 This is a test0 This is a test0 This is a test0 This is a test0",
-            date: "Oct 10 2019",
-            Replies: 5
-        },
-        {
-            image_url: "https://randomuser.me/api/portraits/med/men/22.jpg",
-            subject_line:"Hello2",
-            topic_name: "node",
-            post_string: "This is a test1 This is a test1 This is a test1 This is a test1 This is a test1",
-            date: "Oct 11 2019",
-            Replies: 1
-        }
-    ];
 
     let userObj = {
         ImageUrl: "https://randomuser.me/api/portraits/med/men/22.jpg",

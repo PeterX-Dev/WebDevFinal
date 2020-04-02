@@ -1,7 +1,18 @@
 let mod = require('../models/commentData.js');
+let mod_user = require('../models/userData.js');
+
 exports.showMainPage = function(req,res,next) {
-    let name = req.session.userId;
-    console.log("userid: "+name);
+    let userId = req.session.userId;
+    console.log("userid: "+userId);
+
+    // let userObj = {
+    //     ImageUrl: "https://randomuser.me/api/portraits/med/men/22.jpg",
+    //     FirstName: "user1",
+    //     LastName: "White",
+    //     Description: "This is a test from somewhere"
+    // }
+    let userObj = mod_user.getByid(userId);
+    console.log(userObj);
  
     let postList = [
         {
@@ -22,12 +33,7 @@ exports.showMainPage = function(req,res,next) {
         }
     ];
 
-    let userObj = {
-        ImageUrl: "https://randomuser.me/api/portraits/med/men/22.jpg",
-        FirstName: "user1",
-        LastName: "White",
-        Description: "This is a test from somewhere"
-    }
+    
     res.render('mainPage' ,{
         user: userObj,
         posts: postList,
