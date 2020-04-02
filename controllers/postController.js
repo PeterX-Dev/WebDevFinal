@@ -1,7 +1,12 @@
 let mod = require('../models/postData.js');
 
-exports.showMyPostPage = function(req,res,next) {  
-    let replyObj = req.body
+exports.showMyPostPage = async function(req,res,next) {  
+    let replyObj = req.body;
+
+    console.log("Show my post page...");
+    let myarr = await mod.getall();
+    console.log(myarr);
+
     let postList = [
         {
             image_url: "https://randomuser.me/api/portraits/med/men/22.jpg",
@@ -31,7 +36,7 @@ exports.showMyPostPage = function(req,res,next) {
     }
     res.render('myPostPage' ,{
         user: userObj,
-        posts: postList,
+        posts: myarr,
         postCSS: true,
         myPostCSS: true
     });

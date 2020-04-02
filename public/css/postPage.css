@@ -13,7 +13,12 @@
     width: 120px;
 }
 
-.post-image img {
+.comment_div {
+    width: 50px;
+}
+
+.post-image img,
+.comment_div img {
     border-radius: 50%;
 }
 
