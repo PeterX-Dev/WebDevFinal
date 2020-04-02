@@ -122,15 +122,36 @@ body {
 }
 
 #profilePicFragment {
-    width: 80%;
     float: left;
     display: block;
 }
 
-.userNameText {
-    font-size: larger;
+#profilePicFragment img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#userlinkFragment a {
-    display: block;
+.userNameText {
+    font-size: larger;
+    text-align: center;
+}
+
+#userlinkFragment {
+    width: 80%;
+    display: relative;
+}
+
+#userlinkFragment > div {
+    clear: both;
+}
+
+.align-left {
+    float: left;
+}
+
+.align-right {
+    float: right;
 }
