@@ -72,8 +72,25 @@ function addComment(e) {
 
 }
 
-function getComments(id) {
-    return db.query('Select * from comment where post_id_fkey =' +id);
+function getCommentsById(id) {    
+    let queryString = "select comments.id, comments.comment_string, comments.post_id_fkey, member.id as \"member_id\", member.image_url \
+                    from public.comments \
+                    left join public.member on comments.member_id_fkey = member.id \
+                    where post_id_fkey = " + id;
+    return db.query(queryString);
+}
+
+async function getPostsBySubject(searchTerm) {
+    //get all posts with user images and topic info
+    let queryString = "SELECT post.id, post.subject_line, post.post_string, post.date, topic.name as \"topic_name\", member.id as \"member_id\", member.image_url \
+                       from public.post \
+                       left join public.topic on post.topic_id_fkey = topic.id \
+                       left join public.member on post.member_id_fkey = member.id \
+                       WHERE post.subject_line ILIKE " + `'%${searchTerm}%'`;
+
+    let matchedPosts = await db.query(queryString);
+    return matchedPosts.rows;
+
 }
 
 module.exports = {
@@ -81,5 +98,6 @@ module.exports = {
     getPostsByTime : getPostsByTime,
     getByid: getPost,
     addComment,
-    getComments
+    getCommentsById,
+    getPostsBySubject
 }

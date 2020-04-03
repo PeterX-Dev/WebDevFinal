@@ -8,7 +8,7 @@
     <form id="newReply" action="/post/addComment" method="POST">
         <input type="text" name="id" value="{{post.id}}" class="hide">
         <input type="text" name="postString">        
-        <input type="submit" name="newReplyBtn" value="comment">
+        <input id="searchButton" type="submit" name="newReplyBtn" value="comment">
     </form>
     <span onclick="hideComments({{post.id}})">hide comments</span>
 </div>
