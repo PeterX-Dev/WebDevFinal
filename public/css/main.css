@@ -16,6 +16,14 @@ body {
     margin-bottom: 30px;
 }
 
+#header_bar a, 
+#header_bar a:visited, 
+#header_bar a:hover, 
+#header_bar a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
 .circular_img {
     border-radius: 40px;
 }
