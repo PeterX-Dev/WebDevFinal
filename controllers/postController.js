@@ -3,7 +3,7 @@ let mod = require('../models/postData.js');
 exports.showMyPostPage = async function(req,res,next) {  
     let replyObj = req.body;
 
-    let myarr = await mod.getall();
+    let myarr = await mod.getPostsByTime();
     console.log(myarr);
 
     let userObj = {
@@ -61,7 +61,7 @@ exports.showOthersPostPage = function(req,res,next) {
 }
 
 exports.showPostPage = async function(req,res,next) {  
-    let postsData = await mod.getall();
+    let postsData = await mod.getPostsByTime();
     console.log("controller: " + JSON.stringify(postsData, null, 1));
     res.render('postPage' ,{postsData, postCSS: true});
 
@@ -71,14 +71,15 @@ exports.showComments = function(req,res,next) {
     let postId = req.body.postId;
     let comments = mod.getComments(postId);
     comments.then((data) => {
-        res.render('postPage' ,{ post: mod.getall, postId: postId, comments: mod.getComments(postId) });
+        res.render('postPage' ,{ post: mod.getPostsByTime, postId: postId, comments: mod.getComments(postId) });
     })
 }
 
 exports.addNewComment = function(req,res,next) {
     //add comment
-    // let replyObj = req.body;
-    // console.log(replyObj); 
+    let postId = req.body.id;
+    let postString = req.body.postString;
+    
     res.render('postPage' ,{      
     });
 }

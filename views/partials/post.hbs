@@ -1,4 +1,4 @@
-<div class="post-div" id={{id}}>
+<div class="post-div" id={{post.id}}>
     <div class='post-frame'>
         <div class="post-image">
             <a href="/othersPost"> <img src={{post.image_url}} height="80px" width="80px"> </a>
@@ -12,17 +12,13 @@
                 <div class="post-message">{{post.post_string}}</div>
                 <div class='post-bottom'>
                     <div class='post-date'>{{post.date}}</div>
-                    <div class='post-replies'>
-                        <div>
+                    <span onclick="toggleShow({{{post.id}}})">{{replies}} Replies</span>
+                    <div class='post-replies hide' id="comments_{{post.id}}">
+
                             {{#each comments}}
-                                {{>postComment}}
+                                {{>postComment id=post.id}}
                             {{/each}}
-                            <span onclick="toggleShow">{{replies}} Replies</span>
-                            <form id="newReply" action="/post/newReply" method="POST">
-                                <input type="text" name="postString">        
-                                <input type="submit" name="newReplyBtn" value="newReply">
-                            </form>
-                        </div>
+
                     </div>
                 </div>
             </div>

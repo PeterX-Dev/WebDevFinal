@@ -3,7 +3,7 @@ const router = express.Router();
 
 const mainController = require('../controllers/mainController');
 
-router.get('/main', mainController.showMainPage);
+router.get('/main/:page', mainController.showMainPage);
 
 router.get('/logout', mainController.logout); 
 

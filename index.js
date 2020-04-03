@@ -56,6 +56,10 @@ app.use(profileRoutes);
 
 // connectDB();
 
+function toggleShow(id) {
+  console.log("CLICKED " + id);
+}
+
 app.listen(process.env.PORT || 3000, () => console.log('Server ready @ port 3000'))
 
 

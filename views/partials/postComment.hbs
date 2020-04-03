@@ -1,4 +1,10 @@
 <div class="comment_div">
     <img src={{image_url}} id="img-{{member_id}}"/>
     <p>{{comment_string}}</p>
+    <form id="newReply" action="/post/addComment" method="POST">
+        <input type="text" name="id" value="{{post_id_fkey}}" class="hide">
+        <input type="text" name="postString">        
+        <input type="submit" name="newReplyBtn" value="comment">
+    </form>
+    <span onclick="hideComments({{post_id_fkey}})">hide comments</span>
 </div>

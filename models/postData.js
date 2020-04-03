@@ -40,7 +40,7 @@ async function addPost(e) {
     // console.log(postList);
 }
 
-async function getAllPosts() {
+async function getPostsByTime(page) {
     //get all posts with user images and topic info
     let queryString = "SELECT post.id, post.subject_line, post.post_string, post.date, topic.name as \"topic_name\", member.id as \"member_id\", member.image_url \
                        from public.post \
@@ -48,6 +48,10 @@ async function getAllPosts() {
                        left join public.member on post.member_id_fkey = member.id";
     let postsData = await db.query(queryString);
 
+    //for each of the post, get all its comments with user images
+
+
+    
     //get all comments with user images
     queryString = "select comments.id, comments.comment_string, comments.post_id_fkey, member.id as \"member_id\", member.image_url \
                     from public.comments \
@@ -74,7 +78,7 @@ function getComments(id) {
 
 module.exports = {
     add : addPost,
-    getall : getAllPosts,
+    getPostsByTime : getPostsByTime,
     getByid: getPost,
     addComment,
     getComments

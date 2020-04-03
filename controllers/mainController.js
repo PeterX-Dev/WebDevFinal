@@ -5,12 +5,13 @@ let userId = 0;
 
 exports.showMainPage = async function(req,res,next) {
     userId = req.session.userId;
-
+    let postPage = req.params.page;
+    console.log('post page number: ' + postPage);
     let userObj = mod_user.getByid(userId);
-    console.log(userObj);
+    console.log("USER OBJECT: " + JSON.stringify(userObj));
  
-    let myPostList = await mod_post.getall();
-    console.log(myPostList);
+    let myPostList = await mod_post.getPostsByTime();
+    //console.log(myPostList);
    
     res.render('mainPage' ,{
         user: userObj,

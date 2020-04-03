@@ -163,3 +163,7 @@ body {
 .align-right {
     float: right;
 }
+
+.hide {
+    display:  none;
+}
