@@ -9,7 +9,7 @@ exports.showMainPage = async function(req,res,next) {
         console.log("page requested: " + req.params.page);
     }
     let userObj = mod_user.getByid(userId);
-    console.log("USER OBJECT: " + JSON.stringify(userObj));
+    //console.log("USER OBJECT: " + JSON.stringify(userObj));
  
     let myPostList = await mod_post.getPostsByTime();
     //console.log(myPostList);
@@ -29,19 +29,6 @@ exports.logout = function(req,res,next) {
     });
 }
 
-exports.searchByTitle = async function(req,res,next) {
-    let searchTerm = req.body.searchTerm;
-    let matched = [];
-    let matchedPosts = await mod_post.getPostsBySubject(searchTerm);
-    console.log("MATCHED! : " + matchedPosts);
-    matchedPosts.forEach(async (post, index, arr) => {
-        let matchedComments = await mod_post.getCommentsById(post.id);
-        matched.push({ post, comments: matchedComments.rows});
-        if(Object.is(arr.length-1, index)) {
-            res.render('postPage' ,{ postCSS: true, postsData: matched});
-        }
-    });
-}
 
 exports.searchByTopic = async function(req,res,next) {
     let replyObj = req.body;

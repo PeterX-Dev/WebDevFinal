@@ -87,6 +87,9 @@ exports.searchBySubject = async function(req,res,next) {
     let searchTerm = req.body.searchTerm;
     let matched = [];
     let matchedPosts = await mod.getPostsBySubject(searchTerm);
+    if (matchedPosts.length == 0) {
+        res.render('postPage' ,{ postCSS: true, postsData: matched, noMatch: true});
+    }
     matchedPosts.forEach(async (post, index, arr) => {
         let matchedComments = await mod.getCommentsById(post.id);
         matched.push({ post, comments: matchedComments.rows, replies: matchedComments.rows.length});
