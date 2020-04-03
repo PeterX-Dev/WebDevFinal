@@ -14,11 +14,7 @@
                     <div class='post-date'>{{post.date}}</div>
                     <span onclick="toggleShow({{{post.id}}})">{{replies}} Replies</span>
                     <div class='post-replies hide' id="comments_{{post.id}}">
-
-                            {{#each comments}}
-                                {{>postComment id=post.id}}
-                            {{/each}}
-
+                        {{>postComment}}
                     </div>
                 </div>
             </div>
