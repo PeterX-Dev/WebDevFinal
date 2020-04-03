@@ -1,42 +1,20 @@
-let mod = require('../models/commentData.js');
 let mod_user = require('../models/userData.js');
+let mod_post = require('../models/postData.js');
 
-exports.showMainPage = function(req,res,next) {
-    let userId = req.session.userId;
-    console.log("userid: "+userId);
+let userId = 0;
 
-    // let userObj = {
-    //     ImageUrl: "https://randomuser.me/api/portraits/med/men/22.jpg",
-    //     FirstName: "user1",
-    //     LastName: "White",
-    //     Description: "This is a test from somewhere"
-    // }
+exports.showMainPage = async function(req,res,next) {
+    userId = req.session.userId;
+
     let userObj = mod_user.getByid(userId);
     console.log(userObj);
  
-    let postList = [
-        {
-            image_url: "https://randomuser.me/api/portraits/med/men/22.jpg",
-            subject_line:"Testing if this discussion works.",
-            topic_name: "php",
-            post_string: "Don't mind me. I am just posting.",
-            date: "2 apr 2020",
-            replies: 5
-        },
-        {
-            image_url: "https://randomuser.me/api/portraits/med/women/26.jpg",
-            subject_line:"Hello World!",
-            topic_name: "node",
-            post_string: "Mmmmmmm Reese's Pieces.",
-            date: "2 apr 2020",
-            Replies: 1
-        }
-    ];
-
-    
+    let myPostList = await mod_post.getall();
+    console.log(myPostList);
+   
     res.render('mainPage' ,{
         user: userObj,
-        posts: postList,
+        posts: myPostList,
         postCSS: true,
         mainPageCSS: true
     });
@@ -63,14 +41,15 @@ exports.searchByTopic = function(req,res,next) {
     });
 }
 
-exports.postToTimeLine = function(req,res,next) {
-    let replyObj = req.body;
-    console.log(replyObj); 
+exports.postToTimeLine = async function(req,res,next) {
+    let newPost = req.body;
+    console.log(newPost); 
 
     // Updating related data ...
+    newPost.memberId = userId;
+    let postId = await mod_post.add(newPost);
 
-    res.render('mainPage' ,{      
-    });
+    res.redirect('/main');
 }
 
 exports.next = function(req,res,next) {

@@ -44,7 +44,7 @@ app.get('/', function (req,res) {
     }
     else {
       req.session.userId = req.query.userId;
-      res.redirect('/main')
+      res.redirect('/main');
     }
 });
 

@@ -1,42 +1,71 @@
 /* Discussion object define */
 // discussionObj = {
-//     Id (Number) Primary Key
+//     id (Number) Primary Key
 //     Subject (String)
 //     Topic(String)      
 // }
 let db = require('../DB/db');
-var postList = [
-    {
-        "id": "1",
-        "ImageUrl": "https://randomuser.me/api/portraits/women/26.jpg",
-        "Subject": "nodejs",
-        "Topic": "Help with Nodejs!!!",
-        "Message": "I am a noob. I only know html and css. Pls halp!",
-        "Date": "30 mar 2020",
-        "Replies": "2"
-    },
-    {
-        "id": "2",
-        "ImageUrl": "https://randomuser.me/api/portraits/men/26.jpg",
-        "Subject": "php",
-        "Topic": "I hate this framework.",
-        "Message": "Don't mind me. I am venting. jk lol",
-        "Date": "1 apr 2020",
-        "Replies": "10"
-    },
-    {
-        "id": "3",
-        "ImageUrl": "https://randomuser.me/api/portraits/men/60.jpg",
-        "Subject": "nodejs",
-        "Topic": "Need HELP!",
-        "Message": "How do I make a server using nodejs?",
-        "Date": "1 apr 2020",
-        "Replies": "5"
-    }
-];
+// var postList = [
+//     {
+//         "id": "1",
+//         "ImageUrl": "https://randomuser.me/api/portraits/women/26.jpg",
+//         "Subject": "nodejs",
+//         "Topic": "Help with Nodejs!!!",
+//         "Message": "I am a noob. I only know html and css. Pls halp!",
+//         "Date": "30 mar 2020",
+//         "Replies": "2"
+//     },
+//     {
+//         "id": "2",
+//         "ImageUrl": "https://randomuser.me/api/portraits/men/26.jpg",
+//         "Subject": "php",
+//         "Topic": "I hate this framework.",
+//         "Message": "Don't mind me. I am venting. jk lol",
+//         "Date": "1 apr 2020",
+//         "Replies": "10"
+//     },
+//     {
+//         "id": "3",
+//         "ImageUrl": "https://randomuser.me/api/portraits/men/60.jpg",
+//         "Subject": "nodejs",
+//         "Topic": "Need HELP!",
+//         "Message": "How do I make a server using nodejs?",
+//         "Date": "1 apr 2020",
+//         "Replies": "5"
+//     }
+// ];
+let topicList = [];
+let postList = [];
 
-function addPost(e) {
-    db.query("Insert into post(post_string, member_id_fkey) VALUES ('Hi i have a question', 2)");
+async function addPost(e) {
+    let rawPostList;
+
+    if (topicList.length == 0) {
+        let rawTopicList = await db.query('SELECT * from public.topic');
+        topicList = rawTopicList.rows;
+    }
+
+    if (postList.length == 0) {
+        rawPostList = await db.query('SELECT * from public.post');
+        postList = rawPostList.rows;
+    }
+
+    let topicObj = topicList.filter(x => x.name === e.topic);
+    if (topicObj !== undefined && topicObj.length !== 0) {
+        e.topicId = topicObj[0].id;
+    }
+
+    let date = new Date(); 
+    // await db.query("Insert into post(member_id_fkey, post_string, date, topic_id_fkey, subject_line) VALUES ("
+    //             + Number(e.memberId) + ", '" + e.contents + "', '" + date + "', " + Number(e.topicId) + ", '" + e.subject + "')");
+    await db.query("Insert into post(member_id_fkey, post_string, topic_id_fkey, subject_line) VALUES ("
+    + Number(e.memberId) + ", '" + e.contents + "', " + Number(e.topicId) + ", '" + e.subject + "')");
+    
+    // re-read postList after update
+    rawPostList = await db.query('SELECT * from public.post');
+    postList = rawPostList.rows;
+
+    // console.log(postList);
 }
 
 async function getAllPosts() {
