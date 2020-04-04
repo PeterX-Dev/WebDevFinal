@@ -57,6 +57,24 @@ async function updateUser(e, updateAll=false) {
     userList = await getDataFromDB();
 }
 
+async function updateUserLikesCount(id) {
+    if (id === undefined || id.length == 0) {
+        return {};
+    }
+    let queryString = "SELECT * FROM public.member WHERE id = " + Number(id) + ";"
+    let userResults = await db.query(queryString);
+
+    console.log(userResults.rows);
+    let likesCount = userResults.rows[0].likes_count;
+    if (likesCount == null)   likesCount = 0;
+    likesCount ++;
+
+    let queryText = 'UPDATE member SET likes_count=$1 WHERE id=$2';
+    await db.query(queryText, [likesCount, Number(id)]);
+
+    userList = await getDataFromDB();
+}
+
 function getAllUsers() {
     return userList;
 }
@@ -121,6 +139,7 @@ async function getDataFromDB() {
 module.exports = {
     add : addUser,
     update : updateUser,
+    updateLikes: updateUserLikesCount,
     getall : getAllUsers,
     getByid : getUser,
     checkValidity: checkMemberValidity,

@@ -77,6 +77,12 @@ exports.showOthersPostPage = async function(req,res,next) {
     let rawPostList = await mod.getPostsByUser(otherUserId);
     let prePostList = formatPosts(rawPostList);
 
+    otherUserObj.post_count = rawPostList.length;
+    otherUserObj.msg_count = await mod_msg.getCount(otherUserId);
+    if (otherUserObj.likes_count === undefined || otherUserObj.likes_count.length == 0) 
+    {
+        otherUserObj.likes_count = 0;
+    }
 
     let postList=[];
     for (let index = 0; index < prePostList.length; index++) {
@@ -139,4 +145,15 @@ exports.searchBySubject = async function(req,res,next) {
             res.render('postPage' ,{ postCSS: true, postsData: matched});
         }
     });
+}
+
+exports.addlikesOthersPostPage = async function(req,res,next) {
+    console.log("update likes....");
+
+    let userId = req.query.userId;
+
+    console.log(userId);
+    await mod_user.updateLikes(userId);
+
+    res.redirect('/othersPost?userId='+userId);
 }

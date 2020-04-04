@@ -10,7 +10,7 @@
                 <input type="text" name="imageUrl" value="{{user.image_url}}" class="hide">  
                 <input type="submit" name="messageEditBtn" value="messageEdit">
             </form>
-            <p>{{user.likes_count}} Likes</p>
+            <a href="/addlikes?userId={{user.id}}"><p>{{user.likes_count}} Likes</p></a>
             <p>{{user.post_count}} Posts</p>
         </div>
         <br class="clear"/>
