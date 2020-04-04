@@ -95,17 +95,13 @@ function getAllUsers() {
     return userList;
 }
 
-function getUser(id) {
-    console.log(id);
-    console.log(userList);
-    let user = userList.filter(x => x.id === Number(id));
-    if (user === undefined || user.length == 0) {
-        return {};
-    }
-    else{
-        return user[0];
-    }
-    // return await db.query('Select * from member where id = ' + id);
+async function getUser(id) {
+    let queryString = "SELECT id, first_name, last_name, email, description, image_url, post_count, msg_count, likes_count \
+                        FROM public.member \
+                        WHERE id = " + id + ";";
+    let userResults = await db.query(queryString);
+    let user = userResults.rows[0];
+    return user;
 }
 
 async function checkMemberValidity(user) {

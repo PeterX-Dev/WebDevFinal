@@ -1,3 +1,5 @@
+const mod = require('../models/messageData');
+
 exports.showMessagePage = function(req,res,next) {  
     let mockMessage = [{name: "Frank Lee", title: "hi there", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg", date:"Sep 12"},
     {name: "Frank Lee", title: "hi there", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg", date:"Sep 12"}
@@ -10,14 +12,17 @@ exports.showMessagePage = function(req,res,next) {
 }
 
 exports.showMessageEditPage = function(req,res,next) {  
-    // let replyObj = req.body
+    let receiverId = req.body.receiverId;
+    let receiverImage = req.body.imageUrl;
     // console.log(replyObj); 
-    res.render('messageEditPage' ,{messageEditPageCSS: true});
+    res.render('messageEditPage' ,{messageEditPageCSS: true, receiverId, receiverImage});
 }
 
 exports.sendMessage = function(req,res,next) {
-    let replyObj = req.body
-    console.log(replyObj); 
+    let receiverId = req.body.receiverId;
+    let subject = req.body.subject;
+    let message = req.body.message; 
+    mod.add(receiverId, req.session.userId , subject, message);
     res.render('othersPostPage' ,{      
     });
 }
