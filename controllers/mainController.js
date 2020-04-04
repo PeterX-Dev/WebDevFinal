@@ -3,6 +3,30 @@ let mod_post = require('../models/postData.js');
 
 let userId = 0;
 
+//TODO: remove duplicate
+function formatPosts(postList) {
+    let result =  postList.map((each) => {
+        if (!each.post) {
+            let dateArray = each.date.toDateString().split(" ");
+            let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
+            return {
+                ...each,
+                date: formattedDate
+            }
+        } else {
+            let dateArray = each.post.date.toDateString().split(" ");
+            let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
+            return {
+                post: {
+                    ...each.post,
+                    date: formattedDate
+                },
+                comments: each.comments
+            }
+        }
+    });
+    return result;
+}
 exports.showMainPage = async function(req,res,next) {
     userId = req.session.userId;
     console.log("USER: " + userId);
@@ -13,7 +37,8 @@ exports.showMainPage = async function(req,res,next) {
     let userObj = mod_user.getByid(userId);
     //console.log("USER OBJECT: " + JSON.stringify(userObj));
  
-    let myPostList = await mod_post.getPostsByPage(page);
+    let rawPostList = await mod_post.getPostsByPage(page);
+    let myPostList = formatPosts(rawPostList);
     let end = myPostList.length < 5 ? true : false;
    
     res.render('mainPage' ,{
@@ -39,10 +64,11 @@ exports.logout = function(req,res,next) {
 exports.searchByTopic = async function(req,res,next) {
     let topicId = req.body.topic;
     let matched = [];
-    let matchedPosts = await mod_post.getPostsByTopic(topicId);
-    if (matchedPosts.length == 0) {
+    let rawPosts = await mod_post.getPostsByTopic(topicId);
+    if (rawPosts.length == 0) {
         res.render('postPage' ,{ postCSS: true, postsData: matched, noMatch: true});
     }
+    let matchedPosts = formatPosts(rawPosts);
     matchedPosts.forEach(async (post, index, arr) => {
         let matchedComments = await mod_post.getCommentsById(post.id);
         matched.push({ post, comments: matchedComments.rows, replies: matchedComments.rows.length});

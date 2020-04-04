@@ -132,7 +132,7 @@ async function getPostsByTopic(topicId) {
                        from public.post \
                        left join public.topic on post.topic_id_fkey = topic.id \
                        left join public.member on post.member_id_fkey = member.id \
-                       WHERE topic.id = " + topicId;
+                       WHERE topic.id = " + topicId + " AND post.date IS NOT NULL";
 
     let matchedPosts = await db.query(queryString);
     return matchedPosts.rows;
