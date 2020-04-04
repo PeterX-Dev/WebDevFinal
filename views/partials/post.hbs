@@ -14,9 +14,9 @@
                 <div class='post-bottom'>
                     <div class='post-date'>{{post.date}}</div>
                     <span onclick="toggleShow({{{post.id}}})">{{replies}} Replies</span>
-                    <div class='post-replies hide' id="comments_{{post.id}}">
-                        {{>postComment}}
-                    </div>
+                </div>
+                <div class='post-replies hide' id="comments_{{post.id}}">
+                    {{>postComment}}
                 </div>
             </div>
         </div>

@@ -1,24 +1,54 @@
 let mod = require('../models/postData.js');
 let mod_user = require('../models/userData.js');
 
+//TODO: remove duplicate
+function formatPosts(postList) {
+    let result =  postList.map((each) => {
+        if (!each.post) {
+            if (!each.date) {
+                //date is null, nothing to do
+                return each;
+            }
+            let dateArray = each.date.toDateString().split(" ");
+            let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
+            return {
+                ...each,
+                date: formattedDate
+            }
+        } else {
+            if (!each.post.date) {
+                //date is null, nothing to do
+                return each;
+            }
+            let dateArray = each.post.date.toDateString().split(" ");
+            let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
+            return {
+                post: {
+                    ...each.post,
+                    date: formattedDate
+                },
+                comments: each.comments
+            }
+        }
+    });
+    return result;
+}
+
 exports.showMyPostPage = async function(req,res,next) {  
     let userId = req.session.userId;
 
     let userObj = await mod_user.getByid(userId);
 
-    let prePostList = await mod.getPostsByUser(userId);
-    console.log(prePostList);
-
-    let postList = [];
-    for (let index = 0; index < prePostList.length; index++) {
-        const element = prePostList[index];
-        let otherUserObj = await mod_user.getByid(element.post.member_id_fkey);
+    let rawPostList = await mod.getPostsByUser(userId);
+    let prePostList = formatPosts(rawPostList);
+    let postList = prePostList.map((element) => {
+        let otherUserObj = mod_user.getByid(element.post.member_id_fkey);
         element.post.image_url = otherUserObj.image_url;
-        let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
-        element.post.topic_name = topic.name;
+        // let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
+        // element.post.topic_name = topic.name;
 
-        postList.push(element);
-    }
+        // postList.push(element);
+    })
 
     // console.log(postList);
 
@@ -35,18 +65,16 @@ exports.showOthersPostPage = async function(req,res,next) {
 
     let otherUserObj = await mod_user.getByid(otherUserId);
 
-    let prePostList = await mod.getPostsByUser(otherUserId);
-    
-    let postList = [];
-    for (let index = 0; index < prePostList.length; index++) {
-        const element = prePostList[index];
-        let otherUserObj = await mod_user.getByid(element.post.member_id_fkey);
+    let rawPostList = await mod.getPostsByUser(otherUserId);
+    let prePostList = formatPosts(rawPostList);
+    let postList = prePostList.map((element) => {
+        let otherUserObj = mod_user.getByid(element.post.member_id_fkey);
         element.post.image_url = otherUserObj.image_url;
-        let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
-        element.post.topic_name = topic.name;
+        // let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
+        // element.post.topic_name = topic.name;
 
-        postList.push(element);
-    }
+        // postList.push(element);
+    })
 
     res.render('othersPostPage' ,{
         user: otherUserObj,
@@ -85,7 +113,9 @@ exports.addNewComment = async function(req,res,next) {
 exports.searchBySubject = async function(req,res,next) {
     let searchTerm = req.body.searchTerm;
     let matched = [];
-    let matchedPosts = await mod.getPostsBySubject(searchTerm);
+    let rawPosts = await mod.getPostsBySubject(searchTerm);
+    console.log(JSON.stringify(rawPosts, null, 1));
+    let matchedPosts = formatPosts(rawPosts);
     if (matchedPosts.length == 0) {
         res.render('postPage' ,{ postCSS: true, postsData: matched, noMatch: true});
     }
