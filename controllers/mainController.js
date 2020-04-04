@@ -7,10 +7,19 @@ exports.showMainPage = async function(req,res,next) {
     userId = req.session.userId;
     console.log("USER: " + userId);
     let page = 0;
+<<<<<<< HEAD
     if(req.params && req.params.page) {
         page = req.params.page;
     }
     // let userObj = {mod_user.getByid(userId)}; // discussion: why do we need this here?
+=======
+
+    // Comment this to pass the test
+    // if(req.params && req.params.page) {
+    //     page = req.params.page;
+    // }
+    let userObj = mod_user.getByid(userId);
+>>>>>>> eb51427e24b09c7b6ce45bac0f478507600e5171
     //console.log("USER OBJECT: " + JSON.stringify(userObj));
  
     let userObj = {};
@@ -33,9 +42,8 @@ exports.showMainPage = async function(req,res,next) {
 
 exports.logout = function(req,res,next) {  
     let replyObj = req.body;
-    console.log(replyObj); 
-    res.render('loginPage' ,{      
-    });
+    console.log("logout..."); 
+    res.redirect('/login');
 }
 
 

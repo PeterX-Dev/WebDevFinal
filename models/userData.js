@@ -54,7 +54,6 @@ async function addUser(e) {
                 + e.firstName + "','" + e.lastName + "','" + e.email + "','" + e.password +"')");
     
     userList = await getDataFromDB();
-    console.log(userList);
 
     var user = userList.filter(x => x.first_name === e.firstName && 
                                     x.last_name === e.lastName && 
@@ -95,6 +94,7 @@ function getAllUsers() {
     return userList;
 }
 
+<<<<<<< HEAD
 async function getUser(id) {
     let queryString = "SELECT id, first_name, last_name, email, description, image_url, post_count, msg_count, likes_count \
                         FROM public.member \
@@ -102,6 +102,17 @@ async function getUser(id) {
     let userResults = await db.query(queryString);
     let user = userResults.rows[0];
     return user;
+=======
+function getUser(id) {
+    let user = userList.filter(x => x.id === Number(id));
+    if (user === undefined || user.length == 0) {
+        return {};
+    }
+    else{
+        return user[0];
+    }
+    // return await db.query('Select * from member where id = ' + id);
+>>>>>>> eb51427e24b09c7b6ce45bac0f478507600e5171
 }
 
 async function checkMemberValidity(user) {
