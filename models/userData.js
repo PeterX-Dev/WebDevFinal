@@ -19,8 +19,8 @@ let db = require('../DB/db');
 
 let userList = [];
 async function addUser(e) {
-    await db.query("Insert into member(first_name, last_name, email, password) VALUES ('" 
-                + e.firstName + "','" + e.lastName + "','" + e.email + "','" + e.password +"')");
+    await db.query("Insert into member(first_name, last_name, email, password, likes) VALUES ('" 
+                + e.firstName + "','" + e.lastName + "','" + e.email + "','" + e.password + "'," + 0 +")");
     
     userList = await getDataFromDB();
 

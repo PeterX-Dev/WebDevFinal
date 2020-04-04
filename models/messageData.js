@@ -35,6 +35,12 @@ async function getMessage(id) {
     return messageList[id];
 }
 
+async function getMessageCountBySender(id) {
+    let rawMsgData = await db.query('SELECT * from public.message WHERE sender_id_fkey=' + id + ";");
+
+    return rawMsgData.rows.length;
+}
+
 async function updateLocalData() {
     let rawMsgTopicData = await db.query('SELECT * from public.message_topic');
     let msgTopicData = rawMsgTopicData.rows;
@@ -61,5 +67,6 @@ module.exports = {
     add : addMessage,
     addMsgOnly : addMessageToTopic,
     getall : getAllMessages,
-    getByid: getMessage 
+    getByid: getMessage,
+    getCount: getMessageCountBySender
 }

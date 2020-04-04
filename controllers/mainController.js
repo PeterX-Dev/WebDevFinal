@@ -1,5 +1,6 @@
 let mod_user = require('../models/userData.js');
 let mod_post = require('../models/postData.js');
+let mod_msg = require('../models/messageData');
 
 let userId = 0;
 
@@ -46,9 +47,17 @@ exports.showMainPage = async function(req,res,next) {
     }
     let userObj = await mod_user.getByid(userId);
     //console.log("USER OBJECT: " + JSON.stringify(userObj));
+
+    let myPostList = await mod_post.getPostsByUser(userId);
+    userObj.PostNo = myPostList.length;
+    userObj.MsgNo = await mod_msg.getCount(userId);
+    if (userObj.likes === undefined || userObj.likes.length == 0) 
+    {
+        userObj.likes = 0;
+    }
  
     let rawPostList = await mod_post.getPostsByPage(page);
-    let myPostList = formatPosts(rawPostList);
+    myPostList = formatPosts(rawPostList);
     let end = myPostList.length < 5 ? true : false;
 
     // TBD-Peter: Calculate post_count, msg_count and likes_count from DB
