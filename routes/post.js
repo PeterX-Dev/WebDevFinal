@@ -11,7 +11,7 @@ router.post('/post/addComment', postController.addNewComment);
 
 router.get('/myPost', postController.showMyPostPage);
 
-router.get('/othersPost', postController.showOthersPostPage);
+router.get('/othersPost', postController.showOthersPostPage); //discussion: this page is more then just posts, it's user profile. move to profileController
 
 
 module.exports = router;

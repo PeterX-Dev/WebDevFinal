@@ -1,10 +1,11 @@
 {{>headerBar}}
 <div id="messageEdit-container">
     <div id="messageEdit-image">
-        <img src="https://randomuser.me/api/portraits/men/46.jpg">
+        <img src="{{receiverImage}}">
     </div>
     <div id="messageEdit-content">
         <form id="messageSend" action="/messageSend" method="POST">
+            <input type="text" name="receiverId" value="{{receiverId}}" class="hide">
             <div><input id="messageSend-subject" name="subject" type="text" placeholder="Subject"></div>
             <div><textarea id="messageSend-message" name="message" rows="10" cols="30" type="text" placeholder="Message details..."></textarea></div>        
             <div><input id="messageSend-submit" type="submit" name="messageSendBtn" value="Message"></div>

@@ -5,16 +5,18 @@
             {{>profileFrag}}
         </div>      
         <div id="otherPostPage-user-column2">
-            <form action="/messageEdit" method="POST">        
+            <form action="/messageEdit" method="POST"> 
+                <input type="text" name="receiverId" value="{{user.id}}" class="hide">    
+                <input type="text" name="imageUrl" value="{{user.image_url}}" class="hide">  
                 <input type="submit" name="messageEditBtn" value="messageEdit">
             </form>
-            <p>{{user.Likes}} Likes</p>
-            <p>{{user.Posts}} Posts</p>
+            <p>{{user.likes_count}} Likes</p>
+            <p>{{user.post_count}} Posts</p>
         </div>
         <br class="clear"/>
     </div>
     <div id="otherPostPage-post">
-        <h1>All Posts For {{user.FirstName}}</h1>
+        <h1>All Posts For {{user.first_name}}</h1>
         {{#each posts}}
             {{>post}}
         {{/each}}

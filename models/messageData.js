@@ -1,16 +1,10 @@
-/* Message object define */
-// messageObj = {
-//     Id (Number) Primary Key
-//     SenderId (String) Foreign Key – User Table
-//     ReceiverId (String) Foreign Key – User Table
-//     MsgDate(Date)
-//     Contents(String)    
-// }
-
+let db = require('../DB/db');
 var messageList;
 
-function addMessage(e) {
-
+async function addMessage(receiverId, senderId, subject, content) {
+    let result = await db.query(`INSERT INTO public.message_topic (subject, sender_id_fkey, receiver_id_fkey) VALUES('${subject}', ${senderId},'${receiverId}') RETURNING id;`);
+    let message_topic_id = result.rows[0].id;
+    db.query(`INSERT INTO public.message(sender_id_fkey, message_string, message_topic_id_fkey) VALUES(${senderId}, '${content}', ${message_topic_id})`);
 }
 
 function getAllMessages() {
