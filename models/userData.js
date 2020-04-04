@@ -19,7 +19,7 @@ let db = require('../DB/db');
 
 let userList = [];
 async function addUser(e) {
-    await db.query("Insert into member(first_name, last_name, email, password, likes) VALUES ('" 
+    await db.query("Insert into member(first_name, last_name, email, password, likes_count) VALUES ('" 
                 + e.firstName + "','" + e.lastName + "','" + e.email + "','" + e.password + "'," + 0 +")");
     
     userList = await getDataFromDB();
@@ -39,10 +39,6 @@ async function addUser(e) {
 }
 
 async function updateUser(e, updateAll=false) {
-    // await db.query("Update member SET image_url=" + e.imageurl + ", description=" + e.description + ", country="
-    //             + e.country + ", dob=" + e.DOB + " WHERE id=" + Number(e.userId));
-
-    // await db.query("Update public.member SET image_url='" + e1.imageurl + "' WHERE id=" + Number(e1.userId));
     let queryText;
 
     if (updateAll) 
@@ -57,6 +53,24 @@ async function updateUser(e, updateAll=false) {
         queryText = 'UPDATE member SET image_url=$1, description=$2, country=$3, dob=$4 WHERE id=$5';
         await db.query(queryText, [e.imageurl, e.description, e.country, e.DOB, e.userId]);
     }
+
+    userList = await getDataFromDB();
+}
+
+async function updateUserLikesCount(id) {
+    if (id === undefined || id.length == 0) {
+        return {};
+    }
+    let queryString = "SELECT * FROM public.member WHERE id = " + Number(id) + ";"
+    let userResults = await db.query(queryString);
+
+    console.log(userResults.rows);
+    let likesCount = userResults.rows[0].likes_count;
+    if (likesCount == null)   likesCount = 0;
+    likesCount ++;
+
+    let queryText = 'UPDATE member SET likes_count=$1 WHERE id=$2';
+    await db.query(queryText, [likesCount, Number(id)]);
 
     userList = await getDataFromDB();
 }
@@ -125,6 +139,7 @@ async function getDataFromDB() {
 module.exports = {
     add : addUser,
     update : updateUser,
+    updateLikes: updateUserLikesCount,
     getall : getAllUsers,
     getByid : getUser,
     checkValidity: checkMemberValidity,

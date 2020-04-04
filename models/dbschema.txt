@@ -36,3 +36,16 @@ message
     message_string (string)
     message_topic_id_fkey (int, fk ref message_topic) 
 
+member
+    id      (int, pk)
+    first_name  (string)
+    last_name   (string)
+    email       (string)
+    password    (string)
+    description (string)
+    country     (string)
+    dob         (date)
+    image_url   (string)
+    post_count  (int)           // This can be retrieved from post table
+    msg_count   (int)           // This can be retrieved from message table
+    likes_count (int) 
