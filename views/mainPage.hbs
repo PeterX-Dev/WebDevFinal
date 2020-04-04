@@ -11,8 +11,8 @@
                 <p>What's your question today?</p>
                 <form action="/main/postToTimeLine" method="POST">
                     <input type="text" name="subject" placeholder='subject' required>
-                    <textarea id="discussDescption" rows="6" name="contents" placeholder='explain in detail' required></textarea>
-                    <select class="topicOption" name="topic" required>
+                    <textarea id="discussDescption" rows="6" name="contents" placeholder='explain in detail...' required></textarea>
+                    <select class="navy-style" class="topicOption" name="topic" required>
                         <option value="topic">topic</option>
                         <option value="php">php</option>
                         <option value="nodejs">nodejs</option>
@@ -20,13 +20,13 @@
                         <option value="sql">sql</option>
                         <option value="zend">zend</option>
                     </select>
-                    <input type="submit" name="post" value="post to timeline">
+                    <input class="navy-style" type="submit" name="post" value="post to timeline">
                 </form>
             </div>
             <div id="searchByTopic">
                 <div id="searchTopicText"><span>Search by Topic</span></div>
                 <form action="/main/searchByTopic" method="POST">               
-                    <select name="topic" class="topicOption" required>
+                    <select class="navy-style" name="topic" class="topicOption" required>
                         <option value="" disabled selected>topic</option>
                         <option value="1">php</option>
                         <option value="2">nodejs</option>
@@ -34,7 +34,7 @@
                         <option value="4">sql</option>
                         <option value="5">zend</option>
                     </select>
-                    <input type="submit" name="searchByTopicBtn" value="go->">
+                    <input type="submit" name="searchByTopicBtn" value="go ->">
                 </form>
             </div>
             <div id="listDiscussions">
