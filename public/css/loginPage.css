@@ -96,3 +96,7 @@
 #invalidNewUserWarning {
     color: red;
 }
+
+#newUserSignupSuccessInfo {
+    color: green;
+}

@@ -41,11 +41,17 @@ exports.showMyPostPage = async function(req,res,next) {
 
     let rawPostList = await mod.getPostsByUser(userId);
     let prePostList = formatPosts(rawPostList);
-    let postList = prePostList.map((element) => {
-        let otherUserObj = mod_user.getByid(element.post.member_id_fkey);
+
+    let postList=[];
+    for (let index = 0; index < prePostList.length; index++) {
+        const element = prePostList[index];
+        let otherUserObj = await mod_user.getByid(element.post.member_id_fkey);
         element.post.image_url = otherUserObj.image_url;
-        return element;
-    })
+        let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
+        element.post.topic_name = topic.name;
+
+        postList.push(element);
+    }
 
     res.render('myPostPage' ,{
         user: userObj,
@@ -62,11 +68,18 @@ exports.showOthersPostPage = async function(req,res,next) {
 
     let rawPostList = await mod.getPostsByUser(otherUserId);
     let prePostList = formatPosts(rawPostList);
-    let postList = prePostList.map((element) => {
-        let otherUserObj = mod_user.getByid(element.post.member_id_fkey);
+
+
+    let postList=[];
+    for (let index = 0; index < prePostList.length; index++) {
+        const element = prePostList[index];
+        let otherUserObj = await mod_user.getByid(element.post.member_id_fkey);
         element.post.image_url = otherUserObj.image_url;
-        return element;
-    })
+        let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
+        element.post.topic_name = topic.name;
+
+        postList.push(element);
+    }
 
     res.render('othersPostPage' ,{
         user: otherUserObj,
@@ -99,7 +112,7 @@ exports.addNewComment = async function(req,res,next) {
     await mod.addComment(newComment);
     
     console.log("Add comment successful");
-    res.redirect('/main/:page');
+    res.redirect('/main');
 }
 
 exports.searchBySubject = async function(req,res,next) {

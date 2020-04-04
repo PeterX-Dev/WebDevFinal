@@ -44,7 +44,7 @@ exports.showMainPage = async function(req,res,next) {
     if(req && req.params && req.params.page) {
         page = req.params.page;
     }
-    let userObj = mod_user.getByid(userId);
+    let userObj = await mod_user.getByid(userId);
     //console.log("USER OBJECT: " + JSON.stringify(userObj));
  
     let rawPostList = await mod_post.getPostsByPage(page);
@@ -90,7 +90,7 @@ exports.searchByTopic = async function(req,res,next) {
 
 exports.postToTimeLine = async function(req,res,next) {
     let newPost = req.body;
-    console.log(JSON.stringify(req, null, 1)); 
+    // console.log(JSON.stringify(req, null, 1)); 
 
     // Updating related data ...
     newPost.memberId = userId;
