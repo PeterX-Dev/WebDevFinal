@@ -57,7 +57,9 @@
 #searchByTopic form input[type=submit] {
     height: 30px;
     color: white;
-    background-color: #0080EB;
+    padding: 5px 20px;
+    background-color: #03a2e7;
+    border: none;
 }
 
 .topicOption {
@@ -81,6 +83,12 @@
     width: 100%;
     display: block;
     /* min-height: max-content; */
+}
+
+.navy-style {
+    border: 1px solid #01a2e8;
+    color: #01a2e8;
+    background-color: white;
 }
 
 .clear { 
