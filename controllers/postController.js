@@ -1,59 +1,40 @@
 let mod = require('../models/postData.js');
+let mod_user = require('../models/userData.js');
 
 exports.showMyPostPage = async function(req,res,next) {  
-    let replyObj = req.body;
+    let userId = req.session.userId;
 
-    let myarr = await mod.getPostsByPage();
-    console.log(myarr);
+    let userObj = await mod_user.getByid(userId);
 
-    let userObj = {
-        ImageUrl: "https://randomuser.me/api/portraits/med/men/22.jpg",
-        FirstName: "John",
-        LastName: "White",
-        Description: "Team Lead | Part Time Singer | Full time Mom Canada",
-        PostNo: 5,
-        MsgNo: 1
-    }
+    let prePostList = await mod.getPostsByUser(userId);
+    let postList = prePostList.map((element) => {
+        let otherUserObj = mod_user.getByid(element.post.member_id_fkey);
+        element.post.image_url = otherUserObj.image_url;
+        return element;
+    })
+
     res.render('myPostPage' ,{
         user: userObj,
-        posts: myarr,
+        posts: postList,
         postCSS: true,
         myPostCSS: true
     });
 }
 
-exports.showOthersPostPage = function(req,res,next) {  
-    let replyObj = req.body
-    let postList = [
-        {
-            image_url: "https://randomuser.me/api/portraits/med/women/22.jpg",
-            subject_line:"Hello1",
-            topic_name: "php",
-            post_string: "This is a test0 This is a test0 This is a test0 This is a test0 This is a test0",
-            date: "Oct 10 2019",
-            Replies: 5
-        },
-        {
-            image_url: "https://randomuser.me/api/portraits/med/women/22.jpg",
-            subject_line:"Hello2",
-            topic_name: "node",
-            post_string: "This is a test1 This is a test1 This is a test1 This is a test1 This is a test1",
-            date: "Oct 11 2019",
-            Replies: 1
-        }
-    ];
+exports.showOthersPostPage = async function(req,res,next) {  
+    let otherUserId = req.query.userId; 
 
-    let userObj = {
-        ImageUrl: "https://randomuser.me/api/portraits/med/women/22.jpg",
-        FirstName: "user1",
-        LastName: "White",
-        Description: "Team Lead | Part Time Singer | Full time Mom Canada",
-        PostNo: 5,
-        MsgNo: 1
-    }
+    let otherUserObj = await mod_user.getByid(otherUserId);
+
+    let prePostList = await mod.getPostsByUser(otherUserId);
+    let postList = prePostList.map((element) => {
+        let otherUserObj = mod_user.getByid(element.post.member_id_fkey);
+        element.post.image_url = otherUserObj.image_url;
+        return element;
+    })
 
     res.render('othersPostPage' ,{
-        user: userObj,
+        user: otherUserObj,
         posts: postList,
         postCSS: true,
         otherPostCSS: true      
@@ -74,13 +55,16 @@ exports.showComments = function(req,res,next) {
     })
 }
 
-exports.addNewComment = function(req,res,next) {
-    //add comment
-    let postId = req.body.id;
-    let postString = req.body.postString;
-    console.log(postId + "  " + postString);
-    // res.render('postPage' ,{      
-    // });
+exports.addNewComment = async function(req,res,next) {
+    let newComment = {};
+    newComment.comment_string = req.body.postString;
+    newComment.member_id_fkey = req.session.userId;
+    newComment.post_id_fkey = req.body.id;
+    
+    await mod.addComment(newComment);
+    
+    console.log("Add comment successful");
+    res.redirect('/main/:page');
 }
 
 exports.searchBySubject = async function(req,res,next) {

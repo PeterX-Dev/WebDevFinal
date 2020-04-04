@@ -54,7 +54,6 @@ async function addUser(e) {
                 + e.firstName + "','" + e.lastName + "','" + e.email + "','" + e.password +"')");
     
     userList = await getDataFromDB();
-    console.log(userList);
 
     var user = userList.filter(x => x.first_name === e.firstName && 
                                     x.last_name === e.lastName && 
@@ -96,8 +95,6 @@ function getAllUsers() {
 }
 
 function getUser(id) {
-    console.log(id);
-    console.log(userList);
     let user = userList.filter(x => x.id === Number(id));
     if (user === undefined || user.length == 0) {
         return {};

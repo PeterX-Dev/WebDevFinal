@@ -6,8 +6,11 @@
 // }
 let db = require('../DB/db');
 
+// Save data locally to reduce frequency of accessing database
+// Only when data is updated, we will update the three lists
 let topicList = [];
 let postList = [];
+let commentList = [];
 
 async function addPost(e) {
     let rawPostList;
@@ -43,6 +46,7 @@ async function addPost(e) {
 async function getPostsByPage(page) {
     let postsPerPage = 5;
     let offset = page * postsPerPage;
+
     //get all posts with user images and topic info
     let queryString = "SELECT post.id, post.subject_line, post.post_string, post.date, topic.name as \"topic_name\", member.id as \"member_id\", member.image_url \
                        from public.post \
@@ -74,8 +78,35 @@ function getPost(id) {
     return postList[id];
 }
 
-function addComment(e) {
+async function getPostsByUser(user_id) {
+    if (postList.length == 0) {
+        let rawPostList = await db.query('SELECT * from public.post');
+        postList = rawPostList.rows;
+    }
+    if (commentList.length == 0) {
+        let rawCommentList = await db.query('SELECT * from public.comments');
+        commentList = rawCommentList.rows;
+    }
 
+    let posts = postList.filter(x => x.member_id_fkey === Number(user_id));
+    
+    let combinedData = posts.map((post) => {
+        let comments = commentList.filter((comment) => comment.post_id_fkey == post.id);
+        return { post, comments, replies: comments.length }
+    })
+
+    return combinedData; 
+}
+
+async function addComment(e) {
+    var datetime = new Date();
+    console.log(e);
+    await db.query("Insert into comments(comment_string, member_id_fkey, post_id_fkey) VALUES ('"
+        + e.comment_string + "', " + Number(e.member_id_fkey) + ", " + Number(e.post_id_fkey) + ")");
+    let rawCommentList = await db.query('SELECT * from public.post');
+    let commentList = rawCommentList.rows; 
+    
+    console.log(commentList);
 }
 
 function getCommentsById(id) {    
@@ -104,6 +135,7 @@ module.exports = {
     getPostsByPage,
     getByid: getPost,
     addComment,
+    getPostsByUser,
     getCommentsById,
     getPostsBySubject
 }

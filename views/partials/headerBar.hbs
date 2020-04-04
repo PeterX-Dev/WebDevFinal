@@ -1,5 +1,5 @@
 <div id="header_bar">
-    <a href="/main">
+    <a href="/main/:page">
         <span id="k_initial" class="bold_font">k</span>
         <span class="bold_font blue_font">b</span>
     </a> 
@@ -12,5 +12,8 @@
     </form>
 
 
-    <button class="blue_bg btn">logout</button>
+    <form id="logout" action="/logout" method="GET">
+            <input class="blue_bg btn" type="submit" name="logoutBtn" value="logout">
+    </form>
+    {{!-- <button class="blue_bg btn">logout</button> --}}
 </div>
