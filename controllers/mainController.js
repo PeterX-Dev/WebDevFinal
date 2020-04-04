@@ -11,7 +11,7 @@ exports.showMainPage = async function(req,res,next) {
     console.log("USER OBJECT: " + JSON.stringify(userObj));
  
     let myPostList = await mod_post.getPostsByTime();
-    //console.log(myPostList);
+    console.log(myPostList);
    
     res.render('mainPage' ,{
         user: userObj,
@@ -23,9 +23,8 @@ exports.showMainPage = async function(req,res,next) {
 
 exports.logout = function(req,res,next) {  
     let replyObj = req.body;
-    console.log(replyObj); 
-    res.render('loginPage' ,{      
-    });
+    console.log("logout..."); 
+    res.redirect('/login');
 }
 
 exports.searchByTitle = function(req,res,next) {

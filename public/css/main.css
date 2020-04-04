@@ -24,6 +24,11 @@ body {
     color: inherit;
 }
 
+#logout {
+    margin-left: 300px;
+    float: right;
+}
+
 .circular_img {
     border-radius: 40px;
 }
@@ -55,9 +60,9 @@ body {
     width: 150px;
 }
 
-#search_icon_wrapper{
+#search_icon_wrapper {
     height: 30px;
-    width: 25px;
+    width: 125px;
     margin-left: 30px;
 }
 

@@ -6,8 +6,11 @@
 // }
 let db = require('../DB/db');
 
+// Save data locally to reduce frequency of accessing database
+// Only when data is updated, we will update the three lists
 let topicList = [];
 let postList = [];
+let commentList = [];
 
 async function addPost(e) {
     let rawPostList;
@@ -68,12 +71,39 @@ function getPost(id) {
     return postList[id];
 }
 
-function addComment(e) {
+async function getPostsByUser(user_id) {
+    if (postList.length == 0) {
+        let rawPostList = await db.query('SELECT * from public.post');
+        postList = rawPostList.rows;
+    }
+    if (commentList.length == 0) {
+        let rawCommentList = await db.query('SELECT * from public.comments');
+        commentList = rawCommentList.rows;
+    }
 
+    let posts = postList.filter(x => x.member_id_fkey === Number(user_id));
+    
+    let combinedData = posts.map((post) => {
+        let comments = commentList.filter((comment) => comment.post_id_fkey == post.id);
+        return { post, comments, replies: comments.length }
+    })
+
+    return combinedData; 
+}
+
+async function addComment(e) {
+    var datetime = new Date();
+    console.log(e);
+    await db.query("Insert into comments(comment_string, member_id_fkey, post_id_fkey) VALUES ('"
+        + e.comment_string + "', " + Number(e.member_id_fkey) + ", " + Number(e.post_id_fkey) + ")");
+    let rawCommentList = await db.query('SELECT * from public.post');
+    let commentList = rawCommentList.rows; 
+    
+    console.log(commentList);
 }
 
 function getComments(id) {
-    return db.query('Select * from comment where post_id_fkey =' +id);
+    return db.query('Select * from comments where post_id_fkey =' +id);
 }
 
 module.exports = {
@@ -81,5 +111,6 @@ module.exports = {
     getPostsByTime : getPostsByTime,
     getByid: getPost,
     addComment,
-    getComments
+    getComments,
+    getPostsByUser
 }
