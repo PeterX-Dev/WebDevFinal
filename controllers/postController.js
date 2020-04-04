@@ -2,9 +2,13 @@ let mod = require('../models/postData.js');
 let mod_user = require('../models/userData.js');
 
 //TODO: remove duplicate
-function formatPostsWithComments(postList) {
+function formatPosts(postList) {
     let result =  postList.map((each) => {
         if (!each.post) {
+            if (!each.date) {
+                //date is null, nothing to do
+                return each;
+            }
             let dateArray = each.date.toDateString().split(" ");
             let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
             return {
@@ -12,6 +16,10 @@ function formatPostsWithComments(postList) {
                 date: formattedDate
             }
         } else {
+            if (!each.post.date) {
+                //date is null, nothing to do
+                return each;
+            }
             let dateArray = each.post.date.toDateString().split(" ");
             let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
             return {
@@ -32,7 +40,7 @@ exports.showMyPostPage = async function(req,res,next) {
     let userObj = await mod_user.getByid(userId);
 
     let rawPostList = await mod.getPostsByUser(userId);
-    let prePostList = formatPostsWithComments(rawPostList);
+    let prePostList = formatPosts(rawPostList);
     let postList = prePostList.map((element) => {
         let otherUserObj = mod_user.getByid(element.post.member_id_fkey);
         element.post.image_url = otherUserObj.image_url;
@@ -53,7 +61,7 @@ exports.showOthersPostPage = async function(req,res,next) {
     let otherUserObj = await mod_user.getByid(otherUserId);
 
     let rawPostList = await mod.getPostsByUser(otherUserId);
-    let prePostList = formatPostsWithComments(rawPostList);
+    let prePostList = formatPosts(rawPostList);
     let postList = prePostList.map((element) => {
         let otherUserObj = mod_user.getByid(element.post.member_id_fkey);
         element.post.image_url = otherUserObj.image_url;
@@ -99,7 +107,7 @@ exports.searchBySubject = async function(req,res,next) {
     let matched = [];
     let rawPosts = await mod.getPostsBySubject(searchTerm);
     console.log(JSON.stringify(rawPosts, null, 1));
-    let matchedPosts = formatPostsWithComments(rawPosts);
+    let matchedPosts = formatPosts(rawPosts);
     if (matchedPosts.length == 0) {
         res.render('postPage' ,{ postCSS: true, postsData: matched, noMatch: true});
     }

@@ -4,9 +4,14 @@ let mod_post = require('../models/postData.js');
 let userId = 0;
 
 //TODO: remove duplicate
+//TODO: remove duplicate
 function formatPosts(postList) {
     let result =  postList.map((each) => {
         if (!each.post) {
+            if (!each.date) {
+                //date is null, nothing to do
+                return each;
+            }
             let dateArray = each.date.toDateString().split(" ");
             let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
             return {
@@ -14,6 +19,10 @@ function formatPosts(postList) {
                 date: formattedDate
             }
         } else {
+            if (!each.post.date) {
+                //date is null, nothing to do
+                return each;
+            }
             let dateArray = each.post.date.toDateString().split(" ");
             let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
             return {
@@ -27,6 +36,7 @@ function formatPosts(postList) {
     });
     return result;
 }
+
 exports.showMainPage = async function(req,res,next) {
     userId = req.session.userId;
     console.log("USER: " + userId);
