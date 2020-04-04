@@ -7,6 +7,9 @@ exports.showProfilePage = function(req,res,next) {
     // them in profile edit page. 
     let userObj = mod_user.getByid(req.session.userId);
     console.log(userObj);
+
+    let d1= new Date(userObj.dob);
+    console.log(d1);
    
     res.render('profileEditPage' ,{
         user: userObj,

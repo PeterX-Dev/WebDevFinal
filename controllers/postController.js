@@ -64,7 +64,7 @@ exports.addNewComment = async function(req,res,next) {
     await mod.addComment(newComment);
     
     console.log("Add comment successful");
-    res.redirect('/main/:page');
+    res.redirect('/main');
 }
 
 exports.searchBySubject = async function(req,res,next) {

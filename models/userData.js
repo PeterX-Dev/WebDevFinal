@@ -18,37 +18,6 @@
 let db = require('../DB/db');
 
 let userList = [];
-// var userList = [
-//     {
-//         "id":0,
-//         "FirstName":"user0",
-//         "LastName":"Xiong",
-//         "Email":"guilin2000@yahoo.com",
-//         "Password":"12",
-//         "Description":"This is a test!!!", 
-//         "Country":"12",
-//         "DOB":"",
-//         "ImageUrl":"https://randomuser.me/api/portraits/med/men/22.jpg",
-//         "PostNo":0,
-//         "MsgNo":0,
-//         "LikesNo":0
-//         }, 
-//     {
-//         "id":1,
-//         "FirstName":"user1",
-//         "LastName":"Xiong",
-//         "Email":"guilin2000@yahoo.com",
-//         "Password":"123",
-//         "Description":"This is a test!!!", 
-//         "Country":"12",
-//         "DOB":"",
-//         "ImageUrl":"https://randomuser.me/api/portraits/med/women/22.jpg",
-//         "PostNo":0,
-//         "MsgNo":0,
-//         "LikesNo":0
-//     }
-// ];
-
 async function addUser(e) {
     await db.query("Insert into member(first_name, last_name, email, password) VALUES ('" 
                 + e.firstName + "','" + e.lastName + "','" + e.email + "','" + e.password +"')");
