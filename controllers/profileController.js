@@ -1,10 +1,6 @@
 const mod_user = require('../models/userData');
 
 exports.showProfilePage = async function(req,res,next) {  
-    let replyObj = req.body;
-    
-    // TBD-Peter: Need to get profile infomation of current user and display 
-    // them in profile edit page. 
     let userObj = await mod_user.getByid(req.session.userId);
 
     // This is used to change Date to yyyy-mm-dd
@@ -27,16 +23,15 @@ exports.showProfilePage = async function(req,res,next) {
     });
 }
 
-exports.updateProfilePage = function(req,res,next) {  
+exports.updateProfilePage = async function(req,res,next) {  
     let userProfileInfo = req.body;
 
     // use session to get user id info and update function
     userProfileInfo.userId = req.session.userId;
-    console.log(userProfileInfo);
     
     // TBD: Check if password = confirmPwd later when time available
 
-    mod_user.update(userProfileInfo, true);
+    await mod_user.update(userProfileInfo, true);
     res.redirect('/main');
 }
 

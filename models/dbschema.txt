@@ -32,7 +32,7 @@ message_topic
 
 message 
     id (int, pk)
-    member_id_fkey (int, fkey ref member)
+    sender_id_fkey:(int, fkey ref member)     //    member_id_fkey (int, fkey ref member)
     message_string (string)
     message_topic_id_fkey (int, fk ref message_topic) 
 

@@ -50,7 +50,11 @@ exports.showMainPage = async function(req,res,next) {
     let rawPostList = await mod_post.getPostsByPage(page);
     let myPostList = formatPosts(rawPostList);
     let end = myPostList.length < 5 ? true : false;
-   
+
+    // TBD-Peter: Calculate post_count, msg_count and likes_count from DB
+    // userObj.post_count = ??
+    // userObj.msg_count = ??
+
     res.render('mainPage' ,{
         nextPage: page + 1,
         prevPage: page - 1,
