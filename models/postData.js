@@ -137,8 +137,17 @@ async function getPostsByTopic(topicId) {
 
     let matchedPosts = await db.query(queryString);
     return matchedPosts.rows;
-
 }
+
+async function getTopicNameById(topicId) {
+    let result = await db.query("SELECT topic.name from public.topic WHERE id=" + topicId);
+
+    if (result === undefined || result.length == 0) {
+        return {};
+    }
+    return result.rows[0];
+}
+
 module.exports = {
     add : addPost,
     getPostsByPage,
@@ -147,5 +156,6 @@ module.exports = {
     getPostsByUser,
     getCommentsById,
     getPostsBySubject,
-    getPostsByTopic
+    getPostsByTopic,
+    getTopicNameById
 }

@@ -45,3 +45,9 @@ exports.showMemberProfile = async function(req,res,next) {
     let user = await mod_user.getByid(member_id);
     res.render('othersPostPage' ,{ user });
 }
+
+exports.addLikesProfile = function(req,res,next) {
+    console.log("Add likes here"); 
+
+    console.log(req.query);
+}

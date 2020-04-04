@@ -7,11 +7,20 @@ exports.showMyPostPage = async function(req,res,next) {
     let userObj = await mod_user.getByid(userId);
 
     let prePostList = await mod.getPostsByUser(userId);
-    let postList = prePostList.map((element) => {
-        let otherUserObj = mod_user.getByid(element.post.member_id_fkey);
+    console.log(prePostList);
+
+    let postList = [];
+    for (let index = 0; index < prePostList.length; index++) {
+        const element = prePostList[index];
+        let otherUserObj = await mod_user.getByid(element.post.member_id_fkey);
         element.post.image_url = otherUserObj.image_url;
-        return element;
-    })
+        let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
+        element.post.topic_name = topic.name;
+
+        postList.push(element);
+    }
+
+    // console.log(postList);
 
     res.render('myPostPage' ,{
         user: userObj,
@@ -27,11 +36,17 @@ exports.showOthersPostPage = async function(req,res,next) {
     let otherUserObj = await mod_user.getByid(otherUserId);
 
     let prePostList = await mod.getPostsByUser(otherUserId);
-    let postList = prePostList.map((element) => {
-        let otherUserObj = mod_user.getByid(element.post.member_id_fkey);
+    
+    let postList = [];
+    for (let index = 0; index < prePostList.length; index++) {
+        const element = prePostList[index];
+        let otherUserObj = await mod_user.getByid(element.post.member_id_fkey);
         element.post.image_url = otherUserObj.image_url;
-        return element;
-    })
+        let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
+        element.post.topic_name = topic.name;
+
+        postList.push(element);
+    }
 
     res.render('othersPostPage' ,{
         user: otherUserObj,
