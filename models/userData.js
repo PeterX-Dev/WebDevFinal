@@ -69,6 +69,9 @@ async function getUser(id) {
     // let queryString = "SELECT id, first_name, last_name, email, description, image_url, post_count, msg_count, likes_count \
     //                     FROM public.member \
     //                     WHERE id = " + id + ";";
+    if (id === undefined || id.length == 0) {
+        return {};
+    }
     let queryString = "SELECT * FROM public.member WHERE id = " + id + ";";
     let userResults = await db.query(queryString);
     let user = userResults.rows[0];

@@ -28,7 +28,6 @@ exports.updateProfilePage = async function(req,res,next) {
 
     // use session to get user id info and update function
     userProfileInfo.userId = req.session.userId;
-    console.log(userProfileInfo);
     
     // TBD: Check if password = confirmPwd later when time available
 
