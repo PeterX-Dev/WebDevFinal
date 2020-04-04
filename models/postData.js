@@ -95,11 +95,12 @@ async function getPostsByUser(user_id) {
 }
 
 async function addComment(e) {
-    var datetime = new Date();
-    console.log(e);
-    await db.query("Insert into comments(comment_string, member_id_fkey, post_id_fkey) VALUES ('"
-        + e.comment_string + "', " + Number(e.member_id_fkey) + ", " + Number(e.post_id_fkey) + ")");
-    let rawCommentList = await db.query('SELECT * from public.post');
+    let now= new Date(); 
+    
+    const insertText = 'INSERT INTO comments(comment_string, member_id_fkey, post_id_fkey, date) VALUES ($1, $2, $3, $4)';
+    await db.query(insertText, [e.comment_string, Number(e.member_id_fkey), Number(e.post_id_fkey), now]);
+
+    let rawCommentList = await db.query('SELECT * from public.comments');
     let commentList = rawCommentList.rows; 
     
     console.log(commentList);

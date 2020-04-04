@@ -54,7 +54,7 @@ exports.searchByTopic = async function(req,res,next) {
 
 exports.postToTimeLine = async function(req,res,next) {
     let newPost = req.body;
-    console.log(JSON.stringify(req, null, 1)); 
+    // console.log(JSON.stringify(req, null, 1)); 
 
     // Updating related data ...
     newPost.memberId = userId;
