@@ -10,7 +10,7 @@ exports.showMainPage = async function(req,res,next) {
     if(req && req.params && req.params.page) {
         page = req.params.page;
     }
-    let userObj = mod_user.getByid(userId);
+    let userObj = await mod_user.getByid(userId);
     //console.log("USER OBJECT: " + JSON.stringify(userObj));
  
     let myPostList = await mod_post.getPostsByPage(page);
