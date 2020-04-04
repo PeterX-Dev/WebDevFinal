@@ -82,7 +82,7 @@ exports.signUpComplete = async function(req,res,next) {
     
     //console.log(userExtraInfo);
     //TBD-Peter:  Need to use session to send user id info to update function
-
+    // add view/toast/new page that says sign successful, please login.
     // update user info into DB
     await mod_user.update(userExtraInfo);
     res.render('loginPage' ,{ 

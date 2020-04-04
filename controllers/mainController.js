@@ -7,22 +7,12 @@ exports.showMainPage = async function(req,res,next) {
     userId = req.session.userId;
     console.log("USER: " + userId);
     let page = 0;
-<<<<<<< HEAD
-    if(req.params && req.params.page) {
+    if(req && req.params && req.params.page) {
         page = req.params.page;
     }
-    // let userObj = {mod_user.getByid(userId)}; // discussion: why do we need this here?
-=======
-
-    // Comment this to pass the test
-    // if(req.params && req.params.page) {
-    //     page = req.params.page;
-    // }
     let userObj = mod_user.getByid(userId);
->>>>>>> eb51427e24b09c7b6ce45bac0f478507600e5171
     //console.log("USER OBJECT: " + JSON.stringify(userObj));
  
-    let userObj = {};
     let myPostList = await mod_post.getPostsByPage(page);
     let end = myPostList.length < 5 ? true : false;
     //console.log(myPostList);
@@ -30,7 +20,7 @@ exports.showMainPage = async function(req,res,next) {
     res.render('mainPage' ,{
         nextPage: page + 1,
         prevPage: page - 1,
-        user: userObj, //can remove? not used in page
+        user: userObj, //discussion can remove? not used in page
         posts: myPostList,
         postCSS: true,
         mainPageCSS: true,
