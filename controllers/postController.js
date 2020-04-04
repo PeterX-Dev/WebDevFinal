@@ -42,29 +42,43 @@ exports.showOthersPostPage = async function(req,res,next) {
 }
 
 exports.showPostPage = async function(req,res,next) {  
-    let postsData = await mod.getPostsByTime();
-    console.log("controller: " + JSON.stringify(postsData, null, 1));
+    let postsData = await mod.getPostsByPage();
     res.render('postPage' ,{postsData, postCSS: true});
 
 }
 
 exports.showComments = function(req,res,next) { 
     let postId = req.body.postId;
-    let comments = mod.getComments(postId);
+    let comments = mod.getCommentsById(postId);
     comments.then((data) => {
-        res.render('postPage' ,{ post: mod.getPostsByTime, postId: postId, comments: mod.getComments(postId) });
+        res.render('postPage' ,{ post: mod.getPostsByPage, postId: postId, comments: mod.getCommentsById(postId) });
     })
 }
 
 exports.addNewComment = async function(req,res,next) {
-    //add comment
     let newComment = {};
     newComment.comment_string = req.body.postString;
     newComment.member_id_fkey = req.session.userId;
     newComment.post_id_fkey = req.body.id;
-
+    
     await mod.addComment(newComment);
-
+    
     console.log("Add comment successful");
     res.redirect('/main/:page');
+}
+
+exports.searchBySubject = async function(req,res,next) {
+    let searchTerm = req.body.searchTerm;
+    let matched = [];
+    let matchedPosts = await mod.getPostsBySubject(searchTerm);
+    if (matchedPosts.length == 0) {
+        res.render('postPage' ,{ postCSS: true, postsData: matched, noMatch: true});
+    }
+    matchedPosts.forEach(async (post, index, arr) => {
+        let matchedComments = await mod.getCommentsById(post.id);
+        matched.push({ post, comments: matchedComments.rows, replies: matchedComments.rows.length});
+        if(Object.is(arr.length-1, index)) {
+            res.render('postPage' ,{ postCSS: true, postsData: matched});
+        }
+    });
 }

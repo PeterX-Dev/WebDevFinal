@@ -68,7 +68,7 @@ exports.newMemberSignUp = async function(req,res,next) {
 
 exports.addExtraInfo = async function(req,res,next) {
     let userId = req.query.userId; 
-    console.log(userId);
+    //console.log(userId);
 
     res.render('signUpPage', {
         userId: userId,
@@ -80,7 +80,7 @@ exports.addExtraInfo = async function(req,res,next) {
 exports.signUpComplete = async function(req,res,next) {
     let userExtraInfo = req.body;
     
-    console.log(userExtraInfo);
+    //console.log(userExtraInfo);
     //TBD-Peter:  Need to use session to send user id info to update function
 
     // update user info into DB

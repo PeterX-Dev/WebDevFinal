@@ -2,6 +2,10 @@
 {{#each postsData}}
     {{>post}}
 {{/each}}
+
+{{#if noMatch}}
+    <h1>No matches</h1>
+{{/if}}
 {{!-- <form id="reply" action="/discussion/showReply" method="POST">        
     <input type="submit" name="replyBtn" value="reply">
 </form> --}}
