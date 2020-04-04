@@ -40,12 +40,18 @@ async function addPost(e) {
     // console.log(postList);
 }
 
-async function getPostsByTime(page) {
+async function getPostsByPage(page) {
+    let postsPerPage = 5;
+    let offset = page * postsPerPage;
     //get all posts with user images and topic info
     let queryString = "SELECT post.id, post.subject_line, post.post_string, post.date, topic.name as \"topic_name\", member.id as \"member_id\", member.image_url \
                        from public.post \
                        left join public.topic on post.topic_id_fkey = topic.id \
-                       left join public.member on post.member_id_fkey = member.id";
+                       left join public.member on post.member_id_fkey = member.id \
+                       WHERE post.date IS NOT NULL \
+                       ORDER BY date DESC \
+                       OFFSET " + offset + " ROWS \
+                       FETCH NEXT " + postsPerPage + " ROWS ONLY;";
     let postsData = await db.query(queryString);
 
     //for each of the post, get all its comments with user images
@@ -95,7 +101,7 @@ async function getPostsBySubject(searchTerm) {
 
 module.exports = {
     add : addPost,
-    getPostsByTime : getPostsByTime,
+    getPostsByPage,
     getByid: getPost,
     addComment,
     getCommentsById,
