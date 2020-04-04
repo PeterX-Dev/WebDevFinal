@@ -30,11 +30,10 @@ async function addPost(e) {
         e.topicId = topicObj[0].id;
     }
 
-    let date = new Date(); 
-    // await db.query("Insert into post(member_id_fkey, post_string, date, topic_id_fkey, subject_line) VALUES ("
-    //             + Number(e.memberId) + ", '" + e.contents + "', '" + date + "', " + Number(e.topicId) + ", '" + e.subject + "')");
-    await db.query("Insert into post(member_id_fkey, post_string, topic_id_fkey, subject_line) VALUES ("
-    + Number(e.memberId) + ", '" + e.contents + "', " + Number(e.topicId) + ", '" + e.subject + "')");
+    let now= new Date(); 
+
+    const insertText = 'INSERT INTO post(member_id_fkey, post_string, date, topic_id_fkey, subject_line) VALUES ($1, $2, $3, $4, $5)';
+    await db.query(insertText, [Number(e.memberId), e.contents, now, Number(e.topicId), e.subject]);
     
     // re-read postList after update
     rawPostList = await db.query('SELECT * from public.post');
@@ -57,9 +56,6 @@ async function getPostsByPage(page) {
                        OFFSET " + offset + " ROWS \
                        FETCH NEXT " + postsPerPage + " ROWS ONLY;";
     let postsData = await db.query(queryString);
-
-    //for each of the post, get all its comments with user images
-
 
     
     //get all comments with user images
@@ -130,6 +126,18 @@ async function getPostsBySubject(searchTerm) {
 
 }
 
+async function getPostsByTopic(topicId) {
+    //get all posts with user images and topic info
+    let queryString = "SELECT post.id, post.subject_line, post.post_string, post.date, topic.name as \"topic_name\", member.id as \"member_id\", member.image_url \
+                       from public.post \
+                       left join public.topic on post.topic_id_fkey = topic.id \
+                       left join public.member on post.member_id_fkey = member.id \
+                       WHERE topic.id = " + topicId;
+
+    let matchedPosts = await db.query(queryString);
+    return matchedPosts.rows;
+
+}
 module.exports = {
     add : addPost,
     getPostsByPage,
@@ -137,5 +145,6 @@ module.exports = {
     addComment,
     getPostsByUser,
     getCommentsById,
-    getPostsBySubject
+    getPostsBySubject,
+    getPostsByTopic
 }

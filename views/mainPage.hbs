@@ -10,9 +10,9 @@
             <div id="postDiscussion">
                 <p>What's your question today?</p>
                 <form action="/main/postToTimeLine" method="POST">
-                    <input type="text" name="subject" placeholder='subject'>
-                    <textarea id="discussDescption" rows="6" name="contents" placeholder='explain in detail'></textarea>
-                    <select class="topicOption" name="topic">
+                    <input type="text" name="subject" placeholder='subject' required>
+                    <textarea id="discussDescption" rows="6" name="contents" placeholder='explain in detail' required></textarea>
+                    <select class="topicOption" name="topic" required>
                         <option value="topic">topic</option>
                         <option value="php">php</option>
                         <option value="nodejs">nodejs</option>
@@ -26,13 +26,13 @@
             <div id="searchByTopic">
                 <div id="searchTopicText"><span>Search by Topic</span></div>
                 <form action="/main/searchByTopic" method="POST">               
-                    <select class="topicOption">
-                        <option value="topic">topic</option>
-                        <option value="php">php</option>
-                        <option value="nodejs">nodejs</option>
-                        <option value="java">java</option>
-                        <option value="sql">sql</option>
-                        <option value="zend">zend</option>
+                    <select name="topic" class="topicOption" required>
+                        <option value="" disabled selected>topic</option>
+                        <option value="1">php</option>
+                        <option value="2">nodejs</option>
+                        <option value="3">java</option>
+                        <option value="4">sql</option>
+                        <option value="5">zend</option>
                     </select>
                     <input type="submit" name="searchByTopicBtn" value="go->">
                 </form>
