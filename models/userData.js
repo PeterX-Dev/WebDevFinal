@@ -38,25 +38,27 @@ async function addUser(e) {
     } 
 }
 
-async function updateUser(e) {
+async function updateUser(e, updateAll=false) {
     // await db.query("Update member SET image_url=" + e.imageurl + ", description=" + e.description + ", country="
     //             + e.country + ", dob=" + e.DOB + " WHERE id=" + Number(e.userId));
 
-    // let e = {
-    //     imageurl: 'https://randomuser.me/api/portraits/med/men/22.jpg',
-    //     description: 'this is a test111111',
-    //     country: 'canada',
-    //     DOB: '2020-04-15',
-    //     userId: '18',
-    //     completeBtn: 'complete registration' 
-    // };
-
     // await db.query("Update public.member SET image_url='" + e1.imageurl + "' WHERE id=" + Number(e1.userId));
-    await db.query("Update member SET image_url='" + e.imageurl + "', description='" + e.description 
-                + "', country='" + e.country + "', dob='" + e.DOB + "' WHERE id=" + Number(e.userId));
+    let queryText;
+
+    if (updateAll) 
+    {
+        queryText = 'UPDATE member SET first_name=$1, last_name=$2, email=$3, password=$4, image_url=$5, description=$6, country=$7, dob=$8 WHERE id=$9';
+        await db.query(queryText, [e.firstName, e.lastName, e.email, e.password, e.imageurl, e.description, e.country, e.DOB, e.userId]);
+    }
+    else 
+    {
+        // await db.query("UPDATE member SET image_url='" + e.imageurl + "', description='" + e.description 
+        //     + "', country='" + e.country + "', dob='" + e.DOB + "' WHERE id=" + Number(e.userId));
+        queryText = 'UPDATE member SET image_url=$1, description=$2, country=$3, dob=$4 WHERE id=$5';
+        await db.query(queryText, [e.imageurl, e.description, e.country, e.DOB, e.userId]);
+    }
 
     userList = await getDataFromDB();
-    console.log(userList);
 }
 
 function getAllUsers() {
