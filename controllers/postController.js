@@ -1,5 +1,6 @@
 let mod = require('../models/postData.js');
 let mod_user = require('../models/userData.js');
+let mod_msg = require('../models/messageData');
 
 //TODO: remove duplicate
 function formatPosts(postList) {
@@ -41,6 +42,13 @@ exports.showMyPostPage = async function(req,res,next) {
 
     let rawPostList = await mod.getPostsByUser(userId);
     let prePostList = formatPosts(rawPostList);
+
+    userObj.PostNo = rawPostList.length;
+    userObj.MsgNo = await mod_msg.getCount(userId);
+    if (userObj.likes === undefined || userObj.likes.length == 0) 
+    {
+        userObj.likes = 0;
+    }
 
     let postList=[];
     for (let index = 0; index < prePostList.length; index++) {
