@@ -134,6 +134,12 @@ body {
     clear: both; 
 }
 
+.button-style {
+    background-color: #03a2e7;
+    color: white;
+    border: none;
+}
+
 #profilePicFragment {
     float: left;
     display: block;
