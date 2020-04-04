@@ -41,16 +41,17 @@ exports.showMyPostPage = async function(req,res,next) {
 
     let rawPostList = await mod.getPostsByUser(userId);
     let prePostList = formatPosts(rawPostList);
-    let postList = prePostList.map((element) => {
-        let otherUserObj = mod_user.getByid(element.post.member_id_fkey);
+
+    let postList=[];
+    for (let index = 0; index < prePostList.length; index++) {
+        const element = prePostList[index];
+        let otherUserObj = await mod_user.getByid(element.post.member_id_fkey);
         element.post.image_url = otherUserObj.image_url;
-        // let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
-        // element.post.topic_name = topic.name;
+        let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
+        element.post.topic_name = topic.name;
 
-        // postList.push(element);
-    })
-
-    // console.log(postList);
+        postList.push(element);
+    }
 
     res.render('myPostPage' ,{
         user: userObj,
@@ -67,14 +68,18 @@ exports.showOthersPostPage = async function(req,res,next) {
 
     let rawPostList = await mod.getPostsByUser(otherUserId);
     let prePostList = formatPosts(rawPostList);
-    let postList = prePostList.map((element) => {
-        let otherUserObj = mod_user.getByid(element.post.member_id_fkey);
-        element.post.image_url = otherUserObj.image_url;
-        // let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
-        // element.post.topic_name = topic.name;
 
-        // postList.push(element);
-    })
+
+    let postList=[];
+    for (let index = 0; index < prePostList.length; index++) {
+        const element = prePostList[index];
+        let otherUserObj = await mod_user.getByid(element.post.member_id_fkey);
+        element.post.image_url = otherUserObj.image_url;
+        let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
+        element.post.topic_name = topic.name;
+
+        postList.push(element);
+    }
 
     res.render('othersPostPage' ,{
         user: otherUserObj,
