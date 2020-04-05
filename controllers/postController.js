@@ -46,7 +46,7 @@ exports.showMyPostPage = async function(req,res,next) {
 
     userObj.PostNo = rawPostList.length;
     userObj.MsgNo = await mod_msg.getCount(userId);
-    if (userObj.likes === undefined || userObj.likes.length == 0) 
+    if (userObj.likes === undefined || userObj.likes === null) 
     {
         userObj.likes = 0;
     }
@@ -88,7 +88,7 @@ exports.showOthersPostPage = async function(req,res,next) {
 
     otherUserObj.post_count = rawPostList.length;
     otherUserObj.msg_count = await mod_msg.getCount(otherUserId);
-    if (otherUserObj.likes_count === undefined || otherUserObj.likes_count.length == 0) 
+    if (otherUserObj.likes_count === undefined || otherUserObj.likes_count === null) 
     {
         otherUserObj.likes_count = 0;
     }

@@ -69,7 +69,7 @@ exports.showMessagePage = async function(req,res,next) {
             element1.time = d1.toLocaleTimeString('en-US');
         }   
     };
-    console.log(myMessageList);
+    // console.log(myMessageList);
 
     console.log(req.query.topicId);
 
@@ -77,21 +77,27 @@ exports.showMessagePage = async function(req,res,next) {
     // will pass the chosen topic here and refresh messages accordingly
     let currentTopicId;
     if (req.query.topicId == undefined || Number(req.query.topicId) === -1) {
-        currentTopicId = myMessageList[0].topic.id;
+        if (myMessageList.length >= 1)
+            currentTopicId = myMessageList[0].topic.id;
     }
     else {
         currentTopicId = Number(req.query.topicId);
     }       
     let currentTopic = myMessageList.filter(x => x.topic.id === currentTopicId);
 
-    currentTopic[0].topic.active = true;
-    console.log(currentTopic[0].message);
+    let currentMessages = [];
+    if (currentTopic.length >= 1){
+        currentTopic[0].topic.active = true;
+        currentMessages = currentTopic[0].message;
+    }
+        
+    // console.log(currentTopic[0].message);
 
 //    res.render('messagePage',{ messagePageCSS: true, message: mockMessage, reply: mockReply});
     res.render('messagePage',{ 
         messagePageCSS: true, 
         topics: myMessageList, 
-        messages: currentTopic[0].message,
+        messages: currentMessages,
         currentTopicId: currentTopicId
     });
 }

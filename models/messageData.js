@@ -2,9 +2,17 @@ let db = require('../DB/db');
 let messageList=[];
 
 async function addMessage(receiverId, senderId, subject, content) {
-    let result = await db.query(`INSERT INTO public.message_topic (subject, sender_id_fkey, receiver_id_fkey) VALUES('${subject}', ${senderId},'${receiverId}') RETURNING id;`);
+    // let result = await db.query(`INSERT INTO public.message_topic (subject, sender_id_fkey, receiver_id_fkey) VALUES('${subject}', ${senderId},'${receiverId}') RETURNING id;`);
+    // let message_topic_id = result.rows[0].id;
+    // await db.query(`INSERT INTO public.message(sender_id_fkey, message_string, message_topic_id_fkey) VALUES(${senderId}, '${content}', ${message_topic_id})`);
+
+    let now= new Date(); 
+    let insertText = `INSERT INTO public.message_topic (subject, sender_id_fkey, receiver_id_fkey, date) VALUES($1, $2, $3, $4) RETURNING id;`
+    let result = await db.query(insertText, [subject, Number(senderId), Number(receiverId), now]);
+    
     let message_topic_id = result.rows[0].id;
-    await db.query(`INSERT INTO public.message(sender_id_fkey, message_string, message_topic_id_fkey) VALUES(${senderId}, '${content}', ${message_topic_id})`);
+    insertText = 'INSERT INTO public.message(sender_id_fkey, message_string, message_topic_id_fkey, date) VALUES ($1, $2, $3, $4)';
+    await db.query(insertText, [Number(senderId), content, Number(message_topic_id), now]);
 
     await updateLocalData();
 }
@@ -13,8 +21,10 @@ async function addMessageToTopic(e) {
     let senderId = e.senderId;
     let content = e.message;
     let message_topic_id = e.messageTopicId;
+    let now= new Date(); 
 
-    await db.query(`INSERT INTO public.message(sender_id_fkey, message_string, message_topic_id_fkey) VALUES(${senderId}, '${content}', ${message_topic_id})`);
+    const insertText = 'INSERT INTO public.message(sender_id_fkey, message_string, message_topic_id_fkey, date) VALUES ($1, $2, $3, $4)';
+    await db.query(insertText, [Number(senderId), content, Number(message_topic_id), now]);
 
     await updateLocalData();
 }
