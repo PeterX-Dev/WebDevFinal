@@ -1,8 +1,6 @@
 #mainPage-content {
     display: flex;
     width: 80%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 #mainPage-column1 {
@@ -34,6 +32,10 @@
 
 #postDiscussion {
     width: 100%;
+}
+
+#postDiscussion h1 {
+    margin-top: 0px;
 }
 
 #postDiscussion form input[type=text] {
@@ -69,6 +71,7 @@
 
 #searchByTopic {
     margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 #searchTopicText {

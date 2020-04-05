@@ -8,7 +8,7 @@
         </div>
         <div id="mainPage-column2">
             <div id="postDiscussion">
-                <p>What's your question today?</p>
+                <h1>What's your question today?</h1>
                 <form action="/main/postToTimeLine" method="POST">
                     <input type="text" name="subject" placeholder='subject' required>
                     <textarea id="discussDescption" rows="6" name="contents" placeholder='explain in detail...' required></textarea>
@@ -38,6 +38,7 @@
                 </form>
             </div>
             <div id="listDiscussions">
+                <h2>Latest Discussions</h2>
                 {{#each posts}}
                     {{>post}}
                 {{/each}}
