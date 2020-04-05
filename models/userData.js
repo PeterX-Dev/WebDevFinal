@@ -22,7 +22,8 @@ async function addUser(e) {
     await db.query("Insert into member(first_name, last_name, email, password, likes_count) VALUES ('" 
                 + e.firstName + "','" + e.lastName + "','" + e.email + "','" + e.password + "'," + 0 +")");
     
-    userList = await getDataFromDB();
+    // Update userList when there is data change
+    await updateLocalUserData();
 
     var user = userList.filter(x => x.first_name === e.firstName && 
                                     x.last_name === e.lastName && 
@@ -54,7 +55,8 @@ async function updateUser(e, updateAll=false) {
         await db.query(queryText, [e.imageurl, e.description, e.country, e.DOB, e.userId]);
     }
 
-    userList = await getDataFromDB();
+    // Update userList when there is data change
+    await updateLocalUserData();
 }
 
 async function updateUserLikesCount(id) {
@@ -72,7 +74,8 @@ async function updateUserLikesCount(id) {
     let queryText = 'UPDATE member SET likes_count=$1 WHERE id=$2';
     await db.query(queryText, [likesCount, Number(id)]);
 
-    userList = await getDataFromDB();
+    // Update userList when there is data change
+    await updateLocalUserData();
 }
 
 function getAllUsers() {
@@ -83,20 +86,30 @@ async function getUser(id) {
     // let queryString = "SELECT id, first_name, last_name, email, description, image_url, post_count, msg_count, likes_count \
     //                     FROM public.member \
     //                     WHERE id = " + id + ";";
-    if (id === undefined || id.length == 0) {
+
+    if (id === undefined || id == null) {
         return {};
     }
-    let queryString = "SELECT * FROM public.member WHERE id = " + id + ";";
-    let userResults = await db.query(queryString);
-    let user = userResults.rows[0];
-    return user;
+ 
+    // let queryString = "SELECT * FROM public.member WHERE id = " + id + ";";
+    // let userResults = await db.query(queryString);
+    // let user = userResults.rows[0];
+    // return user;
+
+    let userObj = userList.filter(x => x.id === Number(id));
+    // console.log(userObj);
+
+    if(userObj.length !== 1)    // something wrong here
+        return {};
+    else
+        return userObj[0];
 }
 
 
 async function checkMemberValidity(user) {
     if (userList.length == 0)
     {
-        userList = await getDataFromDB();
+        await updateLocalUserData();
     }
 
     var member = userList.filter(x => x.email === user.email && x.password === user.password);
@@ -114,7 +127,7 @@ async function checkNoRepeatUserExist(user) {
     // if userList is empty, need to read in data
     if (userList.length == 0)
     {
-        userList = await getDataFromDB();
+        await updateLocalUserData();
     }
 
     var user = userList.filter(x => x.email === user.email || 
@@ -131,9 +144,9 @@ async function checkNoRepeatUserExist(user) {
     }  
 }
 
-async function getDataFromDB() {
+async function updateLocalUserData() {
     let myuserList = await db.query('SELECT * from public.member');
-    return myuserList.rows;
+    userList = myuserList.rows;
 }
 
 module.exports = {

@@ -58,9 +58,7 @@ async function updateLocalData() {
     let rawMsgData = await db.query('SELECT * from public.message');
     let msgData = rawMsgData.rows;
 
-    // console.log("All message topic data....");
     // console.log(msgTopicData);
-    // console.log("All message data....");
     // console.log(msgData);
 
     messageList = [];

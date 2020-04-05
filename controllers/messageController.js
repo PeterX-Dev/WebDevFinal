@@ -88,7 +88,7 @@ exports.showMessagePage = async function(req,res,next) {
     let currentMessages = [];
     if (currentTopic.length >= 1){
         currentTopic[0].topic.active = true;
-        currentMessage = currentTopic[0].message;
+        currentMessages = currentTopic[0].message;
     }
         
     // console.log(currentTopic[0].message);
