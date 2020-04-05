@@ -112,7 +112,8 @@ function getCommentsById(id) {
     let queryString = "select comments.id, comments.comment_string, comments.post_id_fkey, member.id as \"member_id\", member.image_url \
                     from public.comments \
                     left join public.member on comments.member_id_fkey = member.id \
-                    where post_id_fkey = " + id;
+                    where post_id_fkey = " + id +
+                    " ORDER BY comment.date ASC";
     return db.query(queryString);
 }
 
@@ -122,7 +123,8 @@ async function getPostsBySubject(searchTerm) {
                        from public.post \
                        left join public.topic on post.topic_id_fkey = topic.id \
                        left join public.member on post.member_id_fkey = member.id \
-                       WHERE post.subject_line ILIKE " + `'%${searchTerm}%'`;
+                       WHERE post.subject_line ILIKE " + `'%${searchTerm}%'` + 
+                       "ORDER BY post.date DESC;";
 
     let matchedPosts = await db.query(queryString);
     return matchedPosts.rows;
@@ -135,7 +137,8 @@ async function getPostsByTopic(topicId) {
                        from public.post \
                        left join public.topic on post.topic_id_fkey = topic.id \
                        left join public.member on post.member_id_fkey = member.id \
-                       WHERE topic.id = " + topicId + " AND post.date IS NOT NULL";
+                       WHERE topic.id = " + topicId + " AND post.date IS NOT NULL \
+                       ORDER BY post.date DESC;";
 
     let matchedPosts = await db.query(queryString);
     return matchedPosts.rows;
