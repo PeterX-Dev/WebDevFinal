@@ -11,7 +11,7 @@ function formatPosts(postList) {
                 return each;
             }
             let dateArray = each.date.toDateString().split(" ");
-            let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
+            let formattedDate = "" + dateArray[2] + " " + dateArray[1].toLowerCase() + " " + dateArray[3];
             return {
                 ...each,
                 date: formattedDate
@@ -22,13 +22,14 @@ function formatPosts(postList) {
                 return each;
             }
             let dateArray = each.post.date.toDateString().split(" ");
-            let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
+            let formattedDate = "" + dateArray[2] + " " + dateArray[1].toLowerCase() + " " + dateArray[3];
             return {
                 post: {
                     ...each.post,
                     date: formattedDate
                 },
-                comments: each.comments
+                comments: each.comments,
+                replies: each.replies
             }
         }
     });
@@ -57,6 +58,14 @@ exports.showMyPostPage = async function(req,res,next) {
         element.post.image_url = otherUserObj.image_url;
         let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
         element.post.topic_name = topic.name;
+
+        let myComments = element.comments;
+        for (let index1 = 0; index1 < myComments.length; index1++) {
+            const comment = myComments[index1];
+
+            let senderObj = await mod_user.getByid(comment.member_id_fkey);
+            comment.image_url = senderObj.image_url;           
+        }
 
         postList.push(element);
     }
@@ -91,6 +100,14 @@ exports.showOthersPostPage = async function(req,res,next) {
         element.post.image_url = otherUserObj.image_url;
         let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
         element.post.topic_name = topic.name;
+
+        let myComments = element.comments;
+        for (let index1 = 0; index1 < myComments.length; index1++) {
+            const comment = myComments[index1];
+
+            let senderObj = await mod_user.getByid(comment.member_id_fkey);
+            comment.image_url = senderObj.image_url;           
+        }
 
         postList.push(element);
     }
