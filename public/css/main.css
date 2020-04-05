@@ -37,7 +37,7 @@ select {
 }
 
 .circular_img {
-    border-radius: 40px;
+    border-radius: 50%;
 }
 
 .bold_font {

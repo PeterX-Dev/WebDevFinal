@@ -1,7 +1,10 @@
 const mod_msg = require('../models/messageData');
 let mod_user = require('../models/userData.js');
 
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 exports.showMessagePage = async function(req,res,next) {
+
     // let mockMessage = [{name: "Frank Lee", title: "hi there", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg", date:"Sep 12"},
     // {name: "Frank Lee", title: "hi there", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg", date:"Sep 12"}
     // ];
@@ -16,48 +19,67 @@ exports.showMessagePage = async function(req,res,next) {
     // console.log(allMessages);
 
     // TBD-Peter: reorganized data for display
-    // let myMessageList = allMessages.filter(x => (x.topic.sender_id_fkey === Number(userId) || x.topic.receiver_id_fkey === Number(userId)));
+    let myMessageList = allMessages.filter(x => (x.topic.sender_id_fkey === Number(userId) || x.topic.receiver_id_fkey === Number(userId)));
 
-    for (let index = 0; index < allMessages.length; index++) {
-        const element = allMessages[index];
+    for (let index = 0; index < myMessageList.length; index++) {
+        const element = myMessageList[index];
         let attenderId;
-        if (element.topic.sender_id_fkey === Number(userId) || element.topic.receiver_id_fkey === Number(userId)) {
-            if (element.topic.sender_id_fkey === Number(userId)) {
-                attenderId = element.topic.receiver_id_fkey;
-            } else if (element.topic.receiver_id_fkey === Number(userId)) {
-                attenderId = element.topic.sender_id_fkey;
-            }
-            element.topic.attenderId = attenderId;
-            let attenderObj = await mod_user.getByid(attenderId);
-            element.topic.attender_imageurl = attenderObj.image_url;
-            element.topic.attender_name = attenderObj.first_name + ' ' + attenderObj.last_name;
+        let day;
 
-            element.topic.date = "Sep 12";    // TBD-Peter
+        if (element.topic.sender_id_fkey === Number(userId)) {
+            attenderId = element.topic.receiver_id_fkey;
+        } else if (element.topic.receiver_id_fkey === Number(userId)) {
+            attenderId = element.topic.sender_id_fkey;
+        }
+        element.topic.attenderId = attenderId;
+        let attenderObj = await mod_user.getByid(attenderId);
+        element.topic.attender_imageurl = attenderObj.image_url;
+        element.topic.attender_name = attenderObj.first_name + ' ' + attenderObj.last_name;
 
-            let messageOfTopic = element.message;
+        // element.topic.date = "Sep 12";    // TBD-Peter
+        let d1= new Date(element.topic.date);
 
-            for (let index1 = 0; index1 < messageOfTopic.length; index1++) {
-                const element1 = messageOfTopic[index1];
-                
-                let senderObj = await mod_user.getByid(element1.sender_id_fkey);
-                element1.sender_imageurl = senderObj.image_url;
-                element1.sender_name = senderObj.first_name + ' ' + senderObj.last_name;
-            }
-        }      
+        day = '' + d1.getDate(); 
+        if (day.length < 2) 
+            day = '0' + day;
+
+        element.topic.date = monthNames[d1.getMonth()] + " " + day;
+
+        let messageOfTopic = element.message;
+        for (let index1 = 0; index1 < messageOfTopic.length; index1++) {
+            const element1 = messageOfTopic[index1];
+            
+            let senderObj = await mod_user.getByid(element1.sender_id_fkey);
+            element1.sender_imageurl = senderObj.image_url;
+            element1.sender_name = senderObj.first_name + ' ' + senderObj.last_name;
+            //TBD-Peter
+
+            // This is used to change Date to yyyy-mm-dd
+            // i.e. 2020-04-09T07:00:00.000Z to 2020-04-09
+            let d1= new Date(element1.date);
+
+            day = '' + d1.getDate();
+
+            if (day.length < 2) 
+                day = '0' + day;
+
+            element1.date = monthNames[d1.getMonth()] + " " + day;
+            element1.time = d1.toLocaleTimeString('en-US');
+        }   
     };
-//    console.log(allMessages);
+    console.log(myMessageList);
 
     // TBD-Peter, the default topic item is the first one, when user choose other topic, 
     // will pass the chosen topic here and refresh messages accordingly
     let currentTopicId = 6;
-    let currentTopic = allMessages.filter(x => x.topic.id === currentTopicId);
+    let currentTopic = myMessageList.filter(x => x.topic.id === currentTopicId);
 
     console.log(currentTopic[0].message);
 
 //    res.render('messagePage',{ messagePageCSS: true, message: mockMessage, reply: mockReply});
     res.render('messagePage',{ 
         messagePageCSS: true, 
-        topics: allMessages, 
+        topics: myMessageList, 
         messages: currentTopic[0].message,
         currentTopicId: currentTopicId
     });
