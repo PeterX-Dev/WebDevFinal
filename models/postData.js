@@ -65,7 +65,8 @@ async function getPostsByPage(page) {
     let commentsData = await db.query(queryString);
     let combinedData = postsData.rows.map((post) => {
         let comments = commentsData.rows.filter((comment) => comment.post_id_fkey == post.id);
-        return { post, comments, replies: comments.length }
+        let replies = comments.length;
+        return { post, comments, replies }
     })
     return combinedData;
 }
@@ -88,7 +89,8 @@ async function getPostsByUser(user_id) {
     
     let combinedData = posts.map((post) => {
         let comments = commentList.filter((comment) => comment.post_id_fkey == post.id);
-        return { post, comments, replies: comments.length }
+        let replies = comments.length;
+        return { post, comments, replies }
     })
 
     return combinedData; 

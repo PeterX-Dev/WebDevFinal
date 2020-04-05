@@ -11,7 +11,7 @@ function formatPosts(postList) {
                 return each;
             }
             let dateArray = each.date.toDateString().split(" ");
-            let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
+            let formattedDate = "" + dateArray[2] + " " + dateArray[1].toLowerCase() + " " + dateArray[3];
             return {
                 ...each,
                 date: formattedDate
@@ -22,13 +22,14 @@ function formatPosts(postList) {
                 return each;
             }
             let dateArray = each.post.date.toDateString().split(" ");
-            let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
+            let formattedDate = "" + dateArray[2] + " " + dateArray[1].toLowerCase() + " " + dateArray[3];
             return {
                 post: {
                     ...each.post,
                     date: formattedDate
                 },
-                comments: each.comments
+                comments: each.comments,
+                replies: each.replies
             }
         }
     });
