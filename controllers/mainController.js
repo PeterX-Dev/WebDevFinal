@@ -14,7 +14,7 @@ function formatPosts(postList) {
                 return each;
             }
             let dateArray = each.date.toDateString().split(" ");
-            let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
+            let formattedDate = "" + dateArray[2] + " " + dateArray[1].toLowerCase() + " " + dateArray[3];
             return {
                 ...each,
                 date: formattedDate
@@ -25,13 +25,14 @@ function formatPosts(postList) {
                 return each;
             }
             let dateArray = each.post.date.toDateString().split(" ");
-            let formattedDate = "" + dateArray[2] + dateArray[1].toLowerCase() + dateArray[3];
+            let formattedDate = "" + dateArray[2] + " " + dateArray[1].toLowerCase() + " " + dateArray[3];
             return {
                 post: {
                     ...each.post,
                     date: formattedDate
                 },
-                comments: each.comments
+                comments: each.comments,
+                replies: each.replies
             }
         }
     });
@@ -57,12 +58,9 @@ exports.showMainPage = async function(req,res,next) {
     }
  
     let rawPostList = await mod_post.getPostsByPage(page);
+
     myPostList = formatPosts(rawPostList);
     let end = myPostList.length < 5 ? true : false;
-
-    // TBD-Peter: Calculate post_count, msg_count and likes_count from DB
-    // userObj.post_count = ??
-    // userObj.msg_count = ??
 
     res.render('mainPage' ,{
         nextPage: page + 1,
@@ -79,8 +77,12 @@ exports.showMainPage = async function(req,res,next) {
 
 exports.logout = function(req,res,next) {  
     let replyObj = req.body;
-    console.log("logout..."); 
-    res.redirect('/login');
+    // req.session = null;
+    req.session.destroy(function(err) {
+        // cannot access session here
+        console.log("Destroy session and logout..."); 
+        res.redirect('/login');
+    });
 }
 
 

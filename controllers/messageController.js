@@ -2,13 +2,13 @@ const mod_msg = require('../models/messageData');
 let mod_user = require('../models/userData.js');
 
 exports.showMessagePage = async function(req,res,next) {
-    let mockMessage = [{name: "Frank Lee", title: "hi there", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg", date:"Sep 12"},
-    {name: "Frank Lee", title: "hi there", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg", date:"Sep 12"}
-    ];
-    let mockReply = [
-        {sender: "Frank Lee", date: "SEP 4", time: "9:57 PM", message: "Umm, give me some time to think about it ...", senderImg: "https://randomuser.me/api/portraits/med/men/24.jpg"},
-        {sender: "Jane Way", date: "SEP 4", time: "9:57 PM", message: "Umm, give me some time to think about it ...", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg"}
-    ];
+    // let mockMessage = [{name: "Frank Lee", title: "hi there", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg", date:"Sep 12"},
+    // {name: "Frank Lee", title: "hi there", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg", date:"Sep 12"}
+    // ];
+    // let mockReply = [
+    //     {sender: "Frank Lee", date: "SEP 4", time: "9:57 PM", message: "Umm, give me some time to think about it ...", senderImg: "https://randomuser.me/api/portraits/med/men/24.jpg"},
+    //     {sender: "Jane Way", date: "SEP 4", time: "9:57 PM", message: "Umm, give me some time to think about it ...", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg"}
+    // ];
 
     let userId =  req.session.userId; 
     let allMessages = await mod_msg.getall();
@@ -75,8 +75,10 @@ exports.sendMessage = function(req,res,next) {
     let subject = req.body.subject;
     let message = req.body.message; 
     mod_msg.add(receiverId, req.session.userId , subject, message);
-    res.render('othersPostPage' ,{      
-        });
+
+    res.redirect('/othersPost?userId='+receiverId);
+    // res.render('othersPostPage' ,{      
+    //     });
 }
 
 exports.newMessageReply = async function(req,res,next) {
