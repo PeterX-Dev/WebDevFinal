@@ -59,6 +59,14 @@ exports.showMyPostPage = async function(req,res,next) {
         let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
         element.post.topic_name = topic.name;
 
+        let myComments = element.comments;
+        for (let index1 = 0; index1 < myComments.length; index1++) {
+            const comment = myComments[index1];
+
+            let senderObj = await mod_user.getByid(comment.member_id_fkey);
+            comment.image_url = senderObj.image_url;           
+        }
+
         postList.push(element);
     }
 
@@ -92,6 +100,14 @@ exports.showOthersPostPage = async function(req,res,next) {
         element.post.image_url = otherUserObj.image_url;
         let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
         element.post.topic_name = topic.name;
+
+        let myComments = element.comments;
+        for (let index1 = 0; index1 < myComments.length; index1++) {
+            const comment = myComments[index1];
+
+            let senderObj = await mod_user.getByid(comment.member_id_fkey);
+            comment.image_url = senderObj.image_url;           
+        }
 
         postList.push(element);
     }
