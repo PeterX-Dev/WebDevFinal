@@ -45,6 +45,8 @@ exports.showMessagePage = async function(req,res,next) {
 
         element.topic.date = monthNames[d1.getMonth()] + " " + day;
 
+        element.topic.active = false;
+
         let messageOfTopic = element.message;
         for (let index1 = 0; index1 < messageOfTopic.length; index1++) {
             const element1 = messageOfTopic[index1];
@@ -69,11 +71,20 @@ exports.showMessagePage = async function(req,res,next) {
     };
     console.log(myMessageList);
 
+    console.log(req.query.topicId);
+
     // TBD-Peter, the default topic item is the first one, when user choose other topic, 
     // will pass the chosen topic here and refresh messages accordingly
-    let currentTopicId = 6;
+    let currentTopicId;
+    if (req.query.topicId == undefined || Number(req.query.topicId) === -1) {
+        currentTopicId = myMessageList[0].topic.id;
+    }
+    else {
+        currentTopicId = Number(req.query.topicId);
+    }       
     let currentTopic = myMessageList.filter(x => x.topic.id === currentTopicId);
 
+    currentTopic[0].topic.active = true;
     console.log(currentTopic[0].message);
 
 //    res.render('messagePage',{ messagePageCSS: true, message: mockMessage, reply: mockReply});
@@ -113,8 +124,5 @@ exports.newMessageReply = async function(req,res,next) {
     // use POST to send it from previous page 
     await mod_msg.addMsgOnly(newMessageObj);
 
-    res.redirect('/message');
-
-    // res.render('messagePage' ,{      
-    // });
+    res.redirect('/message?topicId='+newMessageObj.messageTopicId);
 }

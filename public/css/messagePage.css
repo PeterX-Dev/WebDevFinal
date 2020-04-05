@@ -19,8 +19,16 @@
     border-left: solid darkgray 1px;
 }
 
-.msg_list_item{
+.msg_list_item {
     margin: 10px 10px;
+}
+
+.msg_list_item:hover {
+    background-color: lightpink;
+}
+
+.active {    
+    background-color: lightgrey;
 }
 
 img {
@@ -73,7 +81,7 @@ img {
 
 #newMessageReply input[type=submit] {
     float: right;
-    background-color: green;
+    background-color: #01a2e8;
     color: white;
     border: none;
     height: 30px;

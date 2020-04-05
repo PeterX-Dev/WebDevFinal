@@ -2,7 +2,11 @@
 <div id="messageDiv">
     <div id="message_list">
         {{#each topics}}
-            <div class="msg_list_item">
+            {{#if this.topic.active}}
+            <div class="msg_list_item active">
+            {{else}}
+            <div class="msg_list_item" onclick="window.location='/message?topicId={{this.topic.id}}';">
+            {{/if}}
                 <img src="{{this.topic.attender_imageurl}}" class="circular_img"/>
                 <div class="info">
                     <span>{{this.topic.attender_name}}</span>
