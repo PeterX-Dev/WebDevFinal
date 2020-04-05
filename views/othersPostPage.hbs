@@ -2,16 +2,18 @@
     {{>headerBar}}
     <div id="otherPostPage-user">
         <div id="otherPostPage-user-column1">
-            {{>profileFrag}}
+            {{>profileHeaderFrag}}
         </div>      
         <div id="otherPostPage-user-column2">
             <form action="/messageEdit" method="POST"> 
                 <input type="text" name="receiverId" value="{{user.id}}" class="hide">    
                 <input type="text" name="imageUrl" value="{{user.image_url}}" class="hide">  
-                <input type="submit" name="messageEditBtn" value="messageEdit">
+                <input class="messageEditButton" type="submit" name="messageEditBtn" value="Message">
             </form>
-            <a href="/addlikes?userId={{user.id}}"><p>{{user.likes_count}} Likes</p></a>
-            <p>{{user.post_count}} Posts</p>
+            <div>{{user.likes_count}} Likes
+                <a href="/addlikes?userId={{user.id}}"><img src="./images/like-icon.png"></a>
+            </div>
+            <div>{{user.post_count}} Posts</div>
         </div>
         <br class="clear"/>
     </div>

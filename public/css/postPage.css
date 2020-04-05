@@ -1,7 +1,6 @@
 .post-div {
     width: 700px;
-    margin: 50px auto 50px auto;
-
+    margin: 30px auto 50px 0px;
 }
 
 .post-frame {
@@ -83,10 +82,19 @@
     margin-bottom: 15px;
 }
 
+.post-replies-text {
+    padding-bottom: 10px;
+}
+
+.post-replies-text:hover {
+    border-bottom: 1px solid cyan;
+}
+
 .post-date {
     text-align: left;
     font-size: 0.9em;
     flex-grow: 1;
+    height: 30px;
 }
 
 .post-replies {
@@ -97,11 +105,6 @@
 
 .post-replies > div {
     padding-bottom: 5px;
-}
-
-.post-replies > div > span:hover {
-    padding-bottom: 10px;
-    border-bottom: 2px solid #1a75ff;
 }
 
 #newReply {
@@ -124,5 +127,6 @@
 }
 
 .hide-comment span:hover {
-    color: #ff0000;
+    border-bottom: 1px solid cyan;
+    padding-bottom: 10px;
 }

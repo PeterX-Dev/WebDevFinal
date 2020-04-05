@@ -99,7 +99,7 @@ exports.showOthersPostPage = async function(req,res,next) {
         user: otherUserObj,
         posts: postList,
         postCSS: true,
-        otherPostCSS: true      
+        othersPostCSS: true      
     });
 }
 
