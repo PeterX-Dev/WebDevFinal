@@ -77,8 +77,12 @@ exports.showMainPage = async function(req,res,next) {
 
 exports.logout = function(req,res,next) {  
     let replyObj = req.body;
-    console.log("logout..."); 
-    res.redirect('/login');
+    // req.session = null;
+    req.session.destroy(function(err) {
+        // cannot access session here
+        console.log("Destroy session and logout..."); 
+        res.redirect('/login');
+    });
 }
 
 
