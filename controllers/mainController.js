@@ -75,11 +75,13 @@ exports.showMainPage = async function(req,res,next) {
     });
 }
 
-exports.logout = function(req,res,next) {  
+exports.logout = async function(req,res,next) {  
     let replyObj = req.body;
+
     // req.session = null;
     req.session.destroy(function(err) {
         // cannot access session here
+
         console.log("Destroy session and logout..."); 
         res.redirect('/login');
     });
