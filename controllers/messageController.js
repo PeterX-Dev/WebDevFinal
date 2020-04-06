@@ -26,10 +26,10 @@ exports.showMessagePage = async function(req,res,next) {
         let attenderId;
         let day;
 
-        if (element.topic.sender_id_fkey === Number(userId)) {
-            attenderId = element.topic.receiver_id_fkey;
-        } else if (element.topic.receiver_id_fkey === Number(userId)) {
+        if (element.topic.sender_id_fkey === Number(userId)) {          
             attenderId = element.topic.sender_id_fkey;
+        } else if (element.topic.receiver_id_fkey === Number(userId)) {
+            attenderId = element.topic.receiver_id_fkey;
         }
         element.topic.attenderId = attenderId;
         let attenderObj = await mod_user.getByid(attenderId);
@@ -72,6 +72,9 @@ exports.showMessagePage = async function(req,res,next) {
     // console.log(myMessageList);
 
     console.log(req.query.topicId);
+
+    // To reverse myMessageList
+    myMessageList = myMessageList.reverse();
 
     // TBD-Peter, the default topic item is the first one, when user choose other topic, 
     // will pass the chosen topic here and refresh messages accordingly
