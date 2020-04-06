@@ -84,49 +84,54 @@ exports.showMyPostPage = async function(req,res,next) {
 exports.showOthersPostPage = async function(req,res,next) { 
     let otherUserId = req.query.userId; 
 
-    // save this into session
-    req.session.otherUserId = otherUserId;
-    req.session.currentPage = 'othersPost';
+    if (req.session.userId == otherUserId) {
+        console.log("Redirect to myPost Page");
+        res.redirect('/myPost');
+    } else {
+        // save this into session
+        req.session.otherUserId = otherUserId;
+        req.session.currentPage = 'othersPost';
 
-    let otherUserObj = await mod_user.getByid(otherUserId);
+        let otherUserObj = await mod_user.getByid(otherUserId);
 
-    let rawPostList = await mod.getPostsByUser(otherUserId);
-    let prePostList = formatPosts(rawPostList);
+        let rawPostList = await mod.getPostsByUser(otherUserId);
+        let prePostList = formatPosts(rawPostList);
 
-    // console.log(rawPostList);
+        // console.log(rawPostList);
 
-    otherUserObj.post_count = rawPostList.length;
-    otherUserObj.msg_count = await mod_msg.getCount(otherUserId);
-    if (otherUserObj.likes_count === undefined || otherUserObj.likes_count === null) 
-    {
-        otherUserObj.likes_count = 0;
-    }
-
-    let postList=[];
-    for (let index = 0; index < prePostList.length; index++) {
-        const element = prePostList[index];
-        let otherUserObj = await mod_user.getByid(element.post.member_id_fkey);
-        element.post.image_url = otherUserObj.image_url;
-        let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
-        element.post.topic_name = topic.name;
-
-        let myComments = element.comments;
-        for (let index1 = 0; index1 < myComments.length; index1++) {
-            const comment = myComments[index1];
-
-            let senderObj = await mod_user.getByid(comment.member_id_fkey);
-            comment.image_url = senderObj.image_url;           
+        otherUserObj.post_count = rawPostList.length;
+        otherUserObj.msg_count = await mod_msg.getCount(otherUserId);
+        if (otherUserObj.likes_count === undefined || otherUserObj.likes_count === null) 
+        {
+            otherUserObj.likes_count = 0;
         }
 
-        postList.push(element);
-    }
+        let postList=[];
+        for (let index = 0; index < prePostList.length; index++) {
+            const element = prePostList[index];
+            let otherUserObj = await mod_user.getByid(element.post.member_id_fkey);
+            element.post.image_url = otherUserObj.image_url;
+            let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
+            element.post.topic_name = topic.name;
 
-    res.render('othersPostPage' ,{
-        user: otherUserObj,
-        posts: postList,
-        postCSS: true,
-        othersPostCSS: true      
-    });
+            let myComments = element.comments;
+            for (let index1 = 0; index1 < myComments.length; index1++) {
+                const comment = myComments[index1];
+
+                let senderObj = await mod_user.getByid(comment.member_id_fkey);
+                comment.image_url = senderObj.image_url;           
+            }
+
+            postList.push(element);
+        }
+
+        res.render('othersPostPage' ,{
+            user: otherUserObj,
+            posts: postList,
+            postCSS: true,
+            othersPostCSS: true      
+        });
+    }
 }
 
 exports.showPostPage = async function(req,res,next) {  
