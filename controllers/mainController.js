@@ -40,12 +40,19 @@ function formatPosts(postList) {
 }
 
 exports.showMainPage = async function(req,res,next) {
+    let currentPage = 1;
+
     userId = req.session.userId;
+
+    // save this into session
+    req.session.currentPage = 'main';
+    
     console.log("USER: " + userId);
     let page = 0;
     if(req && req.params && req.params.page) {
         page = req.params.page;
     }
+
     let userObj = await mod_user.getByid(userId);
     //console.log("USER OBJECT: " + JSON.stringify(userObj));
 
@@ -56,6 +63,15 @@ exports.showMainPage = async function(req,res,next) {
     {
         userObj.likes = 0;
     }
+
+    console.log("Page: " + page);
+    // This is a protection to avoid DB error. 
+    // When click on next, the main page will refresh two times
+    // the second time error happens that: page='height="80px"' 
+    if(isNaN(page))
+        page = currentPage;
+    else
+        currentPage = page;
  
     let rawPostList = await mod_post.getPostsByPage(page);
 

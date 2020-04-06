@@ -89,6 +89,7 @@ async function getPostsByUser(user_id) {
     
     let combinedData = posts.map((post) => {
         let comments = commentList.filter((comment) => comment.post_id_fkey == post.id);
+
         let replies = comments.length;
         return { post, comments, replies }
     })
@@ -103,9 +104,7 @@ async function addComment(e) {
     await db.query(insertText, [e.comment_string, Number(e.member_id_fkey), Number(e.post_id_fkey), now]);
 
     let rawCommentList = await db.query('SELECT * from public.comments');
-    let commentList = rawCommentList.rows; 
-    
-    console.log(commentList);
+    commentList = rawCommentList.rows; 
 }
 
 function getCommentsById(id) {    
