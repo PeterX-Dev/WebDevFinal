@@ -4,13 +4,24 @@
         <h1 id="signUpPageDescript">Let's us know a little more about you</h1>
     </div>
     <div id="signUpPage-column2">
-        <form id="completeRegistration" action="/login/signupComplete" method="POST">  
-            <input type="text" name="imageurl" placeholder='imageurl'>
-            <textarea id="description" rows="6" name="description" placeholder='a few lines about yourself...'></textarea>     
-            <input type="text" name="country" placeholder='country'>
-            <input type="date" name="DOB" >
+        <form id="completeRegistration" action="/login/signupComplete" method="POST"> 
+            <div id="regEntry">
+                <div>Image Url</div>
+                <div><input type="text" name="imageurl" placeholder='imageurl'></div>
+            </div>
+            <div id="regEntry">
+                <div>Description</div>
+                <div><textarea id="description" rows="6" name="description" placeholder='a few lines about yourself...'></textarea></div>
+            </div>
+            <div id="regEntry">
+                <div>Country</div>
+                <div><input type="text" name="country" placeholder='country'></div>
+            </div> 
+            <div id="regEntry">
+                <div>Date of Birth</div>
+                <div><input type="date" name="DOB" placeholder='birth(yyyy-mm-dd)'></div>
+            </div>
             <input type="hidden" name="userId" value={{userId}}>
-
             <input type="submit" class="blue_bg" name="completeBtn" value="complete registration">
         </form>
     </div>

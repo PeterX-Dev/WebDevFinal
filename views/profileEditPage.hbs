@@ -2,15 +2,42 @@
 <div id="profileEditPage">
     <h1>My Profile Settings</h1>
     <form id="profileEditFm" action="/profile/update" method="POST">  
-        <input type="text" name="firstName" placeholder='firstname' value={{user.first_name}}>
-        <input type="text" name="lastName" placeholder='lastname' value={{user.last_name}}>      
-        <input type="email" name="email" placeholder='email' value={{user.email}}>
-        <input type="password" name="password" placeholder='password' value={{user.password}}>
-        <input type="password" name="confirmPwd" placeholder='confirm password' value={{user.password}}>
-        <input type="text" name="imageurl" placeholder='imageurl' value={{user.image_url}}>
-        <textarea id="description" rows="6" name="description" placeholder='a few lines about yourself...'>{{user.description}}</textarea>     
-        <input type="text" name="country" placeholder='country' value={{user.country}}>
-        <input type="date" name="DOB" value={{user.dob}}>
-        <input type="submit" name="updateBtn" value="Update Profile">
+        <div id="profileEditEntry">
+            <div>First Name</div>
+            <div><input type="text" name="firstName" placeholder='firstname' value={{user.first_name}}></div>
+        </div>
+        <div id="profileEditEntry">
+            <div>Last Name</div>
+            <div><input type="text" name="lastName" placeholder='lastname' value={{user.last_name}}></div>
+        </div>
+        <div id="profileEditEntry">
+            <div>Email</div>
+            <div><input type="email" name="email" placeholder='email' value={{user.email}}></div>
+        </div>
+        <div id="profileEditEntry">
+            <div>Password</div>
+            <div><input type="password" name="password" placeholder='password' value={{user.password}}></div>
+        </div>
+        <div id="profileEditEntry">
+            <div>Confirm Password</div>
+            <div><input type="password" name="confirmPwd" placeholder='confirm password' value={{user.password}}></div>
+        </div>
+        <div id="profileEditEntry">
+            <div>Image Url</div>
+            <div><input type="text" name="imageurl" placeholder='imageurl' value={{user.image_url}}></div>
+        </div>
+        <div id="profileEditEntry">
+            <div>Description</div>
+            <div><textarea id="description" rows="6" name="description" placeholder='a few lines about yourself...'>{{user.description}}</textarea></div>
+        </div>
+        <div id="profileEditEntry">
+            <div>Country</div>
+            <div><input type="text" name="country" placeholder='country' value={{user.country}}></div>
+        </div>
+        <div id="profileEditEntry">
+            <div>DOB</div>
+            <div><input type="date" name="DOB" value={{user.dob}}></div>
+        </div>
+        <div><input type="submit" name="updateBtn" value="Update Profile"></div>
     </form>     
 </div>

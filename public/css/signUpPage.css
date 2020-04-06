@@ -26,25 +26,42 @@
 }
 
 #completeRegistration input {
-    height: 25px;
-    width: 80%;
+    width: 100%;
     padding-left: 5px;
     display: block;
     padding-top: 5px;
     padding-bottom: 5px;
-    margin: 0.65em 0;
 }
 
 #completeRegistration textarea {
-    width: 80%;
+    width: 100%;
     padding-left: 5px;
     display: block;
     resize: none;
-    margin: 0.65em 0;
 }
 
 #completeRegistration input[type=submit] {
     height: 35px;
+    width: 85%;
     color: white;
     border: none;
+}
+
+#regEntry {
+    width: 100%;
+    max-height: 300px;
+    display: block;
+    margin: 10px 0;
+}
+
+#regEntry div:nth-child(1) {
+    width: 30%;
+    max-width: 150px;
+    float: left;
+}
+
+#regEntry div:nth-child(2) {
+    margin-bottom: 10px;
+    width: 60%;
+    float: left;
 }
