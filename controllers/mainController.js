@@ -41,6 +41,10 @@ function formatPosts(postList) {
 
 exports.showMainPage = async function(req,res,next) {
     userId = req.session.userId;
+
+    // save this into session
+    req.session.currentPage = 'main';
+    
     console.log("USER: " + userId);
     let page = 0;
     if(req && req.params && req.params.page) {

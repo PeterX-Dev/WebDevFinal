@@ -39,6 +39,9 @@ function formatPosts(postList) {
 exports.showMyPostPage = async function(req,res,next) {  
     let userId = req.session.userId;
 
+    // save this into session
+    req.session.currentPage = 'myPost';
+
     let userObj = await mod_user.getByid(userId);
 
     let rawPostList = await mod.getPostsByUser(userId);
@@ -78,13 +81,19 @@ exports.showMyPostPage = async function(req,res,next) {
     });
 }
 
-exports.showOthersPostPage = async function(req,res,next) {  
+exports.showOthersPostPage = async function(req,res,next) { 
     let otherUserId = req.query.userId; 
+
+    // save this into session
+    req.session.otherUserId = otherUserId;
+    req.session.currentPage = 'othersPost';
 
     let otherUserObj = await mod_user.getByid(otherUserId);
 
     let rawPostList = await mod.getPostsByUser(otherUserId);
     let prePostList = formatPosts(rawPostList);
+
+    // console.log(rawPostList);
 
     otherUserObj.post_count = rawPostList.length;
     otherUserObj.msg_count = await mod_msg.getCount(otherUserId);
@@ -143,7 +152,20 @@ exports.addNewComment = async function(req,res,next) {
     await mod.addComment(newComment);
     
     console.log("Add comment successful");
-    res.redirect('/main');
+
+    // After adding comment, I need to stay in the same page.
+    // i.e, when adding from otherpost Page, only need to refreash current page
+    console.log(req.session.otherUserId);
+    console.log(req.session.currentPage);
+
+    if (req.session.currentPage == 'main' || req.session.currentPage == 'myPost') {
+        res.redirect('/' + req.session.currentPage);
+    } else if (req.session.currentPage == 'othersPost') {
+        res.redirect('/othersPost?userId=' + req.session.otherUserId);
+    }
+        
+//    res.redirect('/'+routeArr[1]);
+//    res.redirect('/main');
 }
 
 exports.searchBySubject = async function(req,res,next) {
