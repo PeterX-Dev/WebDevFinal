@@ -37,12 +37,22 @@ async function getAllMessages() {
     return messageList;
 }
 
-async function getMessage(id) {
+async function getMessageTopic(id) {
     if (messageList.length == 0)
     {
         await updateLocalData();
     } 
-    return messageList[id];
+ 
+    if (id === undefined || id == null) {
+        return {};
+    }
+
+    let topicObj = messageList.filter(x => x.topic.id === Number(id));
+
+    if(topicObj.length !== 1)    // something wrong here
+        return {};
+    else
+        return topicObj[0].topic;
 }
 
 async function getMessageCountBySender(id) {
@@ -77,6 +87,6 @@ module.exports = {
     add : addMessage,
     addMsgOnly : addMessageToTopic,
     getall : getAllMessages,
-    getByid: getMessage,
+    getTopicByid: getMessageTopic,
     getCount: getMessageCountBySender
 }

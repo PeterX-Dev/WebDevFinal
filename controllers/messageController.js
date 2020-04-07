@@ -125,5 +125,15 @@ exports.newMessageReply = async function(req,res,next) {
     // use POST to send it from previous page 
     await mod_msg.addMsgOnly(newMessageObj);
 
+    // Send email also
+    let topicObj = await mod_msg.getTopicByid(newMessageObj.messageTopicId);
+    console.log(topicObj);
+
+    let subject = topicObj.subject;
+    let message = newMessageObj.message;
+    let receiver = await mod_user.getByid(topicObj.sender_id_fkey);
+    let sender = await mod_user.getByid(newMessageObj.senderId);
+    emailer.send(receiver.first_name, receiver.email, sender.first_name, subject, message);
+
     res.redirect('/message?topicId='+newMessageObj.messageTopicId);
 }
