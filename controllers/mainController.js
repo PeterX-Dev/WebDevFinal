@@ -104,24 +104,6 @@ exports.logout = async function(req,res,next) {
     });
 }
 
-
-exports.searchByTopic = async function(req,res,next) {
-    let topicId = req.body.topic;
-    let matched = [];
-    let rawPosts = await mod_post.getPostsByTopic(topicId);
-    if (rawPosts.length == 0) {
-        res.render('postPage' ,{ postCSS: true, postsData: matched, noMatch: true});
-    }
-    let matchedPosts = formatPosts(rawPosts);
-    matchedPosts.forEach(async (post, index, arr) => {
-        let matchedComments = await mod_post.getCommentsById(post.id);
-        matched.push({ post, comments: matchedComments.rows, replies: matchedComments.rows.length});
-        if(Object.is(arr.length-1, index)) {
-            res.render('postPage' ,{ postCSS: true, postsData: matched});
-        }
-    });
-}
-
 exports.postToTimeLine = async function(req,res,next) {
     let newPost = req.body;
     // console.log(JSON.stringify(req, null, 1)); 
