@@ -4,15 +4,6 @@ const emailer = require('../emailer/email');
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 exports.showMessagePage = async function(req,res,next) {
-
-    // let mockMessage = [{name: "Frank Lee", title: "hi there", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg", date:"Sep 12"},
-    // {name: "Frank Lee", title: "hi there", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg", date:"Sep 12"}
-    // ];
-    // let mockReply = [
-    //     {sender: "Frank Lee", date: "SEP 4", time: "9:57 PM", message: "Umm, give me some time to think about it ...", senderImg: "https://randomuser.me/api/portraits/med/men/24.jpg"},
-    //     {sender: "Jane Way", date: "SEP 4", time: "9:57 PM", message: "Umm, give me some time to think about it ...", senderImg: "https://randomuser.me/api/portraits/med/women/2.jpg"}
-    // ];
-
     let userId =  req.session.userId; 
     let allMessages = await mod_msg.getall();
 
@@ -26,24 +17,27 @@ exports.showMessagePage = async function(req,res,next) {
         let attenderId;
         let day;
 
-        if (element.topic.sender_id_fkey === Number(userId)) {          
-            attenderId = element.topic.sender_id_fkey;
-        } else if (element.topic.receiver_id_fkey === Number(userId)) {
-            attenderId = element.topic.receiver_id_fkey;
-        }
+        // if (element.topic.sender_id_fkey === Number(userId)) {          
+        //     attenderId = element.topic.sender_id_fkey;
+        // } else if (element.topic.receiver_id_fkey === Number(userId)) {
+        //     attenderId = element.topic.receiver_id_fkey;
+        // }
+
+        // Sender is the person who initial the message
+        attenderId = element.topic.sender_id_fkey;
+
         element.topic.attenderId = attenderId;
         let attenderObj = await mod_user.getByid(attenderId);
         element.topic.attender_imageurl = attenderObj.image_url;
         element.topic.attender_name = attenderObj.first_name + ' ' + attenderObj.last_name;
 
-        // element.topic.date = "Sep 12";    // TBD-Peter
         let d1= new Date(element.topic.date);
 
         day = '' + d1.getDate(); 
         if (day.length < 2) 
             day = '0' + day;
 
-        element.topic.date = monthNames[d1.getMonth()] + " " + day;
+        element.topic.localdate = monthNames[d1.getMonth()] + " " + day;
 
         element.topic.active = false;
 
@@ -54,7 +48,6 @@ exports.showMessagePage = async function(req,res,next) {
             let senderObj = await mod_user.getByid(element1.sender_id_fkey);
             element1.sender_imageurl = senderObj.image_url;
             element1.sender_name = senderObj.first_name + ' ' + senderObj.last_name;
-            //TBD-Peter
 
             // This is used to change Date to yyyy-mm-dd
             // i.e. 2020-04-09T07:00:00.000Z to 2020-04-09
@@ -65,9 +58,9 @@ exports.showMessagePage = async function(req,res,next) {
             if (day.length < 2) 
                 day = '0' + day;
 
-            element1.date = monthNames[d1.getMonth()] + " " + day;
-            element1.time = d1.toLocaleTimeString('en-US');
-        }   
+            element1.localdate = monthNames[d1.getMonth()] + " " + day;
+            element1.localtime = d1.toLocaleTimeString('en-US');
+        }
     };
     // console.log(myMessageList);
 

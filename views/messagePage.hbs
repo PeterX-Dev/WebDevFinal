@@ -10,7 +10,7 @@
                 <img src="{{this.topic.attender_imageurl}}" class="circular_img"/>
                 <div class="info">
                     <span>{{this.topic.attender_name}}</span>
-                    <span class="date">{{this.topic.date}}</span>
+                    <span class="date">{{this.topic.localdate}}</span>
                     <p>{{this.topic.subject}}</p>
                 </div>
             </div>
@@ -20,12 +20,12 @@
     <div id="message_detail">
         {{#each messages}}
             <div class="reply_wrapper">
-                <div class="reply_date grey_font">{{this.date}}</div>
+                <div class="reply_date grey_font">{{this.localdate}}</div>
                 <div class="reply_div">
                     <img src="{{this.sender_imageurl}}" class="circular_small_img"/>
                     <div class="reply_info">
                         <span class="grey_font"><b>{{this.sender_name}} <span class="dot">&middot;</span> </b></span>
-                        <span class="grey_font">{{this.time}}</span>
+                        <span class="grey_font">{{this.localtime}}</span>
                         <p>{{this.message_string}}</p>
                     </div>
                 </div>

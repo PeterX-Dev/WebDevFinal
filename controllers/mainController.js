@@ -82,9 +82,6 @@ exports.showMainPage = async function(req,res,next) {
     let isShowNext = !end;
     let isShowPrev = page > 0 ? true : false;
 
-    console.log("isShowNext: " + isShowNext);
-    console.log("isShowPrev: " + isShowPrev);
-
     res.render('mainPage' ,{
         nextPage: Number(page) + 1,
         prevPage: Number(page) - 1,
