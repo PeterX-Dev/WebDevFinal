@@ -68,17 +68,6 @@ exports.newMemberSignUp = async function(req,res,next) {
     }
 }
 
-exports.addExtraInfo = async function(req,res,next) {
-    let userId = req.query.userId; 
-    console.log("addExtraInfo: "+userId);
-
-    res.render('signUpPage', {
-        userId: userId,
-        signupCSS: true,
-        loginCSS: true
-    });
-}
-
 exports.signUpComplete = async function(req,res,next) {
     let newUser = req.body;
     
