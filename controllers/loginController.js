@@ -53,7 +53,9 @@ exports.newMemberSignUp = async function(req,res,next) {
                 pwd: newUser.password,
                 firstName: newUser.firstName,
                 lastName: newUser.lastName,
-                email: newUser.email
+                email: newUser.email,
+                signupCSS: true,
+                loginCSS: true
             })
         }
     }
@@ -68,7 +70,7 @@ exports.newMemberSignUp = async function(req,res,next) {
 
 exports.addExtraInfo = async function(req,res,next) {
     let userId = req.query.userId; 
-    //console.log(userId);
+    console.log("addExtraInfo: "+userId);
 
     res.render('signUpPage', {
         userId: userId,
@@ -80,13 +82,14 @@ exports.addExtraInfo = async function(req,res,next) {
 exports.signUpComplete = async function(req,res,next) {
     let newUser = req.body;
     
-    //console.log(userExtraInfo);
-    //TBD-Peter:  Need to use session to send user id info to update function
+    console.log(newUser);
 
-    // add user info into DB
+    // add all the user info into DB
     await mod_user.add(newUser);
-     // update user info into DB
-    await mod_user.update(userExtraInfo);
+    
+    // update user info into DB
+    // we do not need this again, because all info has been added
+    // await mod_user.update(userExtraInfo);
 
     // add view/toast/new page that says sign successful, please login.   
     res.render('loginPage' ,{ 

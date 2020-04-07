@@ -15,4 +15,8 @@ router.get('/othersPost', postController.showOthersPostPage); //discussion: this
 
 router.get('/addlikes', postController.addlikesOthersPostPage);
 
+router.post('/post/searchByTitle', postController.searchBySubject);
+
+router.post('/post/searchByTopic', postController.searchByTopic);
+
 module.exports = router;
