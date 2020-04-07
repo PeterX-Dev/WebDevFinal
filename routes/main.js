@@ -6,7 +6,7 @@ const postController = require('../controllers/postController');
 
 router.get('/main', mainController.showMainPage);
 
-router.get('/main/:page', mainController.showMainPage);
+// router.get('/main/:page', mainController.showMainPage);
 
 router.get('/logout', mainController.logout); 
 

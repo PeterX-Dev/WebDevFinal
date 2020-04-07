@@ -48,8 +48,11 @@ exports.showMainPage = async function(req,res,next) {
     
     console.log("USER: " + userId);
     let page = 0;
-    if(req && req.params && req.params.page) {
-        page = req.params.page;
+    // if(req && req.params && req.params.page) {
+    //     page = req.params.page;
+    // }
+    if (req && req.query && req.query.page) {
+        page = req.query.page;
     }
 
     let userObj = await mod_user.getByid(userId);
@@ -76,16 +79,21 @@ exports.showMainPage = async function(req,res,next) {
 
     myPostList = formatPosts(rawPostList);
     let end = myPostList.length < 5 ? true : false;
+    let isShowNext = !end;
+    let isShowPrev = page > 0 ? true : false;
+
+    console.log("isShowNext: " + isShowNext);
+    console.log("isShowPrev: " + isShowPrev);
 
     res.render('mainPage' ,{
-        nextPage: page + 1,
-        prevPage: page - 1,
+        nextPage: Number(page) + 1,
+        prevPage: Number(page) - 1,
         user: userObj, //discussion can remove? not used in page
         posts: myPostList,
         postCSS: true,
         mainPageCSS: true,
-        showNext: !end,
-        showPrev: page > 0 ? true : false,
+        showNext: isShowNext,
+        showPrev: isShowPrev,
         endOfList: end
     });
 }

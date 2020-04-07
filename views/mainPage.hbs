@@ -49,10 +49,10 @@
             </div>
             <div id="moreDiscussions">
                 {{#if showPrev}}
-                <a href="/main/{{prevPage}}"> <span class="previousPage"> Previous </span></a>
+                <a href="/main?page={{prevPage}}"> <span class="previousPage"> Previous </span></a>
                 {{/if}}
                 {{#if showNext}}
-                <a href="/main/{{nextPage}}""> <span class="nextPage">Next-></span></a>
+                <a href="/main?page={{nextPage}}""> <span class="nextPage">Next-></span></a>
                 {{/if}}
             </div>
         </div>
