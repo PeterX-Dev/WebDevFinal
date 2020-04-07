@@ -29,6 +29,9 @@ async function addPost(e) {
     if (topicObj !== undefined && topicObj.length !== 0) {
         e.topicId = topicObj[0].id;
     }
+    else {
+        e.topicId = 1;
+    }
 
     let now= new Date(); 
 
