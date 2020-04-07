@@ -73,10 +73,10 @@ exports.showMessagePage = async function(req,res,next) {
 
     console.log(req.query.topicId);
 
-    // To reverse myMessageList
+    // Reverse myMessageList to display latest first
     myMessageList = myMessageList.reverse();
 
-    // TBD-Peter, the default topic item is the first one, when user choose other topic, 
+    // The default topic item is the first one, when user choose other topic, 
     // will pass the chosen topic here and refresh messages accordingly
     let currentTopicId;
     if (req.query.topicId == undefined || Number(req.query.topicId) === -1) {
@@ -96,7 +96,6 @@ exports.showMessagePage = async function(req,res,next) {
         
     // console.log(currentTopic[0].message);
 
-//    res.render('messagePage',{ messagePageCSS: true, message: mockMessage, reply: mockReply});
     res.render('messagePage',{ 
         messagePageCSS: true, 
         topics: myMessageList, 
@@ -119,8 +118,6 @@ exports.sendMessage = function(req,res,next) {
     mod_msg.add(receiverId, req.session.userId , subject, message);
 
     res.redirect('/othersPost?userId='+receiverId);
-    // res.render('othersPostPage' ,{      
-    //     });
 }
 
 exports.newMessageReply = async function(req,res,next) {

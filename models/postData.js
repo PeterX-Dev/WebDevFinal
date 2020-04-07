@@ -107,13 +107,14 @@ async function addComment(e) {
     commentList = rawCommentList.rows; 
 }
 
-function getCommentsById(id) {    
+async function getCommentsById(id) {    
     let queryString = "select comments.id, comments.comment_string, comments.post_id_fkey, member.id as \"member_id\", member.image_url \
                     from public.comments \
                     left join public.member on comments.member_id_fkey = member.id \
                     where post_id_fkey = " + id +
-                    " ORDER BY comment.date ASC";
-    return db.query(queryString);
+                    " ORDER BY comments.date ASC";
+    let matchedComments = await db.query(queryString);
+    return matchedComments;
 }
 
 async function getPostsBySubject(searchTerm) {

@@ -4,8 +4,6 @@ const mod_post = require('../models/postData');
 exports.showLoginPage = async function(req,res,next) {  
     // Display empty login Page
     res.render('loginPage' ,{loginCSS: true});
-
-//    await mod_user.update({});
 }
 
 exports.memberLogin = async function(req,res,next) {  
@@ -80,15 +78,10 @@ exports.addExtraInfo = async function(req,res,next) {
 exports.signUpComplete = async function(req,res,next) {
     let userExtraInfo = req.body;
     
-    //console.log(userExtraInfo);
-    //TBD-Peter:  Need to use session to send user id info to update function
-
-    // update user info into DB
+     // update user info into DB
     await mod_user.update(userExtraInfo);
 
-    // add view/toast/new page that says sign successful, please login.
-    
-    
+    // add view/toast/new page that says sign successful, please login.   
     res.render('loginPage' ,{ 
         loginCSS: true,
         newUserSignupSuccess: true    

@@ -61,7 +61,14 @@ textarea {
     color: skyblue;
 }
 
-#header_bar input {
+#header_bar input[type=text] {
+    height: 30px;
+    width: 350px;
+    border: none;
+    padding: 0;
+}
+
+#header_bar input[type=submit] {
     height: 30px;
     width: 200px;
     border: none;
@@ -81,7 +88,7 @@ textarea {
 
 #search_icon_wrapper {
     height: 30px;
-    width: 125px;
+    width: 30px;
     margin-left: 30px;
 }
 
