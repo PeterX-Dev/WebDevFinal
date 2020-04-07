@@ -61,9 +61,9 @@ exports.showMainPage = async function(req,res,next) {
     let myPostList = await mod_post.getPostsByUser(userId);
     userObj.PostNo = myPostList.length;
     userObj.MsgNo = await mod_msg.getCount(userId);
-    if (userObj.likes === undefined || userObj.likes.length == 0) 
+    if (userObj.likes_count === undefined || userObj.likes_count == null) 
     {
-        userObj.likes = 0;
+        userObj.likes_count = 0;
     }
 
     console.log("Page: " + page);
