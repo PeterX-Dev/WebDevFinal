@@ -7,8 +7,6 @@ router.post('/login/memberLogin', loginController.memberLogin);
 
 router.post('/login/signup', loginController.newMemberSignUp);
 
-router.get('/login/signupExtra', loginController.addExtraInfo);
-
 router.post('/login/signupComplete', loginController.signUpComplete);
 
 router.get('/login', loginController.showLoginPage);

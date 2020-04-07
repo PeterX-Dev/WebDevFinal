@@ -25,7 +25,7 @@
             </div>
             <div id="searchByTopic">
                 <div id="searchTopicText"><span>Search by Topic</span></div>
-                <form action="/main/searchByTopic" method="POST">               
+                <form action="/post/searchByTopic" method="POST">               
                     <select class="navy-style" name="topic" class="topicOption" required>
                         <option value="" disabled selected>topic</option>
                         <option value="1">php</option>
@@ -47,14 +47,16 @@
                 {{/if}}
                 <br class="clear"/>
             </div>
-            <div id="moreDiscussions">
-                {{#if showPrev}}
-                <a href="/main/{{prevPage}}"> <span class="previousPage"> Previous </span></a>
-                {{/if}}
-                {{#if showNext}}
-                <a href="/main/{{nextPage}}""> <span class="nextPage">Next-></span></a>
-                {{/if}}
-            </div>
+        </div>
+    </div>
+    <div id="moreDiscussions">
+        <div>
+            {{#if showNext}}
+            <a href="/main?page={{nextPage}}"> <span class="nextPage">Next-></span></a>
+            {{/if}}
+            {{#if showPrev}}
+            <a href="/main?page={{prevPage}}"> <span class="previousPage"> Previous </span></a>
+            {{/if}}
         </div>
     </div>
 </div>

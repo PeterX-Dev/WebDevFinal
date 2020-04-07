@@ -48,8 +48,11 @@ exports.showMainPage = async function(req,res,next) {
     
     console.log("USER: " + userId);
     let page = 0;
-    if(req && req.params && req.params.page) {
-        page = req.params.page;
+    // if(req && req.params && req.params.page) {
+    //     page = req.params.page;
+    // }
+    if (req && req.query && req.query.page) {
+        page = req.query.page;
     }
 
     let userObj = await mod_user.getByid(userId);
@@ -58,9 +61,9 @@ exports.showMainPage = async function(req,res,next) {
     let myPostList = await mod_post.getPostsByUser(userId);
     userObj.PostNo = myPostList.length;
     userObj.MsgNo = await mod_msg.getCount(userId);
-    if (userObj.likes === undefined || userObj.likes.length == 0) 
+    if (userObj.likes_count === undefined || userObj.likes_count == null) 
     {
-        userObj.likes = 0;
+        userObj.likes_count = 0;
     }
 
     console.log("Page: " + page);
@@ -76,16 +79,18 @@ exports.showMainPage = async function(req,res,next) {
 
     myPostList = formatPosts(rawPostList);
     let end = myPostList.length < 5 ? true : false;
+    let isShowNext = !end;
+    let isShowPrev = page > 0 ? true : false;
 
     res.render('mainPage' ,{
-        nextPage: page + 1,
-        prevPage: page - 1,
+        nextPage: Number(page) + 1,
+        prevPage: Number(page) - 1,
         user: userObj, //discussion can remove? not used in page
         posts: myPostList,
         postCSS: true,
         mainPageCSS: true,
-        showNext: !end,
-        showPrev: page > 0 ? true : false,
+        showNext: isShowNext,
+        showPrev: isShowPrev,
         endOfList: end
     });
 }
@@ -96,24 +101,6 @@ exports.logout = async function(req,res,next) {
     req.session.destroy(function(err) {
         console.log("Destroy session and logout..."); 
         res.redirect('/login');
-    });
-}
-
-
-exports.searchByTopic = async function(req,res,next) {
-    let topicId = req.body.topic;
-    let matched = [];
-    let rawPosts = await mod_post.getPostsByTopic(topicId);
-    if (rawPosts.length == 0) {
-        res.render('postPage' ,{ postCSS: true, postsData: matched, noMatch: true});
-    }
-    let matchedPosts = formatPosts(rawPosts);
-    matchedPosts.forEach(async (post, index, arr) => {
-        let matchedComments = await mod_post.getCommentsById(post.id);
-        matched.push({ post, comments: matchedComments.rows, replies: matchedComments.rows.length});
-        if(Object.is(arr.length-1, index)) {
-            res.render('postPage' ,{ postCSS: true, postsData: matched});
-        }
     });
 }
 

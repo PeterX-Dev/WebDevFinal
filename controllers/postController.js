@@ -1,4 +1,4 @@
-let mod = require('../models/postData.js');
+let mod_post = require('../models/postData.js');
 let mod_user = require('../models/userData.js');
 let mod_msg = require('../models/messageData');
 
@@ -44,7 +44,7 @@ exports.showMyPostPage = async function(req,res,next) {
 
     let userObj = await mod_user.getByid(userId);
 
-    let rawPostList = await mod.getPostsByUser(userId);
+    let rawPostList = await mod_post.getPostsByUser(userId);
     let prePostList = formatPosts(rawPostList);
 
     userObj.PostNo = rawPostList.length;
@@ -59,7 +59,7 @@ exports.showMyPostPage = async function(req,res,next) {
         const element = prePostList[index];
         let otherUserObj = await mod_user.getByid(element.post.member_id_fkey);
         element.post.image_url = otherUserObj.image_url;
-        let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
+        let topic = await mod_post.getTopicNameById(element.post.topic_id_fkey);
         element.post.topic_name = topic.name;
 
         let myComments = element.comments;
@@ -94,7 +94,7 @@ exports.showOthersPostPage = async function(req,res,next) {
 
         let otherUserObj = await mod_user.getByid(otherUserId);
 
-        let rawPostList = await mod.getPostsByUser(otherUserId);
+        let rawPostList = await mod_post.getPostsByUser(otherUserId);
         let prePostList = formatPosts(rawPostList);
 
         // console.log(rawPostList);
@@ -111,7 +111,7 @@ exports.showOthersPostPage = async function(req,res,next) {
             const element = prePostList[index];
             let otherUserObj = await mod_user.getByid(element.post.member_id_fkey);
             element.post.image_url = otherUserObj.image_url;
-            let topic = await mod.getTopicNameById(element.post.topic_id_fkey);
+            let topic = await mod_post.getTopicNameById(element.post.topic_id_fkey);
             element.post.topic_name = topic.name;
 
             let myComments = element.comments;
@@ -135,16 +135,36 @@ exports.showOthersPostPage = async function(req,res,next) {
 }
 
 exports.showPostPage = async function(req,res,next) {  
-    let postsData = await mod.getPostsByPage();
-    res.render('postPage' ,{postsData, postCSS: true});
+    // let postsData = await mod_post.getPostsByPage();
+    // res.render('postPage' ,{postsData, postCSS: true});
+    let searchMethod = req.session.searchMethod;
+    let searchItem = req.session.searchItem;
 
+    let matched = [];
+    let rawPosts;
+    if (searchMethod == "subject")
+        rawPosts = await mod_post.getPostsBySubject(searchItem);
+    else 
+        rawPosts = await mod_post.getPostsByTopic(searchItem);
+
+    if (rawPosts.length == 0) {
+        res.render('postPage' ,{ postCSS: true, postsData: matched, noMatch: true});
+    }
+    let matchedPosts = formatPosts(rawPosts);
+    matchedPosts.forEach(async (post, index, arr) => {
+        let matchedComments = await mod_post.getCommentsById(post.id);
+        matched.push({ post, comments: matchedComments.rows, replies: matchedComments.rows.length});
+        if(Object.is(arr.length-1, index)) {
+            res.render('postPage' ,{ postCSS: true, postsData: matched});
+        }
+    });
 }
 
 exports.showComments = function(req,res,next) { 
     let postId = req.body.postId;
-    let comments = mod.getCommentsById(postId);
+    let comments = mod_post.getCommentsById(postId);
     comments.then((data) => {
-        res.render('postPage' ,{ post: mod.getPostsByPage, postId: postId, comments: mod.getCommentsById(postId) });
+        res.render('postPage' ,{ post: mod_post.getPostsByPage, postId: postId, comments: mod_post.getCommentsById(postId) });
     })
 }
 
@@ -154,35 +174,68 @@ exports.addNewComment = async function(req,res,next) {
     newComment.member_id_fkey = req.session.userId;
     newComment.post_id_fkey = req.body.id;
     
-    await mod.addComment(newComment);
+    await mod_post.addComment(newComment);
     
     console.log("Add comment successful");
 
     // After adding comment, I need to stay in the same page.
     // i.e, when adding from otherpost Page, only need to refreash current page
-    console.log(req.session.otherUserId);
     console.log(req.session.currentPage);
 
-    if (req.session.currentPage == 'main' || req.session.currentPage == 'myPost') {
+    if (req.session.currentPage == 'main' || 
+        req.session.currentPage == 'myPost' ||
+        req.session.currentPage == 'post') 
+    {
         res.redirect('/' + req.session.currentPage);
-    } else if (req.session.currentPage == 'othersPost') {
+    } else if (req.session.currentPage == 'othersPost') 
+    {
         res.redirect('/othersPost?userId=' + req.session.otherUserId);
-    } else {   // This should not happen, add protection here
+    } else // This should not happen, add protection here
+    {   
         res.redirect('/main');
     }
 }
 
 exports.searchBySubject = async function(req,res,next) {
     let searchTerm = req.body.searchTerm;
+
+    // save this into session
+    req.session.searchMethod = "subject";
+    req.session.searchItem = searchTerm;
+    req.session.currentPage = 'post';
+
     let matched = [];
-    let rawPosts = await mod.getPostsBySubject(searchTerm);
-    console.log(JSON.stringify(rawPosts, null, 1));
+    let rawPosts = await mod_post.getPostsBySubject(searchTerm);
+    // console.log(JSON.stringify(rawPosts, null, 1));
     let matchedPosts = formatPosts(rawPosts);
     if (matchedPosts.length == 0) {
         res.render('postPage' ,{ postCSS: true, postsData: matched, noMatch: true});
     }
     matchedPosts.forEach(async (post, index, arr) => {
-        let matchedComments = await mod.getCommentsById(post.id);
+        let matchedComments = await mod_post.getCommentsById(post.id);
+        matched.push({ post, comments: matchedComments.rows, replies: matchedComments.rows.length});
+        if(Object.is(arr.length-1, index)) {
+            res.render('postPage' ,{ postCSS: true, postsData: matched});
+        }
+    });
+}
+
+exports.searchByTopic = async function(req,res,next) {
+    let topicId = req.body.topic;
+
+    // save this into session
+    req.session.searchMethod = "topic";
+    req.session.searchItem = topicId;
+    req.session.currentPage = 'post';
+
+    let matched = [];
+    let rawPosts = await mod_post.getPostsByTopic(topicId);
+    if (rawPosts.length == 0) {
+        res.render('postPage' ,{ postCSS: true, postsData: matched, noMatch: true});
+    }
+    let matchedPosts = formatPosts(rawPosts);
+    matchedPosts.forEach(async (post, index, arr) => {
+        let matchedComments = await mod_post.getCommentsById(post.id);
         matched.push({ post, comments: matchedComments.rows, replies: matchedComments.rows.length});
         if(Object.is(arr.length-1, index)) {
             res.render('postPage' ,{ postCSS: true, postsData: matched});
