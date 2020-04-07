@@ -167,10 +167,9 @@ exports.addNewComment = async function(req,res,next) {
         res.redirect('/' + req.session.currentPage);
     } else if (req.session.currentPage == 'othersPost') {
         res.redirect('/othersPost?userId=' + req.session.otherUserId);
+    } else {   // This should not happen, add protection here
+        res.redirect('/main');
     }
-        
-//    res.redirect('/'+routeArr[1]);
-//    res.redirect('/main');
 }
 
 exports.searchBySubject = async function(req,res,next) {
