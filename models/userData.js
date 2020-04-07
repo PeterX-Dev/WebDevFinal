@@ -14,14 +14,12 @@
 //     likes_count(Number) 
 // }
 
-// This is test data, will be replaced by DB API later
 let db = require('../DB/db');
 
 let userList = [];
 async function addUser(e) {
     let queryString = 'Insert into member(first_name, last_name, email, password, likes_count, image_url, description, country, dob) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)';
     await db.query(queryString, [e.firstName, e.lastName, e.email, e.password, 0, e.imageurl, e.description, e.country, e.DOB]);
-
     
     // Update userList when there is data change
     await updateLocalUserData();
@@ -50,8 +48,6 @@ async function updateUser(e, updateAll=false) {
     }
     else 
     {
-        // await db.query("UPDATE member SET image_url='" + e.imageurl + "', description='" + e.description 
-        //     + "', country='" + e.country + "', dob='" + e.DOB + "' WHERE id=" + Number(e.userId));
         queryText = 'UPDATE member SET image_url=$1, description=$2, country=$3, dob=$4 WHERE id=$5';
         await db.query(queryText, [e.imageurl, e.description, e.country, e.DOB, e.userId]);
     }
@@ -98,7 +94,6 @@ async function getUser(id) {
     // return user;
 
     let userObj = userList.filter(x => x.id === Number(id));
-    // console.log(userObj);
 
     if(userObj.length !== 1)    // something wrong here
         return {};
@@ -130,10 +125,7 @@ async function checkNoRepeatUserExist(user) {
         await updateLocalUserData();
     }
 
-    var user = userList.filter(x => x.email === user.email || 
-        (x.first_name === user.firstName && 
-        x.last_name === user.lastName)
-    );
+    var user = userList.filter(x => x.email === user.email);
 
     if (user === undefined || user.length == 0) {
         // array empty or does not exist, no repeat user existed
