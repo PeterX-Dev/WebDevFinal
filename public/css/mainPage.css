@@ -133,14 +133,47 @@
 #moreDiscussions {
     margin-top: 20px;
     width: 90%;
+    height: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#moreDiscussions > div {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .previousPage {
-    border: 5px solid skyblue;
-    float: left;
+    border: 1px solid white;
+    border-radius: 30px;
+    color: white;
+    padding: 15px;
+    float: right;
+    background-color: skyblue;
+    margin: 20px 10px;
+}
+
+.previousPage {
+    border: 1px solid skyblue;
+}
+
+.previousPage:hover {
+    border: 1px solid skyblue;
 }
 
 .nextPage {
-    border: 5px solid skyblue;
+    border: 1px solid white;
+    border-radius: 30px;
+    color: white;
+    padding: 15px;
     float: right;
+    background-color: skyblue;
+    margin-bottom: 10px;
+    margin: 20px 10px;
+}
+
+.nextPage:hover {
+    border: 1px solid skyblue;
 }
