@@ -5,7 +5,6 @@ let mod_msg = require('../models/messageData');
 let userId = 0;
 
 //TODO: remove duplicate
-//TODO: remove duplicate
 function formatPosts(postList) {
     let result =  postList.map((each) => {
         if (!each.post) {
@@ -94,10 +93,7 @@ exports.showMainPage = async function(req,res,next) {
 exports.logout = async function(req,res,next) {  
     let replyObj = req.body;
 
-    // req.session = null;
     req.session.destroy(function(err) {
-        // cannot access session here
-
         console.log("Destroy session and logout..."); 
         res.redirect('/login');
     });
