@@ -112,7 +112,7 @@ function getCommentsById(id) {
                     from public.comments \
                     left join public.member on comments.member_id_fkey = member.id \
                     where post_id_fkey = " + id +
-                    " ORDER BY comment.date ASC";
+                    " ORDER BY comments.date ASC";
     return db.query(queryString);
 }
 
