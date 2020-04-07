@@ -1,6 +1,6 @@
 const mod_msg = require('../models/messageData');
 let mod_user = require('../models/userData.js');
-
+const emailer = require('../emailer/email');
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 exports.showMessagePage = async function(req,res,next) {
@@ -112,12 +112,14 @@ exports.showMessageEditPage = function(req,res,next) {
     res.render('messageEditPage' ,{messageEditPageCSS: true, receiverId, receiverImage});
 }
 
-exports.sendMessage = function(req,res,next) {
+exports.sendMessage = async function(req,res,next) {
     let receiverId = req.body.receiverId;
     let subject = req.body.subject;
     let message = req.body.message; 
     mod_msg.add(receiverId, req.session.userId , subject, message);
-
+    let receiver = await mod_user.getByid(receiverId);
+    let sender = await mod_user.getByid(req.session.userId);
+    emailer.send(receiver.first_name, receiver.email, sender.first_name, subject, message);
     res.redirect('/othersPost?userId='+receiverId);
     // res.render('othersPostPage' ,{      
     //     });
