@@ -105,7 +105,6 @@ async function getUser(id) {
         return userObj[0];
 }
 
-
 async function checkMemberValidity(user) {
     if (userList.length == 0)
     {
@@ -148,6 +147,8 @@ async function updateLocalUserData() {
     let myuserList = await db.query('SELECT * from public.member');
     userList = myuserList.rows;
 }
+
+
 
 module.exports = {
     add : addUser,

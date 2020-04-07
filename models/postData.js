@@ -113,8 +113,7 @@ async function getCommentsById(id) {
                     left join public.member on comments.member_id_fkey = member.id \
                     where post_id_fkey = " + id +
                     " ORDER BY comments.date ASC";
-    let matchedComments = await db.query(queryString);
-    return matchedComments;
+    return db.query(queryString);
 }
 
 async function getPostsBySubject(searchTerm) {
