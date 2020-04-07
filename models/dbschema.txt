@@ -29,12 +29,14 @@ message_topic
     subject (string)
     sender_id_fkey (int, fkey ref member)
     receiver_id_fkey (int, fkey ref member)
+    date (date)
 
 message 
     id (int, pk)
     sender_id_fkey:(int, fkey ref member)     //    member_id_fkey (int, fkey ref member)
     message_string (string)
     message_topic_id_fkey (int, fk ref message_topic) 
+    date (date)
 
 member
     id      (int, pk)
@@ -46,6 +48,6 @@ member
     country     (string)
     dob         (date)
     image_url   (string)
-    post_count  (int)           // This can be retrieved from post table
-    msg_count   (int)           // This can be retrieved from message table
+    post_count  (int)           // This can also be retrieved from post table
+    msg_count   (int)           // This can also be retrieved from message table
     likes_count (int) 
