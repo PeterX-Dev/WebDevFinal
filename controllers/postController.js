@@ -72,6 +72,7 @@ exports.showMyPostPage = async function(req,res,next) {
 
         postList.push(element);
     }
+    postList=postList.reverse();
 
     res.render('myPostPage' ,{
         user: userObj,
@@ -124,6 +125,7 @@ exports.showOthersPostPage = async function(req,res,next) {
 
             postList.push(element);
         }
+        postList=postList.reverse();
 
         res.render('othersPostPage' ,{
             user: otherUserObj,
