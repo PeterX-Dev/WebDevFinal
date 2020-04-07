@@ -7,21 +7,25 @@
         <form id="completeRegistration" action="/login/signupComplete" method="POST"> 
             <div id="regEntry">
                 <div>Image Url</div>
-                <div><input type="text" name="imageurl" placeholder='imageurl'></div>
+                <div><input type="text" name="imageurl" placeholder='imageurl' required></div>
             </div>
             <div id="regEntry">
                 <div>Description</div>
-                <div><textarea id="description" rows="6" name="description" placeholder='a few lines about yourself...'></textarea></div>
+                <div><textarea id="description" rows="6" name="description" placeholder='a few lines about yourself...' required></textarea></div>
             </div>
             <div id="regEntry">
                 <div>Country</div>
-                <div><input type="text" name="country" placeholder='country'></div>
+                <div><input type="text" name="country" placeholder='country' required></div>
             </div> 
             <div id="regEntry">
                 <div>Date of Birth</div>
-                <div><input type="date" name="DOB" placeholder='birth(yyyy-mm-dd)'></div>
+                <div><input type="date" name="DOB" placeholder='birth(yyyy-mm-dd)' required></div>
             </div>
             <input type="hidden" name="userId" value={{userId}}>
+            <input type="hidden" name="password" value={{pwd}}>
+            <input type="hidden" name="firstName" value={{firstName}}>
+            <input type="hidden" name="lastName" value={{lastName}}>
+            <input type="hidden" name="email" value={{email}}>
             <input type="submit" class="blue_bg" name="completeBtn" value="complete registration">
         </form>
     </div>

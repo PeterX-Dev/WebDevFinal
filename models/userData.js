@@ -19,8 +19,9 @@ let db = require('../DB/db');
 
 let userList = [];
 async function addUser(e) {
-    await db.query("Insert into member(first_name, last_name, email, password, likes_count) VALUES ('" 
-                + e.firstName + "','" + e.lastName + "','" + e.email + "','" + e.password + "'," + 0 +")");
+    let queryString = 'Insert into member(first_name, last_name, email, password, likes_count, image_url, description, country, dob) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)';
+    await db.query(queryString, [e.firstName, e.lastName, e.email, e.password, 0, e.imageurl, e.description, e.country, e.DOB]);
+
     
     // Update userList when there is data change
     await updateLocalUserData();

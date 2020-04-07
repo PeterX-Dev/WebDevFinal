@@ -44,17 +44,19 @@ exports.newMemberSignUp = async function(req,res,next) {
         else if (newUser.password != newUser.confirmPwd) 
         {
             res.render('loginPage' ,{
-                invalidNewUserWarningText: "ERROR: Password is not matched!",
+                invalidNewUserWarningText: "ERROR: Passwords do not match!",
                 loginCSS: true
             });
         }
         else
         {
-            // Create new user and save into DB here, otherwise we will not get
-            // these information in the next page
-            let userId = await mod_user.add(newUser);
-
-            res.redirect('/login/signupExtra?userId='+userId);
+            // pass in info to next signup page to complete registration
+            res.render('signUpPage', {
+                pwd: newUser.password,
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                email: newUser.email
+            })
         }
     }
     else{
@@ -78,13 +80,13 @@ exports.addExtraInfo = async function(req,res,next) {
 }
 
 exports.signUpComplete = async function(req,res,next) {
-    let userExtraInfo = req.body;
+    let newUser = req.body;
     
     //console.log(userExtraInfo);
     //TBD-Peter:  Need to use session to send user id info to update function
 
-    // update user info into DB
-    await mod_user.update(userExtraInfo);
+    // add user info into DB
+    await mod_user.add(newUser);
 
     // add view/toast/new page that says sign successful, please login.
     
